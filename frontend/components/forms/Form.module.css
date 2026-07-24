@@ -1,0 +1,228 @@
+.form {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.05rem;
+}
+
+.field {
+  min-width: 0;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.field label,
+.fieldset legend {
+  display: block;
+  margin: 0 0 0.48rem;
+  color: var(--navy-900);
+  font-size: var(--type-ui);
+  font-weight: 750;
+}
+
+.required {
+  margin-left: 0.15rem;
+  color: var(--red-600);
+}
+
+.control {
+  position: relative;
+}
+
+.control input,
+.control select,
+.control textarea {
+  width: 100%;
+  min-height: 3.35rem;
+  padding: 0.82rem 0.95rem;
+  color: var(--navy-900);
+  font: inherit;
+  font-size: var(--type-copy);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  outline: 0;
+  transition:
+    border-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
+}
+
+.control textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.control select {
+  padding-right: 2.5rem;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 50%,
+    calc(100% - 12px) 50%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+}
+
+.control input::placeholder,
+.control textarea::placeholder {
+  color: var(--text-pale);
+}
+
+.control input:focus,
+.control select:focus,
+.control textarea:focus {
+  border-color: var(--red-500);
+  box-shadow: 0 0 0 4px rgba(198, 45, 59, 0.09);
+}
+
+.control input[aria-invalid="true"],
+.control select[aria-invalid="true"],
+.control textarea[aria-invalid="true"] {
+  border-color: var(--red-600);
+}
+
+.error {
+  display: block;
+  margin-top: 0.38rem;
+  color: var(--red-700);
+  font-size: var(--type-label);
+  line-height: 1.4;
+}
+
+.hint {
+  display: block;
+  margin-top: 0.38rem;
+  color: var(--text-soft);
+  font-size: var(--type-label);
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  color: var(--text-muted);
+  font-size: var(--type-ui);
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.consent input {
+  width: 1.12rem;
+  height: 1.12rem;
+  margin-top: 0.15rem;
+  accent-color: var(--red-600);
+}
+
+.consent a {
+  color: var(--red-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.3rem;
+}
+
+.actions button {
+  min-width: 11rem;
+}
+
+.actions small {
+  max-width: 18rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.success {
+  display: grid;
+  min-height: 28rem;
+  padding: 2.5rem;
+  text-align: center;
+  place-content: center;
+}
+
+.successMark {
+  position: relative;
+  display: grid;
+  width: 5.2rem;
+  height: 5.2rem;
+  margin: 0 auto 1.5rem;
+  color: #fff;
+  background: #208662;
+  border-radius: 50%;
+  box-shadow: 0 0 0 12px rgba(32, 134, 98, 0.09);
+  place-items: center;
+  animation: successPop 500ms var(--ease) both;
+}
+
+.success h2 {
+  margin: 0;
+}
+
+.success p {
+  max-width: 31rem;
+  margin: 0.7rem auto 1.5rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.submitError {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 0.9rem;
+  color: #7a2831;
+  font-size: var(--type-ui);
+  background: var(--red-50);
+  border: 1px solid #f1cbd0;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes successPop {
+  from { opacity: 0; transform: scale(0.65) rotate(-9deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldFull {
+    grid-column: auto;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .successMark {
+    animation: none;
+  }
+}
