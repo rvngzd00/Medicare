@@ -15,7 +15,6 @@ export const adminNavigation = [
   {
     label: "Kommunikasiya",
     items: [
-      { label: "Qəbul sorğuları", href: "/admin/appointments", icon: "calendar", badge: "12", accent: true },
       { label: "Mesajlar", href: "/admin/messages", icon: "messages", badge: "5", accent: true },
     ],
   },
@@ -37,7 +36,6 @@ export const pageMeta = {
   "/admin/departments": ["Şöbələr", "Klinik istiqamətlər"],
   "/admin/services": ["Xidmətlər", "Tibbi xidmət kataloqu"],
   "/admin/articles": ["Məqalələr", "Xəbərlər və sağlamlıq materialları"],
-  "/admin/appointments": ["Qəbul sorğuları", "Pasiyent müraciətlərinin idarəsi"],
   "/admin/messages": ["Mesajlar", "Əlaqə mərkəzi gələnlər qutusu"],
   "/admin/content": ["Sayt kontenti", "Public səhifə və bölmələr"],
   "/admin/pages": ["Səhifə qurucusu", "Səhifə, bölmə, sıra və nəşr idarəsi"],
@@ -49,23 +47,16 @@ export const pageMeta = {
 export const dashboardStats = [
   { label: "Aktiv həkimlər", value: "24", change: "+2 bu ay", trend: "up", icon: "doctors", tone: "blue" },
   { label: "Tibbi şöbələr", value: "10", change: "Hamısı aktiv", trend: "neutral", icon: "departments", tone: "navy" },
-  { label: "Yeni sorğular", value: "38", change: "+18.4%", trend: "up", icon: "calendar", tone: "red" },
+  { label: "Dərc olunmuş məqalə", value: "18", change: "Kontent bazası", trend: "neutral", icon: "articles", tone: "red" },
   { label: "Oxunmamış mesaj", value: "5", change: "3 prioritet", trend: "down", icon: "messages", tone: "amber" },
 ];
 
 export const activityItems = [
   { actor: "Nigar Məmmədova", action: "“Kardioloji check-up” xidmətini yenilədi", time: "8 dəq əvvəl", type: "edit" },
-  { actor: "Murad Əliyev", action: "yeni qəbul sorğusunu təsdiqlədi", time: "24 dəq əvvəl", type: "check" },
+  { actor: "Murad Əliyev", action: "yeni əlaqə mesajını cavablandırdı", time: "24 dəq əvvəl", type: "check" },
   { actor: "Aysel Həsənli", action: "“Mövsümi allergiyadan qorunma” məqaləsini yayımladı", time: "1 saat əvvəl", type: "publish" },
   { actor: "Sistem", action: "gecə ehtiyat nüsxəsini uğurla tamamladı", time: "Bu gün, 04:00", type: "system" },
   { actor: "Elvin Qasımov", action: "Dr. Leyla Məmmədovanın qrafikini dəyişdi", time: "Dünən, 17:42", type: "calendar" },
-];
-
-export const upcomingAppointments = [
-  { id: "APT-1048", patient: "Leyla Kərimova", doctor: "Dr. Elçin Rzayev", time: "09:30", department: "Kardiologiya", status: "Təsdiqlənib" },
-  { id: "APT-1049", patient: "Rauf Hüseynli", doctor: "Dr. Nigar Əliyeva", time: "10:15", department: "Nevrologiya", status: "Gözləyir" },
-  { id: "APT-1050", patient: "Aynur Məlikova", doctor: "Dr. Kamran İsmayılov", time: "11:00", department: "Pediatriya", status: "Təsdiqlənib" },
-  { id: "APT-1051", patient: "Tural Səfərov", doctor: "Dr. Leyla Məmmədova", time: "12:30", department: "Dermatologiya", status: "Yeni" },
 ];
 
 export const resourceConfigs = {
@@ -367,15 +358,6 @@ export const resourceConfigs = {
   },
 };
 
-export const appointmentRows = [
-  { id: "APT-1051", patient: "Tural Səfərov", phone: "+994 50 287 14 62", email: "tural.s@example.com", doctor: "Dr. Leyla Məmmədova", department: "Dermatologiya", branch: "Medicare Hospital — Sabunçu", date: "23 iyul 2026", time: "12:30", created: "12 dəq əvvəl", status: "Yeni", note: "Son bir həftədə yaranmış dəri qızartısı ilə bağlı konsultasiya istəyirəm." },
-  { id: "APT-1050", patient: "Aynur Məlikova", phone: "+994 55 410 23 19", email: "aynur.m@example.com", doctor: "Dr. Kamran İsmayılov", department: "Pediatriya", branch: "Medicare Hospital — Sabunçu", date: "23 iyul 2026", time: "11:00", created: "38 dəq əvvəl", status: "Təsdiqlənib", note: "6 yaşlı övladım üçün profilaktik baxış." },
-  { id: "APT-1049", patient: "Rauf Hüseynli", phone: "+994 70 633 08 42", email: "rauf.h@example.com", doctor: "Dr. Nigar Əliyeva", department: "Nevrologiya", branch: "Medicare Hospital — Sabunçu", date: "23 iyul 2026", time: "10:15", created: "1 saat əvvəl", status: "Gözləyir", note: "Müntəzəm baş ağrıları və yuxu pozuntusu." },
-  { id: "APT-1048", patient: "Leyla Kərimova", phone: "+994 51 322 19 88", email: "leyla.k@example.com", doctor: "Dr. Elçin Rzayev", department: "Kardiologiya", branch: "Medicare Hospital — Sabunçu", date: "23 iyul 2026", time: "09:30", created: "2 saat əvvəl", status: "Təsdiqlənib", note: "İllik kardioloji check-up." },
-  { id: "APT-1047", patient: "Samir Nəcəfov", phone: "+994 50 711 50 26", email: "samir.n@example.com", doctor: "Fərqi yoxdur", department: "Oftalmologiya", branch: "Medicare Hospital — Sabunçu", date: "24 iyul 2026", time: "14:00", created: "Dünən", status: "Yeni", note: "Görmə zəifliyi ilə bağlı müayinə." },
-  { id: "APT-1046", patient: "Günel Ağayeva", phone: "+994 77 490 11 73", email: "gunel.a@example.com", doctor: "Dr. Orxan Sadıqov", department: "Cərrahiyyə", branch: "Medicare Hospital — Sabunçu", date: "24 iyul 2026", time: "15:30", created: "Dünən", status: "Ləğv edilib", note: "İlkin cərrahi konsultasiya." },
-];
-
 export const messageRows = [
   { id: "MSG-2205", sender: "Səbinə Quliyeva", email: "sabina.q@example.com", phone: "+994 50 382 44 18", subject: "Laborator nəticələrin əldə edilməsi", preview: "Salam, dünən verdiyim analizlərin nəticəsini onlayn əldə edə bilərəmmi?", body: "Salam. Dünən Sabunçu filialında qan analizləri vermişəm. Nəticələrin hazır olub-olmadığını və onları onlayn şəkildə necə əldə edə biləcəyimi öyrənmək istəyirəm. Əvvəlcədən təşəkkür edirəm.", time: "10:42", date: "23 iyul 2026", unread: true, priority: "Normal", category: "Laboratoriya" },
   { id: "MSG-2204", sender: "Orxan Abbasov", email: "orxan.a@example.com", phone: "+994 55 217 09 61", subject: "Korporativ check-up təklifi", preview: "Şirkətimizin 40 əməkdaşı üçün korporativ check-up paketi ilə maraqlanırıq.", body: "Salam. Şirkətimizin 40 əməkdaşı üçün illik korporativ check-up proqramı təşkil etməyi planlaşdırırıq. Paketlər, qiymətlər və mümkün tarixlər barədə kommersiya təklifi göndərməyinizi xahiş edirik.", time: "09:18", date: "23 iyul 2026", unread: true, priority: "Prioritet", category: "Korporativ" },
@@ -416,7 +398,7 @@ export const roles = [
   { id: "super-admin", name: "Super Admin", users: 1, description: "Bütün modullara və sistem parametrlərinə tam giriş.", tone: "red" },
   { id: "content-manager", name: "Content Manager", users: 2, description: "Məqalə, səhifə kontenti və media idarəetməsi.", tone: "blue" },
   { id: "doctor-manager", name: "Doctor Manager", users: 1, description: "Həkim, şöbə, xidmət və iş qrafiklərinin idarəsi.", tone: "navy" },
-  { id: "support-operator", name: "Support Operator", users: 2, description: "Qəbul sorğuları və əlaqə mesajlarının işlənməsi.", tone: "amber" },
+  { id: "support-operator", name: "Support Operator", users: 2, description: "Əlaqə mesajlarının işlənməsi.", tone: "amber" },
 ];
 
 export const permissionGroups = [
@@ -424,7 +406,6 @@ export const permissionGroups = [
   { key: "doctors", label: "Həkimlər", permissions: ["Baxış", "Dəyişiklik", "Silmə"] },
   { key: "departments", label: "Şöbələr və xidmətlər", permissions: ["Baxış", "Dəyişiklik", "Silmə"] },
   { key: "articles", label: "Məqalələr", permissions: ["Baxış", "Dəyişiklik", "Nəşr", "Silmə"] },
-  { key: "appointments", label: "Qəbul sorğuları", permissions: ["Baxış", "Dəyişiklik", "Silmə"] },
   { key: "messages", label: "Mesajlar", permissions: ["Baxış", "Dəyişiklik", "Silmə"] },
   { key: "content", label: "Sayt kontenti", permissions: ["Baxış", "Dəyişiklik", "Silmə"] },
   { key: "settings", label: "Sistem parametrləri", permissions: ["Baxış", "Dəyişiklik"] },

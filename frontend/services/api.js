@@ -33,15 +33,6 @@ export const publicApi = {
   departments: () => request("/public/departments", { next: { revalidate: 300 } }),
   services: () => request("/public/services", { next: { revalidate: 300 } }),
   articles: () => request("/public/articles", { next: { revalidate: 300 } }),
-  createAppointment: (payload) => {
-    const normalized = normalizeAppointmentPayload(payload);
-    return USE_MOCK_API
-      ? mockSubmission(normalized)
-      : request("/public/appointments", {
-          method: "POST",
-          body: JSON.stringify(normalized)
-        });
-  },
   sendContactMessage: (payload) => {
     const normalized = normalizeContactPayload(payload);
     return USE_MOCK_API
@@ -52,35 +43,6 @@ export const publicApi = {
         });
   }
 };
-
-function normalizeAppointmentPayload(payload) {
-  const context = [
-    !isUuid(payload.department) && payload.department
-      ? `Şöbə: ${payload.departmentLabel || payload.department}`
-      : "",
-    !isUuid(payload.doctor) && payload.doctor
-      ? `Həkim: ${payload.doctorLabel || payload.doctor}`
-      : "",
-    !isUuid(payload.branch) && payload.branch
-      ? `Filial: ${payload.branchLabel || payload.branch}`
-      : ""
-  ].filter(Boolean);
-
-  return removeEmpty({
-    firstName: payload.firstName?.trim(),
-    lastName: payload.lastName?.trim(),
-    phone: payload.phone?.trim(),
-    email: payload.email?.trim() || undefined,
-    desiredDate: payload.date,
-    desiredTime: payload.time,
-    message: [payload.message?.trim(), ...context].filter(Boolean).join("\n"),
-    privacyConsent: Boolean(payload.consent),
-    departmentId: isUuid(payload.department) ? payload.department : undefined,
-    doctorId: isUuid(payload.doctor) ? payload.doctor : undefined,
-    branchId: isUuid(payload.branch) ? payload.branch : undefined,
-    website: payload.website || undefined
-  });
-}
 
 function normalizeContactPayload(payload) {
   return {
@@ -93,16 +55,6 @@ function normalizeContactPayload(payload) {
     privacyConsent: Boolean(payload.consent),
     website: payload.website || undefined
   };
-}
-
-function isUuid(value = "") {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
-}
-
-function removeEmpty(payload) {
-  return Object.fromEntries(
-    Object.entries(payload).filter(([, value]) => value !== undefined && value !== "")
-  );
 }
 
 function mockSubmission(payload) {

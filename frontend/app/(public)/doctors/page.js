@@ -1,6 +1,6 @@
 import PageHero from "@/components/common/PageHero";
 import DoctorsDirectory from "@/components/doctors/DoctorsDirectory";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import { ContentStatusNotice } from "@/components/common/ContentStatus";
 import { CmsPageSection } from "@/components/common/CmsPageSections";
 import { getDoctorsContent, getPageContent } from "@/services/content";
@@ -15,7 +15,7 @@ const PAGE_FALLBACK = {
   sections: [
     { key: "hero", type: "HERO", label: "Səhifə təqdimatı", eyebrow: "Həkim komandası", title: "Sağlamlığınızı etibar edə biləcəyiniz mütəxəssislər", description: "İxtisaslaşmış təcrübə, diqqətli dinləmə və aydın müalicə planı — uyğun həkimi ehtiyacınıza görə seçin.", active: true },
     { key: "collection", type: "COLLECTION", label: "Həkim siyahısı", active: true },
-    { key: "appointment", type: "CTA", label: "Qəbul çağırışı", title: "Uyğun həkimlə qəbulunuzu planlayın", description: "Komandamız ehtiyacınıza uyğun mütəxəssisi seçməyə kömək etsin.", active: true },
+    { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", title: "Uyğun mütəxəssisi birlikdə seçək", description: "Komandamız ehtiyacınıza uyğun həkim haqqında telefonla məlumat verməyə hazırdır.", active: true },
   ],
 };
 
@@ -48,7 +48,7 @@ export default async function DoctorsPage({ searchParams }) {
             </div>
           </section>
         );
-        if (section.key === "appointment") return <AppointmentCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} primaryLabel={section.content.primaryLabel} primaryHref={section.content.primaryHref} secondaryLabel={section.content.secondaryLabel} secondaryHref={section.content.secondaryHref} />;
+        if (section.key === "contact-cta") return <ContactCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} />;
         return <CmsPageSection key={section.id || section.key} section={section} />;
       })}
     </div>

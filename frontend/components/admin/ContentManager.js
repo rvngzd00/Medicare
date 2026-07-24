@@ -19,7 +19,7 @@ const sectionBlocks = {
     { id: "trust", title: "Etibar göstəriciləri", eyebrow: "Rəqəmlərdə Medicare", description: "Həkim, pasiyent, şöbə və təcrübə statistikaları.", type: "Statistika", visible: true },
     { id: "services", title: "Əsas xidmətlər", eyebrow: "Kompleks tibbi xidmət", description: "Seçilmiş xidmətlərin dinamik kataloqu.", type: "Kolleksiya", visible: true },
     { id: "doctors", title: "Seçilmiş həkimlər", eyebrow: "Peşəkar komandamız", description: "Seçilmiş statuslu həkimlər avtomatik göstərilir.", type: "Kolleksiya", visible: true },
-    { id: "cta", title: "Qəbula yazılma CTA", eyebrow: "Sağlamlığınızı təxirə salmayın", description: "Qəbul formasına yönləndirən əsas çağırış bloku.", type: "CTA", visible: true },
+    { id: "cta", title: "Telefon əlaqə CTA-sı", eyebrow: "Sağlamlığınızı təxirə salmayın", description: "Əlaqə mərkəzinə birbaşa zəng etdirən əsas çağırış bloku.", type: "CTA", visible: true },
   ],
   about: [
     { id: "story", title: "Medicare tarixçəsi", eyebrow: "2017-ci ildən etibarən", description: "Xəstəxananın inkişaf yolu və əsas mərhələləri.", type: "Mətn", visible: true },
@@ -28,7 +28,7 @@ const sectionBlocks = {
     { id: "infrastructure", title: "İnfrastruktur", eyebrow: "Müasir klinik mühit", description: "Texnologiya, otaqlar və tibbi imkanlar.", type: "Qalereya", visible: true },
   ],
   faq: [
-    { id: "faq-1", title: "Qəbula necə yazıla bilərəm?", eyebrow: "Qəbul", description: "Saytdakı qəbul forması, +994 12 450 32 91 nömrəsi və ya hospitalın resepsiyası vasitəsilə.", type: "Sual-cavab", visible: true },
+    { id: "faq-1", title: "Hospital ilə necə əlaqə saxlaya bilərəm?", eyebrow: "Əlaqə", description: "+994 12 450 32 91 nömrəsinə zəng edərək hospitalın əlaqə mərkəzi ilə danışa bilərsiniz.", type: "Sual-cavab", visible: true },
     { id: "faq-2", title: "Sığorta ilə xidmət ala bilərəm?", eyebrow: "Ödəniş", description: "Tərəfdaş sığorta şirkətləri üzrə xidmətlər öncədən təsdiq əsasında göstərilir.", type: "Sual-cavab", visible: true },
     { id: "faq-3", title: "Analiz nəticələri nə zaman hazır olur?", eyebrow: "Laboratoriya", description: "Standart analizlər adətən eyni iş günü ərzində hazır olur.", type: "Sual-cavab", visible: true },
   ],

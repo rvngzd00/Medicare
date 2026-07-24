@@ -18,12 +18,12 @@ export async function generateMetadata() {
 const sections = [
   {
     title: "Topladığımız məlumatlar",
-    paragraphs: ["Qəbul və əlaqə sorğusu zamanı təqdim etdiyiniz məlumatları yalnız xidmətin təşkili və sizinlə əlaqə məqsədilə toplayırıq."],
-    items: ["Ad, soyad və əlaqə məlumatları", "Seçdiyiniz şöbə, həkim və qəbul vaxtı", "Sorğuda könüllü paylaşdığınız qısa tibbi məlumat", "Saytın təhlükəsizliyi üçün texniki sessiya məlumatları"]
+    paragraphs: ["Əlaqə forması ilə təqdim etdiyiniz məlumatları yalnız sorğunuzu cavablandırmaq və sizinlə əlaqə saxlamaq üçün toplayırıq."],
+    items: ["Ad, soyad və əlaqə məlumatları", "Sorğunun mövzusu və mesajı", "Sorğuda könüllü paylaşdığınız digər məlumatlar", "Saytın təhlükəsizliyi üçün texniki sessiya məlumatları"]
   },
   {
     title: "Məlumatlardan istifadə",
-    paragraphs: ["Şəxsi məlumatlar qəbulun planlanması, sorğuların cavablandırılması, xidmət keyfiyyətinin yaxşılaşdırılması və qanuni öhdəliklərin icrası üçün işlənir.", "Marketinq məlumatı yalnız ayrıca razılıq verdiyiniz halda göndərilir."]
+    paragraphs: ["Şəxsi məlumatlar sorğuların cavablandırılması, xidmət keyfiyyətinin yaxşılaşdırılması və qanuni öhdəliklərin icrası üçün işlənir.", "Marketinq məlumatı yalnız ayrıca razılıq verdiyiniz halda göndərilir."]
   },
   {
     title: "Qorunma və saxlanma",

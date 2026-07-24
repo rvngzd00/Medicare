@@ -6,11 +6,11 @@ export async function generateMetadata() {
   const result = await getPageContent("terms", {
     slug: "terms",
     title: "İstifadə şərtləri",
-    excerpt: "Medicare Hospital saytından istifadə, tibbi məlumatların xarakteri və onlayn qəbul sorğusu üzrə şərtlər."
+    excerpt: "Medicare Hospital saytından istifadə, tibbi məlumatların xarakteri və onlayn əlaqə üzrə şərtlər."
   });
   return createCmsMetadata(result.item, {
     title: "İstifadə şərtləri",
-    description: "Medicare Hospital saytından istifadə, tibbi məlumatların xarakteri və onlayn qəbul sorğusu üzrə şərtlər.",
+    description: "Medicare Hospital saytından istifadə, tibbi məlumatların xarakteri və onlayn əlaqə üzrə şərtlər.",
     path: "/terms"
   });
 }
@@ -18,15 +18,15 @@ export async function generateMetadata() {
 const sections = [
   {
     title: "Saytın məqsədi",
-    paragraphs: ["Bu sayt Medicare Hospital, onun həkimləri, şöbələri və xidmətləri haqqında məlumat vermək və qəbul sorğusunu asanlaşdırmaq məqsədi daşıyır."]
+    paragraphs: ["Bu sayt Medicare Hospital, onun həkimləri, şöbələri və xidmətləri haqqında məlumat vermək və hospital ilə əlaqəni asanlaşdırmaq məqsədi daşıyır."]
   },
   {
     title: "Tibbi məlumatlar",
     paragraphs: ["Saytdakı məqalələr və xidmət təsvirləri ümumi məlumat xarakterlidir. Onlar fərdi diaqnoz, müalicə təyinatı və ya təcili tibbi yardımın əvəzi deyil.", "Kəskin və həyati təhlükəli vəziyyətdə saytdakı formadan istifadə etməyin; dərhal 103 təcili tibbi yardım xidmətinə zəng edin."]
   },
   {
-    title: "Qəbul sorğuları",
-    paragraphs: ["Onlayn formanın göndərilməsi qəbulun avtomatik təsdiqi demək deyil. Qəbul vaxtı operatorun telefon və ya digər əlaqə kanalı ilə təsdiqindən sonra qüvvəyə minir.", "Düzgün əlaqə məlumatı təqdim etmək istifadəçinin məsuliyyətidir."]
+    title: "Əlaqə forması",
+    paragraphs: ["Onlayn formanın göndərilməsi tibbi məsləhət və ya xidmət təsdiqi sayılmır.", "Təcili olmayan suallar üçün əlaqə formundan və ya hospitalın telefon nömrəsindən istifadə edə bilərsiniz."]
   },
   {
     title: "Məzmun və müəllif hüquqları",

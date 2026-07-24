@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/common/PageHero";
 import SmartImage from "@/components/common/SmartImage";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
 import Reveal from "@/components/animations/Reveal";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
   const seo = doctor.seo || {};
   return createMetadata({
     title: seo.title || doctor.name,
-    description: seo.description || `${doctor.name} — ${doctor.specialty}, ${doctor.experience} il təcrübə. Profil, iş qrafiki və onlayn qəbul sorğusu.`,
+    description: seo.description || `${doctor.name} — ${doctor.specialty}, ${doctor.experience} il təcrübə. Profil, iş qrafiki və birbaşa əlaqə məlumatları.`,
     path: `/doctors/${doctor.slug}`,
     image: seo.ogImage?.url || doctor.image,
     canonical: seo.canonicalUrl,
@@ -109,14 +109,11 @@ export default async function DoctorDetailPage({ params }) {
           <aside>
             <Reveal className="doctorProfile__portrait">
               <SmartImage src={doctor.image} alt={`${doctor.name}, ${doctor.specialty}`} sizes="(max-width: 800px) 100vw, 36vw" priority fallbackLabel={doctor.name} />
-              <span><i />Qəbul üçün mövcuddur</span>
+              <span><i />Əlaqə mərkəzi açıqdır</span>
             </Reveal>
             <div className="doctorProfile__actions">
-              <Link className="button button--primary button--wide" href={`/appointment?doctor=${doctor.slug}`}>
-                <Icon name="calendar" size={19} /> Qəbula yazıl
-              </Link>
-              <a className="button button--outline button--wide" href={contact.phoneHref}>
-                <Icon name="phone" size={19} /> Klinikaya zəng et
+              <a className="button button--primary button--wide" href={contact.phoneHref}>
+                <Icon name="phone" size={19} /> Bizimlə əlaqə saxla
               </a>
             </div>
             <div className="doctorProfile__contact">
@@ -166,7 +163,7 @@ export default async function DoctorDetailPage({ params }) {
                   return <p key={item}><span>{day}</span><strong>{time || ""}</strong></p>;
                 })}
               </div>
-              <small className="profileNote">Qrafik dəyişə bilər. Qəbul vaxtı operator tərəfindən təsdiqlənir.</small>
+              <small className="profileNote">İş qrafiki dəyişə bilər. Aktual məlumat üçün əlaqə mərkəzimizə zəng edin.</small>
             </ProfileSection>
           </div>
         </div>
@@ -179,12 +176,12 @@ export default async function DoctorDetailPage({ params }) {
               <Link className="textAction" href={`/doctors?department=${doctor.department}`}>Bütün həkimlər <Icon name="arrow" size={18} /></Link>
             </div>
             <div className="cardGrid cardGrid--three">
-              {fallbackRelated.map((item) => <DoctorCard doctor={item} key={item.slug} />)}
+              {fallbackRelated.map((item) => <DoctorCard doctor={item} phoneHref={contact.phoneHref} key={item.slug} />)}
             </div>
           </div>
         </section>
       )}
-      <AppointmentCta contact={contact} />
+      <ContactCta contact={contact} />
       <JsonLd data={physicianSchema} />
     </>
   );

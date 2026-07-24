@@ -14,7 +14,6 @@ const navigationPermissions = {
   "/admin/departments": ["departments.read"],
   "/admin/services": ["services.read"],
   "/admin/articles": ["articles.read"],
-  "/admin/appointments": ["appointments.read"],
   "/admin/messages": ["contacts.read"],
   "/admin/content": ["home_sections.read", "pages.read"],
   "/admin/pages": ["pages.read"],
@@ -323,13 +322,13 @@ export default function AdminShell({ children }) {
                     <button type="button">Hamısını oxu</button>
                   </div>
                   <div className={styles.notificationList}>
-                    <Link href="/admin/appointments">
+                    <Link href="/admin/messages">
                       <span className={`${styles.notificationIcon} ${styles.notificationRed}`}>
-                        <Icon name="calendar" size={17} />
+                        <Icon name="messages" size={17} />
                       </span>
                       <span>
-                        <strong>Yeni qəbul sorğusu</strong>
-                        <small>Tural Səfərov · Dermatologiya</small>
+                        <strong>Yeni əlaqə mesajı</strong>
+                        <small>Saytın əlaqə formasından</small>
                         <em>12 dəq əvvəl</em>
                       </span>
                     </Link>

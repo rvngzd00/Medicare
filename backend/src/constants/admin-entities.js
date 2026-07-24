@@ -345,25 +345,6 @@ export const adminEntities = Object.freeze({
     booleans: ['isPublic'],
     jsonFields: ['value']
   },
-  appointments: {
-    delegate: 'appointmentRequest',
-    permission: 'appointments',
-    softDelete: true,
-    allowCreate: false,
-    searchFields: ['firstName', 'lastName', 'phone', 'email'],
-    orderBy: [{ createdAt: 'desc' }],
-    required: [],
-    writable: ['status', 'adminNotes', 'assignedToId'],
-    enums: {
-      status: ['NEW', 'CONFIRMED', 'COMPLETED', 'CANCELLED']
-    },
-    include: {
-      department: true,
-      doctor: true,
-      branch: true,
-      assignedTo: { select: { id: true, firstName: true, lastName: true } }
-    }
-  },
   contacts: {
     delegate: 'contactMessage',
     permission: 'contacts',

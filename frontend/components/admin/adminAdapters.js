@@ -528,29 +528,6 @@ export function mediaFieldForResource(resource) {
   }[resource] || null;
 }
 
-export function adaptAppointment(record) {
-  const doctor = record?.doctor ? personName(record.doctor, "Dr. ") : "Fərqi yoxdur";
-  const desiredDate = record?.desiredDate ? new Date(record.desiredDate) : null;
-  return {
-    id: record?.id,
-    patient: personName(record),
-    phone: record?.phone || "—",
-    email: record?.email || "—",
-    doctor,
-    department: record?.department?.name || "Təyin edilməyib",
-    branch: record?.branch?.name || "Təyin edilməyib",
-    date: desiredDate && !Number.isNaN(desiredDate.getTime())
-      ? formatAdminDate(desiredDate, { longMonth: true })
-      : "—",
-    time: record?.desiredTime || "—",
-    created: formatRelativeAdminDate(record?.createdAt),
-    status: toAzStatus(record?.status),
-    note: record?.message || "Pasiyent əlavə qeyd daxil etməyib.",
-    adminNotes: record?.adminNotes || "",
-    _raw: record,
-  };
-}
-
 export function adaptMessage(record) {
   const status = record?.status || "NEW";
   return {

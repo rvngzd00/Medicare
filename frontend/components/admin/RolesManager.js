@@ -27,7 +27,6 @@ const groupEntities = {
   doctors: ["doctors"],
   departments: ["departments", "services"],
   articles: ["articles"],
-  appointments: ["appointments"],
   messages: ["contacts"],
   content: contentEntities,
   settings: ["settings"],
@@ -74,8 +73,8 @@ function mockPermissionMatrix(roles) {
           : role.id === "content-manager"
             ? ["dashboard", "articles", "content", "settings"]
             : role.id === "doctor-manager"
-              ? ["dashboard", "doctors", "departments", "appointments"]
-              : ["dashboard", "appointments", "messages"];
+              ? ["dashboard", "doctors", "departments"]
+              : ["dashboard", "messages"];
         matrix[role.id][group.key][permission] = role.id === "super-admin"
           || (allowedGroups.includes(group.key) && permission !== "Silmə");
       });

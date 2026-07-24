@@ -55,28 +55,16 @@ export async function dashboardController(_request, response) {
     doctors,
     departments,
     services,
-    newAppointments,
     unreadMessages,
     publishedArticles,
-    recentAppointments,
     recentActivity
   ] = await Promise.all([
     prisma.doctor.count({ where: { active: true, deletedAt: null } }),
     prisma.department.count({ where: { active: true, deletedAt: null } }),
     prisma.service.count({ where: { active: true, deletedAt: null } }),
-    prisma.appointmentRequest.count({ where: { status: 'NEW', deletedAt: null } }),
     prisma.contactMessage.count({ where: { status: 'NEW', deletedAt: null } }),
     prisma.article.count({
       where: { status: 'PUBLISHED', deletedAt: null }
-    }),
-    prisma.appointmentRequest.findMany({
-      where: { deletedAt: null },
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        doctor: { select: { firstName: true, lastName: true } },
-        department: { select: { name: true } }
-      }
     }),
     prisma.activityLog.findMany({
       take: 10,
@@ -91,11 +79,9 @@ export async function dashboardController(_request, response) {
       doctors,
       departments,
       services,
-      newAppointments,
       unreadMessages,
       publishedArticles
     },
-    recentAppointments,
     recentActivity
   });
 }

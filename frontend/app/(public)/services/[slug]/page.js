@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/common/PageHero";
 import SmartImage from "@/components/common/SmartImage";
 import ServiceCard from "@/components/services/ServiceCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
 import {
@@ -96,7 +96,7 @@ export default async function ServiceDetailPage({ params }) {
         ]}
       >
         <div className="pageHero__actions">
-          <Link className="button button--primary" href={`/appointment?department=${service.department}`}>Qəbula yazıl <Icon name="arrow" size={18} /></Link>
+          <a className="button button--primary" href={contact.phoneHref}>Bizimlə əlaqə saxla <Icon name="phone" size={18} /></a>
         </div>
       </PageHero>
       <section className="section serviceDetail">
@@ -116,18 +116,18 @@ export default async function ServiceDetailPage({ params }) {
             </section>
             <section className="preparationBox">
               <span><Icon name="document" size={24} /></span>
-              <div><h2>Hazırlıq qaydası</h2><p>{service.preparation}</p><small>Dəqiq təlimat qəbul təsdiqlənərkən sizə göndəriləcək.</small></div>
+              <div><h2>Hazırlıq qaydası</h2><p>{service.preparation}</p><small>Dəqiq təlimat üçün əlaqə mərkəzimizə zəng edə bilərsiniz.</small></div>
             </section>
           </div>
           <aside className="serviceDetail__aside">
             <div className="serviceDetail__image">
               <SmartImage src={service.image} alt={`${service.name} xidməti`} sizes="(max-width: 900px) 100vw, 38vw" priority fallbackLabel={service.name} />
             </div>
-            <div className="bookingCard">
-              <span className="bookingCard__icon"><Icon name={service.icon} size={26} /></span>
+            <div className="contactCard">
+              <span className="contactCard__icon"><Icon name={service.icon} size={26} /></span>
               <h2>Müayinə planınızı dəqiqləşdirin</h2>
               <p>Koordinatorumuz uyğun həkim və hazırlıq qaydası barədə məlumat verəcək.</p>
-              <Link className="button button--primary button--wide" href={`/appointment?department=${service.department}`}>Sorğu göndər</Link>
+              <a className="button button--primary button--wide" href={contact.phoneHref}><Icon name="phone" size={17} /> Bizimlə əlaqə saxla</a>
               <a href={contact.phoneHref}><Icon name="phone" size={17} />{contact.phone}</a>
             </div>
           </aside>
@@ -141,7 +141,7 @@ export default async function ServiceDetailPage({ params }) {
           </div>
         </section>
       )}
-      <AppointmentCta contact={contact} />
+      <ContactCta contact={contact} />
       <JsonLd data={serviceSchema} />
     </>
   );

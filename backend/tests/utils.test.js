@@ -39,28 +39,6 @@ test('refresh tokens are random and only deterministic after hashing', () => {
   );
 });
 
-test('appointment dates are checked against the current Baku calendar day', async () => {
-  const { appointmentSchema } = await import('../src/validators/public.validators.js');
-  const base = {
-    firstName: 'Aysel',
-    lastName: 'Məmmədli',
-    phone: '+994 50 000 00 00',
-    desiredTime: '10:30',
-    privacyConsent: true
-  };
-  const yesterday = new Date(Date.now() - 48 * 60 * 60 * 1000);
-  const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-  assert.equal(
-    appointmentSchema.body.safeParse({ ...base, desiredDate: yesterday }).success,
-    false
-  );
-  assert.equal(
-    appointmentSchema.body.safeParse({ ...base, desiredDate: nextWeek }).success,
-    true
-  );
-});
-
 test('CMS canonical metadata only accepts HTTP URLs', async () => {
   const { cmsPageCreateSchema } = await import('../src/validators/cms.validators.js');
   const result = cmsPageCreateSchema.body.safeParse({

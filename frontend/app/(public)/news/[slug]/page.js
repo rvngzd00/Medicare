@@ -4,7 +4,7 @@ import PageHero from "@/components/common/PageHero";
 import SmartImage from "@/components/common/SmartImage";
 import ArticleCard from "@/components/news/ArticleCard";
 import ShareButtons from "@/components/news/ShareButtons";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
 import {
@@ -143,7 +143,7 @@ export default async function ArticleDetailPage({ params }) {
           </div>
         </section>
       )}
-      <AppointmentCta />
+      <ContactCta />
       <JsonLd data={articleSchema} />
     </>
   );

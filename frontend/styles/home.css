@@ -206,7 +206,7 @@
   font-size: var(--type-micro);
 }
 
-.heroFloat--appointment {
+.heroFloat--contact {
   bottom: 3rem;
   left: -2rem;
 }
@@ -1120,7 +1120,7 @@
     min-height: 38rem;
   }
 
-  .heroFloat--appointment {
+  .heroFloat--contact {
     left: 1rem;
   }
 
@@ -1162,7 +1162,7 @@
 }
 
 @media (max-width: 1200px) and (min-width: 1051px) {
-  .heroFloat--appointment {
+  .heroFloat--contact {
     left: 1rem;
   }
 
@@ -1261,7 +1261,7 @@
     border-radius: 7rem 1.3rem 1.3rem;
   }
 
-  .heroFloat--appointment {
+  .heroFloat--contact {
     bottom: 1rem;
     left: -0.4rem;
   }

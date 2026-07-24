@@ -224,11 +224,6 @@ export const adminApi = {
     restore: (resource, id, options = {}) => request(`/admin/${resource}/${encodeURIComponent(id)}/restore`, { ...options, method: "POST", body: {} }),
   },
 
-  appointments: {
-    list: (params = {}, options = {}) => request(`/admin/appointments?${new URLSearchParams(params)}`, options),
-    update: (id, data, options = {}) => request(`/admin/appointments/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),
-  },
-
   messages: {
     list: (params = {}, options = {}) => request(`/admin/contacts?${new URLSearchParams(params)}`, options),
     update: (id, data, options = {}) => request(`/admin/contacts/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),

@@ -799,7 +799,7 @@
   object-fit: cover;
 }
 
-.bookingCard {
+.contactCard {
   margin-top: 1rem;
   padding: 1.5rem;
   background: #fff;
@@ -808,7 +808,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.bookingCard__icon {
+.contactCard__icon {
   display: grid;
   width: 3.2rem;
   height: 3.2rem;
@@ -818,18 +818,18 @@
   place-items: center;
 }
 
-.bookingCard h2 {
+.contactCard h2 {
   margin: 1rem 0 0;
   font-size: 1.2rem;
 }
 
-.bookingCard p {
+.contactCard p {
   color: var(--text-muted);
   font-size: var(--type-label);
   line-height: 1.65;
 }
 
-.bookingCard > a:last-child {
+.contactCard > a:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1056,127 +1056,6 @@
   color: var(--red-700);
   font-size: var(--type-label);
   font-weight: 750;
-}
-
-/* Appointment and contact */
-.appointmentPage {
-  background:
-    linear-gradient(110deg, var(--gray-50) 0 44%, #fff 44%);
-}
-
-.appointmentPage__grid {
-  display: grid;
-  grid-template-columns: minmax(17rem, 0.7fr) minmax(0, 1.3fr);
-  align-items: start;
-  gap: clamp(3rem, 8vw, 8rem);
-}
-
-.appointmentPage__aside {
-  position: sticky;
-  top: 6.5rem;
-}
-
-.appointmentPage__aside > h2 {
-  margin: 0;
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-}
-
-.appointmentSteps {
-  display: grid;
-  margin-top: 2rem;
-}
-
-.appointmentSteps li {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2.6rem 1fr;
-  gap: 0.9rem;
-  padding-bottom: 1.5rem;
-}
-
-.appointmentSteps li:not(:last-child)::after {
-  position: absolute;
-  top: 2.3rem;
-  bottom: 0;
-  left: 1.14rem;
-  width: 1px;
-  content: "";
-  background: var(--line-strong);
-}
-
-.appointmentSteps li > span {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  width: 2.3rem;
-  height: 2.3rem;
-  color: var(--red-700);
-  font-size: var(--type-micro);
-  font-weight: 800;
-  background: #fff;
-  border: 1px solid var(--red-100);
-  border-radius: 50%;
-  place-items: center;
-}
-
-.appointmentSteps h3 {
-  margin: 0;
-  font-size: var(--type-copy);
-}
-
-.appointmentSteps p {
-  margin: 0.3rem 0 0;
-  color: var(--text-muted);
-  font-size: var(--type-label);
-}
-
-.appointmentHelp {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 1rem;
-  background: var(--red-600);
-  border-radius: var(--radius-sm);
-}
-
-.appointmentHelp > span {
-  display: grid;
-  width: 2.7rem;
-  height: 2.7rem;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  place-items: center;
-}
-
-.appointmentHelp > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.appointmentHelp small {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: var(--type-micro);
-}
-
-.appointmentHelp a {
-  color: #fff;
-  font-size: var(--type-ui);
-  font-weight: 750;
-}
-
-.appointmentPrivacy {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  color: var(--text-soft);
-  font-size: var(--type-caption);
-  line-height: 1.5;
-}
-
-.appointmentPrivacy svg {
-  flex: 0 0 auto;
-  color: #218261;
 }
 
 .formCard {
@@ -1727,7 +1606,6 @@
 
   .doctorProfile,
   .serviceDetail,
-  .appointmentPage,
   .legalPage {
     background: #fff;
   }
@@ -1735,14 +1613,12 @@
   .doctorProfile__grid,
   .departmentIntro__grid,
   .serviceDetail__grid,
-  .appointmentPage__grid,
   .contactMedia {
     grid-template-columns: 1fr;
   }
 
   .doctorProfile__grid > aside,
-  .serviceDetail__aside,
-  .appointmentPage__aside {
+  .serviceDetail__aside {
     position: static;
   }
 
@@ -1767,12 +1643,8 @@
     gap: 1rem;
   }
 
-  .serviceDetail__aside .bookingCard {
+  .serviceDetail__aside .contactCard {
     margin-top: 0;
-  }
-
-  .appointmentPage__aside {
-    max-width: 42rem;
   }
 
   .contactCards {

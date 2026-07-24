@@ -592,7 +592,7 @@ function adaptService(raw, context = {}) {
     duration: raw.duration || "Müddət fərdi planlanır",
     preparation:
       raw.preparation ||
-      "Xidmətə uyğun hazırlıq qaydası qəbul təsdiqlənərkən təqdim olunur.",
+      "Xidmətə uyğun hazırlıq qaydasını əlaqə mərkəzindən dəqiqləşdirə bilərsiniz.",
     includes:
       raw.includes ||
       [

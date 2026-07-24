@@ -234,27 +234,6 @@ test(
         .send({})
         .expect(200);
 
-      const branch = await prisma.branch.findFirstOrThrow({
-        where: { active: true, deletedAt: null }
-      });
-      const appointmentResponse = await request(app)
-        .post('/api/v1/public/appointments')
-        .send({
-          firstName: 'Aysel',
-          lastName: 'Testli',
-          phone: '+994 50 000 00 00',
-          email: 'aysel.qa@example.test',
-          departmentId: doctor.department.id,
-          doctorId: doctor.id,
-          branchId: branch.id,
-          desiredDate: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(),
-          desiredTime: '10:30',
-          message: 'İnteqrasiya yoxlaması',
-          privacyConsent: true
-        })
-        .expect(201);
-      createdIds.appointment = appointmentResponse.body.data.id;
-
       const contactResponse = await request(app)
         .post('/api/v1/public/contact')
         .send({
@@ -304,11 +283,6 @@ test(
         .expect(423);
       assert.equal(lockedLoginResponse.body.error.code, 'ACCOUNT_LOCKED');
     } finally {
-      if (createdIds.appointment) {
-        await prisma.appointmentRequest.deleteMany({
-          where: { id: createdIds.appointment }
-        });
-      }
       if (createdIds.contact) {
         await prisma.contactMessage.deleteMany({ where: { id: createdIds.contact } });
       }

@@ -51,8 +51,8 @@ const demoPage = {
       description:
         "Müasir diaqnostika və güvəndiyiniz həkim komandası bir məkanda.",
       content: {
-        primaryLabel: "Qəbula yazıl",
-        primaryHref: "/appointment",
+        primaryLabel: "Bizimlə əlaqə saxla",
+        primaryHref: "tel:+994124503291",
         secondaryLabel: "Həkimləri tanı",
         secondaryHref: "/doctors",
       },
@@ -80,17 +80,17 @@ const demoPage = {
       sortOrder: 1,
     },
     {
-      id: "demo-appointment",
-      key: "appointment",
+      id: "demo-contact-cta",
+      key: "contact-cta",
       type: "CTA",
-      label: "Qəbula yazılma çağırışı",
-      eyebrow: "Qəbul",
+      label: "Telefon əlaqə çağırışı",
+      eyebrow: "Əlaqə",
       title: "Sağlamlığınızı təxirə salmayın",
       description:
         "Sizə uyğun şöbə və həkimi seçmək üçün komandamızla əlaqə saxlayın.",
       content: {
-        primaryLabel: "Qəbula yazıl",
-        primaryHref: "/appointment",
+        primaryLabel: "Bizimlə əlaqə saxla",
+        primaryHref: "tel:+994124503291",
       },
       active: true,
       locked: true,

@@ -1,8 +1,8 @@
 export const faqs = [
   {
     category: "Qəbul",
-    question: "Həkim qəbuluna necə yazıla bilərəm?",
-    answer: "Saytdakı qəbul formunu doldura, +994 12 450 32 91 nömrəsinə zəng edə və ya Sabunçu qəsəbəsindəki hospitalın qeydiyyat masasına yaxınlaşa bilərsiniz. Onlayn sorğudan sonra operatorumuz uyğun vaxtı təsdiqləyəcək."
+    question: "Hospital ilə necə əlaqə saxlaya bilərəm?",
+    answer: "+994 12 450 32 91 nömrəsinə zəng edərək hospitalın əlaqə mərkəzi ilə danışa və həkimlərin iş qrafiki haqqında məlumat ala bilərsiniz."
   },
   {
     category: "Qəbul",

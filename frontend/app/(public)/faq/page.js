@@ -1,6 +1,6 @@
 import PageHero from "@/components/common/PageHero";
 import Accordion from "@/components/common/Accordion";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
 import { ContentStatusNotice } from "@/components/common/ContentStatus";
@@ -21,7 +21,7 @@ const PAGE_FALLBACK = {
   sections: [
     { key: "hero", type: "HERO", label: "Səhifə təqdimatı", eyebrow: "Kömək mərkəzi", title: "Sualınızı cavabsız qoymuruq", description: "Qəbul və müayinə prosesinə dair ən çox verilən sualları kateqoriyalar üzrə topladıq.", active: true },
     { key: "questions", type: "FAQ", label: "Sual-cavab siyahısı", active: true },
-    { key: "appointment", type: "CTA", label: "Əlaqə çağırışı", title: "Cavab tapmadınız?", description: "Əlaqə komandamız sizə kömək etməyə hazırdır.", active: true },
+    { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", title: "Cavab tapmadınız?", description: "Əlaqə komandamız sizə kömək etməyə hazırdır.", active: true },
   ],
 };
 
@@ -83,7 +83,7 @@ export default async function FaqPage() {
               </div>
             </section>
           );
-          if (section.key === "appointment") return <AppointmentCta key={section.id || section.key} contact={contact} eyebrow={section.eyebrow} title={section.title} text={section.description} primaryLabel={section.content.primaryLabel} primaryHref={section.content.primaryHref} secondaryLabel={section.content.secondaryLabel} secondaryHref={section.content.secondaryHref} />;
+          if (section.key === "contact-cta") return <ContactCta key={section.id || section.key} contact={contact} eyebrow={section.eyebrow} title={section.title} text={section.description} />;
           return <CmsPageSection key={section.id || section.key} section={section} />;
         })}
       </div>

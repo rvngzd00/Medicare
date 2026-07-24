@@ -18,7 +18,6 @@ const permissionGroups = {
   leadership: ['leadership.read', 'leadership.write', 'leadership.delete'],
   navigation: ['navigation.read', 'navigation.write', 'navigation.delete'],
   settings: ['settings.read', 'settings.write'],
-  appointments: ['appointments.read', 'appointments.write', 'appointments.delete'],
   contacts: ['contacts.read', 'contacts.write', 'contacts.delete'],
   media: ['media.read', 'media.write', 'media.delete'],
   users: ['users.read', 'users.write', 'users.delete'],
@@ -72,17 +71,15 @@ const roleDefinitions = [
       ...permissionGroups.departments,
       ...permissionGroups.services,
       ...permissionGroups.branches,
-      ...permissionGroups.media,
-      'appointments.read'
+      ...permissionGroups.media
     ]
   },
   {
     name: 'Support Operator',
     slug: 'support-operator',
-    description: 'Qəbul müraciətləri və əlaqə mesajlarının idarəetməsi',
+    description: 'Əlaqə mesajlarının idarəetməsi',
     permissions: [
       ...permissionGroups.dashboard,
-      ...permissionGroups.appointments,
       ...permissionGroups.contacts,
       'doctors.read',
       'departments.read',
@@ -411,9 +408,9 @@ async function seedContent() {
 
   const faqs = [
     {
-      question: 'Qəbula necə yazıla bilərəm?',
-      answer: 'Onlayn qəbul formasını doldura və ya çağrı mərkəzi ilə əlaqə saxlaya bilərsiniz.',
-      category: 'Qəbul',
+      question: 'Hospital ilə necə əlaqə saxlaya bilərəm?',
+      answer: '+994 12 450 32 91 nömrəsinə zəng edərək hospitalın əlaqə mərkəzi ilə danışa bilərsiniz.',
+      category: 'Əlaqə',
       sortOrder: 1
     },
     {
@@ -507,7 +504,7 @@ async function seedContent() {
       excerpt: 'Medicare Hospital-un əsas təqdimat səhifəsi.',
       template: 'HOME',
       sections: [
-        ['hero', 'HERO', 'Hero təqdimatı', 'Sağlamlığınız üçün dəqiq qərarlar, qayğıkeş yanaşma', 'Sağlamlığınız bizim dəyərimizdir', 'Müasir diaqnostika və güvəndiyiniz həkim komandası bir məkanda.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment', secondaryLabel: 'Həkimləri tanı', secondaryHref: '/doctors' }],
+        ['hero', 'HERO', 'Hero təqdimatı', 'Sağlamlığınız üçün dəqiq qərarlar, qayğıkeş yanaşma', 'Sağlamlığınız bizim dəyərimizdir', 'Müasir diaqnostika və güvəndiyiniz həkim komandası bir məkanda.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291', secondaryLabel: 'Həkimləri tanı', secondaryHref: '/doctors' }],
         ['stats', 'STATISTICS', 'Etibar göstəriciləri', 'Rəqəmlərdə Medicare', 'Etibar', 'Həkim, pasiyent, şöbə və təcrübə göstəriciləri.', {}],
         ['assurance', 'FEATURE_GRID', 'Qayğı yolu', 'Müraciətdən aydın tibbi plana qədər', 'Qayğı yolu', 'Sualınızı dinləyir, sizi doğru mütəxəssisə yönləndirir və növbəti addımları sadə dildə planlaşdırırıq.', {}],
         ['services', 'COLLECTION', 'Əsas xidmətlər', 'Ehtiyacınıza uyğun tibbi həllər', 'Əsas xidmətlər', 'Profilaktik müayinədən mürəkkəb diaqnostikaya qədər hər xidmət vahid klinik standartla planlanır.', { collection: 'services', limit: 4, linkLabel: 'Bütün xidmətlər', linkHref: '/services' }],
@@ -515,7 +512,7 @@ async function seedContent() {
         ['doctors', 'COLLECTION', 'Həkim komandamız', 'Bilik qədər ünsiyyətə də önəm verən mütəxəssislər', 'Həkim komandamız', 'Sizin sualınızı dinləyən, seçimlərinizi aydın izah edən və müalicə yolunu birlikdə quran həkimlər.', { collection: 'doctors', limit: 4, linkLabel: 'Bütün həkimlər', linkHref: '/doctors' }],
         ['why-medicare', 'FEATURE_GRID', 'Niyə Medicare?', 'Tibbi dəqiqlik, insani diqqətlə birlikdə', 'Niyə Medicare?', 'Sistemimizi pasiyentin özünü məlumatlı, təhlükəsiz və rahat hiss etməsi üçün qurmuşuq.', {}],
         ['technology', 'MEDIA', 'Texnologiya və imkanlar', 'Daha aydın görüntü. Daha inamlı qərar.', 'Texnologiya və imkanlar', 'Avadanlığın gücünü ixtisaslaşmış həkim interpretasiyası və düzgün klinik protokolla tamamlayırıq.', { image: '/images/diagnostic-suite.png', imageAlt: 'Medicare diaqnostika mərkəzi', linkLabel: 'İnfrastrukturumuza bax', linkHref: '/about#infrastructure' }],
-        ['appointment', 'CTA', 'Qəbula yazılma çağırışı', 'Sağlamlığınızı təxirə salmayın', 'Qəbul', 'Sizə uyğun şöbə və həkimi seçmək üçün komandamızla əlaqə saxlayın.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment' }],
+        ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Sağlamlığınızı təxirə salmayın', 'Əlaqə', 'Sizə uyğun şöbə və həkim haqqında məlumat üçün komandamıza zəng edin.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }],
         ['testimonials', 'COLLECTION', 'Pasiyent rəyləri', 'Etibar, hər görüşdə yenidən qazanılır', 'Pasiyent təcrübəsi', 'Pasiyentlərin paylaşdığı təcrübələr xidmətimizi daha yaxşı qurmağımıza kömək edir.', { collection: 'testimonials' }],
         ['articles', 'COLLECTION', 'Sağlamlıq jurnalı', 'Bilik, sağlam qərarın başlanğıcıdır', 'Sağlamlıq jurnalı', 'Həkimlərimizin gündəlik sağlamlıq və müasir tibbi yanaşmalar haqqında aydın izahları.', { collection: 'articles', limit: 3, linkLabel: 'Bütün məqalələr', linkHref: '/news' }],
         ['faq', 'FAQ', 'Tez-tez soruşulanlar', 'Qəbuldan əvvəl bilməli olduqlarınız', 'Tez-tez soruşulanlar', 'Ən çox verilən sualları topladıq. Axtardığınız cavab yoxdursa, komandamızla əlaqə saxlayın.', { limit: 5, linkLabel: 'Bütün suallara bax', linkHref: '/faq' }],
@@ -536,7 +533,7 @@ async function seedContent() {
         ['leadership', 'COLLECTION', 'Rəhbərlik', 'Keyfiyyət mədəniyyətini quran komanda', 'Rəhbərlik', 'Klinik, əməliyyat və pasiyent təcrübəsi üzrə vahid strateji baxış.', { collection: 'leadership' }],
         ['infrastructure', 'MEDIA', 'İnfrastruktur', 'Dəqiqlik üçün düşünülmüş məkanlar', 'İnfrastruktur', 'Hər zona təhlükəsizlik, rahatlıq və klinik komandanın sürətli əməkdaşlığı üçün planlanıb.', { collection: 'gallery' }],
         ['certificates', 'COLLECTION', 'Keyfiyyət və etibar', 'Standartlarımız sənədləşir, hər gün tətbiq olunur', 'Keyfiyyət və etibar', 'Daxili audit, infeksiya nəzarəti və klinik təhlükəsizlik göstəriciləri davamlı izlənir.', { collection: 'certificates' }],
-        ['appointment', 'CTA', 'Qəbul çağırışı', 'Medicare təcrübəsini yaxından tanıyın', 'Qəbul', 'Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment' }]
+        ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Medicare təcrübəsini yaxından tanıyın', 'Əlaqə', 'Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]
       ]
     },
     {
@@ -544,21 +541,21 @@ async function seedContent() {
       title: 'Həkimlərimiz',
       excerpt: 'İxtisaslaşmış həkim komandasını kəşf edin.',
       template: 'STANDARD',
-      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Sizə uyğun mütəxəssisi tapın', 'Həkimlər', 'İxtisas, şöbə və təcrübəyə görə həkim komandamızla tanış olun.', {}], ['collection', 'COLLECTION', 'Həkim siyahısı', 'Həkim komandamız', 'Mütəxəssislər', 'Doğru tibbi qərar aydın ünsiyyətdən başlayır.', { collection: 'doctors' }], ['appointment', 'CTA', 'Qəbul çağırışı', 'Uyğun həkimlə qəbulunuzu planlayın', 'Qəbul', 'Komandamız ehtiyacınıza uyğun mütəxəssisi seçməyə kömək etsin.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment' }]]
+      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Sizə uyğun mütəxəssisi tapın', 'Həkimlər', 'İxtisas, şöbə və təcrübəyə görə həkim komandamızla tanış olun.', {}], ['collection', 'COLLECTION', 'Həkim siyahısı', 'Həkim komandamız', 'Mütəxəssislər', 'Doğru tibbi qərar aydın ünsiyyətdən başlayır.', { collection: 'doctors' }], ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Uyğun mütəxəssisi birlikdə seçək', 'Əlaqə', 'Komandamız ehtiyacınıza uyğun həkim haqqında telefonla məlumat verməyə hazırdır.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]]
     },
     {
       slug: 'departments',
       title: 'Tibbi şöbələr',
       excerpt: 'Bir-birini tamamlayan klinik ixtisaslar.',
       template: 'STANDARD',
-      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Kompleks qayğı üçün ixtisaslaşmış şöbələr', 'Şöbələr', 'Ehtiyacınıza uyğun klinik istiqaməti seçin.', {}], ['collection', 'COLLECTION', 'Şöbə siyahısı', 'Tibbi istiqamətlər', 'Şöbələr', 'Komandalarımız diaqnostika və müalicəni vahid plan üzrə əlaqələndirir.', { collection: 'departments' }], ['appointment', 'CTA', 'Qəbul çağırışı', 'Doğru şöbədən başlamağa kömək edək', 'Qəbul', 'Əlaqə komandamız sizi uyğun klinik istiqamətə yönləndirsin.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment' }]]
+      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Kompleks qayğı üçün ixtisaslaşmış şöbələr', 'Şöbələr', 'Ehtiyacınıza uyğun klinik istiqaməti seçin.', {}], ['collection', 'COLLECTION', 'Şöbə siyahısı', 'Tibbi istiqamətlər', 'Şöbələr', 'Komandalarımız diaqnostika və müalicəni vahid plan üzrə əlaqələndirir.', { collection: 'departments' }], ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Doğru şöbədən başlamağa kömək edək', 'Əlaqə', 'Əlaqə komandamız sizi uyğun klinik istiqamətə yönləndirsin.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]]
     },
     {
       slug: 'services',
       title: 'Tibbi xidmətlər',
       excerpt: 'Profilaktikadan diaqnostika və müalicəyə qədər.',
       template: 'STANDARD',
-      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Ehtiyacınıza uyğun tibbi xidmətlər', 'Xidmətlər', 'Müayinə və müalicə seçimlərini aydın təsvirlərlə kəşf edin.', {}], ['collection', 'COLLECTION', 'Xidmət siyahısı', 'Bütün xidmətlər', 'Xidmətlər', 'Hər xidmət klinik protokol və pasiyent ehtiyacına uyğun planlanır.', { collection: 'services' }], ['appointment', 'CTA', 'Qəbul çağırışı', 'Sizə uyğun xidməti birlikdə seçək', 'Qəbul', 'Hazırlıq və qəbul mərhələləri haqqında komandamızdan məlumat alın.', { primaryLabel: 'Qəbula yazıl', primaryHref: '/appointment' }]]
+      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Ehtiyacınıza uyğun tibbi xidmətlər', 'Xidmətlər', 'Müayinə və müalicə seçimlərini aydın təsvirlərlə kəşf edin.', {}], ['collection', 'COLLECTION', 'Xidmət siyahısı', 'Bütün xidmətlər', 'Xidmətlər', 'Hər xidmət klinik protokol və pasiyent ehtiyacına uyğun planlanır.', { collection: 'services' }], ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Sizə uyğun xidməti birlikdə seçək', 'Əlaqə', 'Hazırlıq qaydaları və xidmət detalları haqqında komandamızdan telefonla məlumat alın.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]]
     },
     {
       slug: 'news',
@@ -572,7 +569,7 @@ async function seedContent() {
       title: 'Tez-tez verilən suallar',
       excerpt: 'Qəbul və xidmət prosesi üzrə aydın cavablar.',
       template: 'STANDARD',
-      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Sualınıza aydın cavab tapın', 'FAQ', 'Ən çox verilən sualları mövzular üzrə topladıq.', {}], ['questions', 'FAQ', 'Sual-cavab siyahısı', 'Tez-tez soruşulanlar', 'Suallar', 'Axtardığınız cavab burada yoxdursa, bizimlə əlaqə saxlayın.', {}], ['appointment', 'CTA', 'Əlaqə çağırışı', 'Cavab tapmadınız?', 'Əlaqə', 'Əlaqə komandamız sizə kömək etməyə hazırdır.', { primaryLabel: 'Bizimlə əlaqə', primaryHref: '/contact' }]]
+      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Sualınıza aydın cavab tapın', 'FAQ', 'Ən çox verilən sualları mövzular üzrə topladıq.', {}], ['questions', 'FAQ', 'Sual-cavab siyahısı', 'Tez-tez soruşulanlar', 'Suallar', 'Axtardığınız cavab burada yoxdursa, bizimlə əlaqə saxlayın.', {}], ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Cavab tapmadınız?', 'Əlaqə', 'Əlaqə komandamız sizə kömək etməyə hazırdır.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]]
     },
     {
       slug: 'contact',
@@ -582,25 +579,18 @@ async function seedContent() {
       sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Sizin üçün buradayıq', 'Əlaqə', 'Qəbul, xidmət və filial məlumatları üçün komandamızla əlaqə saxlayın.', {}], ['details', 'CONTACT', 'Əlaqə məlumatları', 'Medicare Hospital — Sabunçu', 'Ünvan və telefon', 'Hər gün 24 saat xidmətinizdəyik.', {}], ['form', 'CUSTOM', 'Əlaqə forması', 'Bizə yazın', 'Mesaj', 'Sorğunuzu göndərin, komandamız sizinlə əlaqə saxlasın.', {}], ['map', 'CONTACT', 'Xəritə', 'Medicare Hospital-a necə gəlmək olar?', 'Ünvanımız', 'Hospital Sabunçu qəsəbəsində, 3 saylı Şəhər Klinik Xəstəxanasının qarşısında yerləşir.', {}], ['social', 'CUSTOM', 'Sosial media', 'Sağlamlıq yeniliklərini izləyin', 'Sosial mediada', 'Rəsmi Medicare hesablarımızı izləyin.', {}]]
     },
     {
-      slug: 'appointment',
-      title: 'Qəbula yazıl',
-      excerpt: 'Uyğun şöbə, həkim və vaxtı seçin.',
-      template: 'LANDING',
-      sections: [['hero', 'HERO', 'Səhifə təqdimatı', 'Qəbulunuzu rahat planlaşdırın', 'Onlayn qəbul', 'Məlumatlarınızı daxil edin, komandamız seçdiyiniz vaxtı təsdiqləsin.', {}], ['form', 'CUSTOM', 'Qəbul forması', 'Qəbul məlumatları', 'Forma', 'Dəqiq məlumatlar sizinlə daha sürətli əlaqə saxlamağımıza kömək edir.', {}]]
-    },
-    {
       slug: 'privacy-policy',
       title: 'Məxfilik siyasəti',
       excerpt: 'Şəxsi məlumatların qorunması prinsipləri.',
       template: 'LEGAL',
-      sections: [['intro', 'HERO', 'Məxfilik siyasəti', 'Məxfilik siyasəti', 'Hüquqi məlumat', 'Şəxsi və tibbi məlumatlarınıza ehtiyatla yanaşır, onları şəffaf prinsiplərlə işləyirik.', {}], ['collected-data', 'RICH_TEXT', 'Topladığımız məlumatlar', 'Topladığımız məlumatlar', '01', 'Qəbul və əlaqə sorğusu zamanı təqdim etdiyiniz məlumatları yalnız xidmətin təşkili və sizinlə əlaqə məqsədilə toplayırıq.', { text: 'Ad, soyad və əlaqə məlumatları.\\n\\nSeçdiyiniz şöbə, həkim və qəbul vaxtı.\\n\\nSorğuda könüllü paylaşdığınız qısa tibbi məlumat.' }], ['data-use', 'RICH_TEXT', 'Məlumatlardan istifadə', 'Məlumatlardan istifadə', '02', 'Şəxsi məlumatlar qəbulun planlanması və sorğuların cavablandırılması üçün işlənir.', { text: 'Marketinq məlumatı yalnız ayrıca razılıq verdiyiniz halda göndərilir.' }], ['protection', 'RICH_TEXT', 'Qorunma və saxlanma', 'Qorunma və saxlanma', '03', 'Məlumatlara giriş vəzifə və ehtiyac prinsipi ilə məhdudlaşdırılır.', { text: 'Məlumatlar məqsəd üçün tələb olunan və qanunla müəyyən edilən müddətdən artıq saxlanmır.' }], ['rights', 'RICH_TEXT', 'Hüquqlarınız', 'Hüquqlarınız', '04', 'Məlumatlarınıza çıxış, düzəliş və silinmə tələb edə bilərsiniz.', { text: 'Məlumatların surətini almaq.\\n\\nYanlış məlumatı düzəltdirmək.\\n\\nRazılığı geri götürmək.' }]]
+      sections: [['intro', 'HERO', 'Məxfilik siyasəti', 'Məxfilik siyasəti', 'Hüquqi məlumat', 'Şəxsi və tibbi məlumatlarınıza ehtiyatla yanaşır, onları şəffaf prinsiplərlə işləyirik.', {}], ['collected-data', 'RICH_TEXT', 'Topladığımız məlumatlar', 'Topladığımız məlumatlar', '01', 'Əlaqə forması ilə təqdim etdiyiniz məlumatları yalnız sorğunuzu cavablandırmaq və sizinlə əlaqə saxlamaq üçün toplayırıq.', { text: 'Ad, soyad və əlaqə məlumatları.\\n\\nSorğunun mövzusu və mesajı.\\n\\nSorğuda könüllü paylaşdığınız digər məlumatlar.' }], ['data-use', 'RICH_TEXT', 'Məlumatlardan istifadə', 'Məlumatlardan istifadə', '02', 'Şəxsi məlumatlar sorğuların cavablandırılması, xidmət keyfiyyətinin yaxşılaşdırılması və qanuni öhdəliklərin icrası üçün işlənir.', { text: 'Marketinq məlumatı yalnız ayrıca razılıq verdiyiniz halda göndərilir.' }], ['protection', 'RICH_TEXT', 'Qorunma və saxlanma', 'Qorunma və saxlanma', '03', 'Məlumatlara giriş vəzifə və ehtiyac prinsipi ilə məhdudlaşdırılır.', { text: 'Məlumatlar məqsəd üçün tələb olunan və qanunla müəyyən edilən müddətdən artıq saxlanmır.' }], ['rights', 'RICH_TEXT', 'Hüquqlarınız', 'Hüquqlarınız', '04', 'Məlumatlarınıza çıxış, düzəliş və silinmə tələb edə bilərsiniz.', { text: 'Məlumatların surətini almaq.\\n\\nYanlış məlumatı düzəltdirmək.\\n\\nRazılığı geri götürmək.' }]]
     },
     {
       slug: 'terms',
       title: 'İstifadə şərtləri',
       excerpt: 'Saytdan istifadə və tibbi məlumatların xarakteri.',
       template: 'LEGAL',
-      sections: [['intro', 'HERO', 'İstifadə şərtləri', 'İstifadə şərtləri', 'Hüquqi məlumat', 'Saytdan istifadə etməzdən və onlayn sorğu göndərməzdən əvvəl əsas şərtlərlə tanış olun.', {}], ['purpose', 'RICH_TEXT', 'Saytın məqsədi', 'Saytın məqsədi', '01', 'Bu sayt Medicare Hospital, onun həkimləri, şöbələri və xidmətləri haqqında məlumat vermək məqsədi daşıyır.', { text: 'Onlayn xidmətlər qəbul sorğusunu asanlaşdırır.' }], ['medical-info', 'RICH_TEXT', 'Tibbi məlumatlar', 'Tibbi məlumatlar', '02', 'Saytdakı materiallar ümumi məlumat xarakterlidir.', { text: 'Onlar fərdi diaqnoz, müalicə təyinatı və ya təcili tibbi yardımın əvəzi deyil.\\n\\nHəyati təhlükəli vəziyyətdə 103 xidmətinə zəng edin.' }], ['appointments', 'RICH_TEXT', 'Qəbul sorğuları', 'Qəbul sorğuları', '03', 'Onlayn formanın göndərilməsi qəbulun avtomatik təsdiqi demək deyil.', { text: 'Qəbul vaxtı operatorun əlaqəsindən sonra qüvvəyə minir.' }], ['responsibility', 'RICH_TEXT', 'Məsuliyyət və dəyişikliklər', 'Məsuliyyət və dəyişikliklər', '04', 'Həkim qrafiki və xidmət imkanları dəyişə bilər.', { text: 'Son məlumatı əlaqə mərkəzi təsdiqləyir. Şərtlər qanunvericiliyə uyğun yenilənə bilər.' }]]
+      sections: [['intro', 'HERO', 'İstifadə şərtləri', 'İstifadə şərtləri', 'Hüquqi məlumat', 'Saytdan istifadə etməzdən və onlayn sorğu göndərməzdən əvvəl əsas şərtlərlə tanış olun.', {}], ['purpose', 'RICH_TEXT', 'Saytın məqsədi', 'Saytın məqsədi', '01', 'Bu sayt Medicare Hospital, onun həkimləri, şöbələri və xidmətləri haqqında məlumat vermək məqsədi daşıyır.', { text: 'Onlayn əlaqə forması hospital ilə ünsiyyəti asanlaşdırır.' }], ['medical-info', 'RICH_TEXT', 'Tibbi məlumatlar', 'Tibbi məlumatlar', '02', 'Saytdakı materiallar ümumi məlumat xarakterlidir.', { text: 'Onlar fərdi diaqnoz, müalicə təyinatı və ya təcili tibbi yardımın əvəzi deyil.\\n\\nHəyati təhlükəli vəziyyətdə 103 xidmətinə zəng edin.' }], ['contact-form', 'RICH_TEXT', 'Əlaqə forması', 'Əlaqə forması', '03', 'Onlayn formanın göndərilməsi tibbi məsləhət və ya xidmət təsdiqi sayılmır.', { text: 'Təcili olmayan suallar üçün əlaqə formundan və ya hospitalın telefon nömrəsindən istifadə edə bilərsiniz.' }], ['responsibility', 'RICH_TEXT', 'Məsuliyyət və dəyişikliklər', 'Məsuliyyət və dəyişikliklər', '04', 'Həkim qrafiki və xidmət imkanları dəyişə bilər.', { text: 'Son məlumatı əlaqə mərkəzi təsdiqləyir. Şərtlər qanunvericiliyə uyğun yenilənə bilər.' }]]
     },
     {
       slug: 'cookie-policy',
@@ -724,7 +714,7 @@ async function seedContent() {
       title: 'Sağlamlığınız üçün dəqiq qərarlar, qayğıkeş yanaşma',
       subtitle: 'Müasir diaqnostika və güvəndiyiniz həkim komandası bir məkanda.',
       content: {
-        primaryAction: { label: 'Qəbula yazıl', href: '/appointment' },
+        primaryAction: { label: 'Bizimlə əlaqə saxla', href: 'tel:+994124503291' },
         secondaryAction: { label: 'Həkimləri tanı', href: '/doctors' }
       },
       sortOrder: 1

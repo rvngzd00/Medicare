@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Accordion from "@/components/common/Accordion";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import PageHero from "@/components/common/PageHero";
 import SectionHeading from "@/components/common/SectionHeading";
@@ -62,14 +62,10 @@ export function CmsPageSection({ section, breadcrumbs = [] }) {
 
   if (section.type === "CTA") {
     return (
-      <AppointmentCta
+      <ContactCta
         eyebrow={section.eyebrow}
         title={section.title}
         text={section.description}
-        primaryLabel={content.primaryLabel}
-        primaryHref={content.primaryHref}
-        secondaryLabel={content.secondaryLabel}
-        secondaryHref={content.secondaryHref}
       />
     );
   }

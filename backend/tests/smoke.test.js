@@ -22,9 +22,9 @@ test('security headers are enabled', async () => {
   assert.equal(response.headers['x-frame-options'], 'SAMEORIGIN');
 });
 
-test('invalid appointment payload is rejected before database access', async () => {
+test('invalid contact payload is rejected before database access', async () => {
   const response = await request(app)
-    .post('/api/v1/public/appointments')
+    .post('/api/v1/public/contact')
     .send({ firstName: 'A' })
     .expect(422);
   assert.equal(response.body.error.code, 'VALIDATION_FAILED');

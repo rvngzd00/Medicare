@@ -102,14 +102,14 @@ Public:
 - `GET /api/v1/public/articles`, `/articles/:slug`
 - `GET /api/v1/public/content/{branches|faqs|testimonials|gallery|certificates|leadership|article-categories}`
 - `GET /api/v1/public/pages`, `/pages/:slug`, `/search?q=...`
-- `POST /api/v1/public/appointments`, `/contact`
+- `POST /api/v1/public/contact`
 
 Admin:
 
 - `GET /api/v1/admin/dashboard`
 - CRUD: `doctors`, `departments`, `services`, `articles`,
   `article-categories`, `faqs`, `testimonials`, `branches`, `gallery`,
-  `certificates`, `leadership`, `navigation`, `settings`, `appointments`,
+  `certificates`, `leadership`, `navigation`, `settings`,
   `contacts`, `pages`, `home-sections`, `social-links`
 - `GET/POST /api/v1/admin/users`, `GET/PATCH/DELETE /api/v1/admin/users/:id`
 - `GET/POST/PATCH /api/v1/admin/roles`, `GET /permissions`

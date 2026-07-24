@@ -115,9 +115,9 @@ export default function Header({
             <Link className="iconButton navSearch" href={ROUTES.search} aria-label="Saytda axtar">
               <Icon name="search" size={20} />
             </Link>
-            <Link className="button button--primary navAppointment" href={ROUTES.appointment}>
-              Qəbula yazıl <Icon name="arrow" size={18} />
-            </Link>
+            <a className="button button--primary navContact" href={contact.phoneHref}>
+              Bizimlə əlaqə saxla <Icon name="phone" size={18} />
+            </a>
             <button
               ref={menuButtonRef}
               className="mobileMenuButton"
@@ -170,9 +170,9 @@ export default function Header({
           ))}
         </nav>
         <div className="mobileMenu__footer">
-          <Link className="button button--primary button--wide" href={ROUTES.appointment} tabIndex={open ? 0 : -1}>
-            Qəbula yazıl
-          </Link>
+          <a className="button button--primary button--wide" href={contact.phoneHref} tabIndex={open ? 0 : -1}>
+            Bizimlə əlaqə saxla
+          </a>
           <a href={contact.phoneHref} tabIndex={open ? 0 : -1}>{contact.phone}</a>
           <span>{contact.address}</span>
         </div>

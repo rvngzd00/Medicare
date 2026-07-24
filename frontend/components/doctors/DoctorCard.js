@@ -2,15 +2,16 @@ import Link from "next/link";
 import SmartImage from "@/components/common/SmartImage";
 import Icon from "@/components/common/Icon";
 import { getDepartment } from "@/data/departments";
+import { CONTACT } from "@/constants/site";
 import styles from "@/components/common/Cards.module.css";
 
-export default function DoctorCard({ doctor }) {
+export default function DoctorCard({ doctor, phoneHref = CONTACT.phoneHref }) {
   const department = getDepartment(doctor.department);
 
   return (
     <article className={styles.doctorCard}>
       <Link className={styles.doctorImage} href={`/doctors/${doctor.slug}`} tabIndex={-1} aria-hidden="true">
-        <span className={styles.doctorStatus}>Qəbul açıqdır</span>
+        <span className={styles.doctorStatus}>Əlaqə mərkəzi açıqdır</span>
         <SmartImage
           src={doctor.image}
           alt={`${doctor.name}, ${doctor.specialty}`}
@@ -31,13 +32,13 @@ export default function DoctorCard({ doctor }) {
           <Link className="button button--dark button--small" href={`/doctors/${doctor.slug}`}>
             Profilə bax
           </Link>
-          <Link
+          <a
             className="button button--soft button--icon"
-            href={`/appointment?doctor=${doctor.slug}`}
-            aria-label={`${doctor.name} üçün qəbula yazıl`}
+            href={phoneHref}
+            aria-label={`${doctor.name} haqqında məlumat üçün zəng et`}
           >
-            <Icon name="calendar" size={18} />
-          </Link>
+            <Icon name="phone" size={18} />
+          </a>
         </div>
       </div>
     </article>

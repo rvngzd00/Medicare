@@ -1,6 +1,6 @@
 import PageHero from "@/components/common/PageHero";
 import DepartmentCard from "@/components/departments/DepartmentCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import { ContentStatusNotice } from "@/components/common/ContentStatus";
 import EmptyState from "@/components/common/EmptyState";
 import Reveal from "@/components/animations/Reveal";
@@ -16,7 +16,7 @@ const PAGE_FALLBACK = {
   sections: [
     { key: "hero", type: "HERO", label: "Səhifə təqdimatı", eyebrow: "10 tibbi istiqamət", title: "Eyni məqsəd üçün birləşən şöbələr", description: "Hər şöbə öz sahəsində dərin təcrübəyə malikdir, mürəkkəb hallarda isə komandalar vahid qərar üçün birlikdə çalışır.", active: true },
     { key: "collection", type: "COLLECTION", label: "Şöbə siyahısı", active: true },
-    { key: "appointment", type: "CTA", label: "Qəbul çağırışı", title: "Doğru şöbədən başlamağa kömək edək", description: "Əlaqə komandamız sizi uyğun klinik istiqamətə yönləndirsin.", active: true },
+    { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", title: "Doğru şöbədən başlamağa kömək edək", description: "Əlaqə komandamız sizi uyğun klinik istiqamətə yönləndirsin.", active: true },
   ],
 };
 
@@ -51,7 +51,7 @@ export default async function DepartmentsPage() {
             </div>
           </section>
         );
-        if (section.key === "appointment") return <AppointmentCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} primaryLabel={section.content.primaryLabel} primaryHref={section.content.primaryHref} secondaryLabel={section.content.secondaryLabel} secondaryHref={section.content.secondaryHref} />;
+        if (section.key === "contact-cta") return <ContactCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} />;
         return <CmsPageSection key={section.id || section.key} section={section} />;
       })}
     </div>

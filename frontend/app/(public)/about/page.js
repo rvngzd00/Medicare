@@ -3,7 +3,7 @@ import PageHero from "@/components/common/PageHero";
 import SectionHeading from "@/components/common/SectionHeading";
 import SmartImage from "@/components/common/SmartImage";
 import StatsStrip from "@/components/home/StatsStrip";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import Reveal from "@/components/animations/Reveal";
 import { CmsPageSection } from "@/components/common/CmsPageSections";
@@ -28,7 +28,7 @@ const ABOUT_SECTIONS = [
   { key: "leadership", type: "COLLECTION", label: "Rəhbərlik", eyebrow: "Rəhbərlik", title: "Keyfiyyət mədəniyyətini quran komanda", description: "Klinik, əməliyyat və pasiyent təcrübəsi üzrə vahid strateji baxış.", active: true },
   { key: "infrastructure", type: "MEDIA", label: "İnfrastruktur", eyebrow: "İnfrastruktur", title: "Dəqiqlik üçün düşünülmüş məkanlar", description: "Hər zona təhlükəsizlik, rahatlıq və klinik komandanın sürətli əməkdaşlığı üçün planlanıb.", active: true },
   { key: "certificates", type: "COLLECTION", label: "Keyfiyyət və etibar", eyebrow: "Keyfiyyət və etibar", title: "Standartlarımız sənədləşir, hər gün tətbiq olunur", description: "Daxili audit, infeksiya nəzarəti və klinik təhlükəsizlik göstəriciləri davamlı izlənir.", active: true },
-  { key: "appointment", type: "CTA", label: "Qəbul çağırışı", eyebrow: "Qəbul", title: "Medicare təcrübəsini yaxından tanıyın", description: "Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.", active: true },
+  { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", eyebrow: "Əlaqə", title: "Medicare təcrübəsini yaxından tanıyın", description: "Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.", active: true },
 ];
 
 const ABOUT_PAGE_FALLBACK = {
@@ -421,17 +421,13 @@ export default async function AboutPage() {
           );
         }
 
-        if (section.key === "appointment") {
+        if (section.key === "contact-cta") {
           return (
-            <AppointmentCta
+            <ContactCta
               key={section.id || section.key}
               eyebrow={section.eyebrow}
               title={section.title}
               text={section.description}
-              primaryLabel={section.content.primaryLabel}
-              primaryHref={section.content.primaryHref}
-              secondaryLabel={section.content.secondaryLabel}
-              secondaryHref={section.content.secondaryHref}
             />
           );
         }

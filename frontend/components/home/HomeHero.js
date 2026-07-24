@@ -4,10 +4,6 @@ import Icon from "@/components/common/Icon";
 import Reveal from "@/components/animations/Reveal";
 
 export default function HomeHero({ content, contact }) {
-  const primaryAction = content?.content?.primaryAction || {
-    label: content?.content?.primaryLabel || "Qəbula yazıl",
-    href: content?.content?.primaryHref || "/appointment"
-  };
   const secondaryAction = content?.content?.secondaryAction || {
     label: content?.content?.secondaryLabel || "Həkim tap",
     href: content?.content?.secondaryHref || "/doctors"
@@ -23,6 +19,8 @@ export default function HomeHero({ content, contact }) {
     "Müasir diaqnostikanı multidissiplinar həkim təcrübəsi ilə birləşdirərək sizin üçün aydın və fərdi müalicə yolu qururuq.";
   const emergency = contact?.emergency || "103";
   const emergencyHref = contact?.emergencyHref || "tel:103";
+  const phone = contact?.phone || "+994 12 450 32 91";
+  const phoneHref = contact?.phoneHref || "tel:+994124503291";
 
   return (
     <>
@@ -42,9 +40,9 @@ export default function HomeHero({ content, contact }) {
             </h1>
             <p>{description}</p>
             <div className="homeHero__actions">
-              <Link className="button button--primary button--large" href={primaryAction.href}>
-                {primaryAction.label} <Icon name="arrow" size={19} />
-              </Link>
+              <a className="button button--primary button--large" href={phoneHref}>
+                Bizimlə əlaqə saxla <Icon name="phone" size={19} />
+              </a>
               <Link className="button button--outline button--large" href={secondaryAction.href}>
                 {secondaryAction.label}
               </Link>
@@ -66,9 +64,9 @@ export default function HomeHero({ content, contact }) {
                 fallbackLabel="Etibarlı tibbi qayğı"
               />
             </div>
-            <div className="heroFloat heroFloat--appointment">
-              <span><Icon name="calendar" size={20} /></span>
-              <p><small>Növbəti qəbul</small><strong>Bu gün, 14:30</strong></p>
+            <div className="heroFloat heroFloat--contact">
+              <span><Icon name="phone" size={20} /></span>
+              <p><small>Əlaqə mərkəzi</small><strong>{phone}</strong></p>
             </div>
             <div className="heroFloat heroFloat--quality">
               <span><Icon name="shield" size={20} /></span>

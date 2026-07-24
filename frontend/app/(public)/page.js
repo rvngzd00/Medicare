@@ -6,7 +6,7 @@ import ServiceCard from "@/components/services/ServiceCard";
 import DepartmentCard from "@/components/departments/DepartmentCard";
 import DoctorCard from "@/components/doctors/DoctorCard";
 import ArticleCard from "@/components/news/ArticleCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Accordion from "@/components/common/Accordion";
 import MapBlock from "@/components/common/MapBlock";
 import SmartImage from "@/components/common/SmartImage";
@@ -48,8 +48,8 @@ const HOME_SECTIONS = [
     description:
       "Müasir diaqnostika və güvəndiyiniz həkim komandası bir məkanda.",
     content: {
-      primaryLabel: "Qəbula yazıl",
-      primaryHref: "/appointment",
+      primaryLabel: "Bizimlə əlaqə saxla",
+      primaryHref: "tel:+994124503291",
       secondaryLabel: "Həkimləri tanı",
       secondaryHref: "/doctors",
     },
@@ -135,9 +135,9 @@ const HOME_SECTIONS = [
     },
   },
   {
-    key: "appointment",
+    key: "contact-cta",
     type: "CTA",
-    label: "Qəbula yazılma çağırışı",
+    label: "Telefon əlaqə çağırışı",
     title: "Sağlamlığınızı təxirə salmayın",
     description:
       "Sizə uyğun şöbə və həkimi seçmək üçün komandamızla əlaqə saxlayın.",
@@ -445,7 +445,7 @@ export default async function HomePage() {
                     <div className="cardGrid cardGrid--four">
                       {items.map((doctor, index) => (
                         <Reveal key={doctor.slug} delay={index * 70}>
-                          <DoctorCard doctor={doctor} />
+                          <DoctorCard doctor={doctor} phoneHref={configuration.contact.phoneHref} />
                         </Reveal>
                       ))}
                     </div>
@@ -574,18 +574,14 @@ export default async function HomePage() {
             );
           }
 
-          if (section.key === "appointment") {
+          if (section.key === "contact-cta") {
             return (
-              <AppointmentCta
+              <ContactCta
                 key={section.id || section.key}
                 contact={configuration.contact}
                 eyebrow={section.eyebrow}
                 title={section.title}
                 text={section.description}
-                primaryLabel={section.content.primaryLabel}
-                primaryHref={section.content.primaryHref}
-                secondaryLabel={section.content.secondaryLabel}
-                secondaryHref={section.content.secondaryHref}
               />
             );
           }

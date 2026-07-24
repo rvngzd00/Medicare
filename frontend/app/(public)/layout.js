@@ -48,7 +48,7 @@ export default async function PublicLayout({ children }) {
         <div className="statusPage__signal" aria-hidden="true"><span /><span /><span /></div>
         <span className="statusPage__code"><Icon name="cross" size={42} /></span>
         <h1>Saytda planlı yenilənmə aparılır</h1>
-        <p>Medicare komandası xidmət məlumatlarını yeniləyir. Təcili əlaqə və qəbul üçün çağrı mərkəzimiz açıqdır.</p>
+        <p>Medicare komandası xidmət məlumatlarını yeniləyir. Təcili əlaqə üçün çağrı mərkəzimiz açıqdır.</p>
         <a className="button button--primary" href={contact.phoneHref}>
           <Icon name="phone" size={18} /> {contact.phone}
         </a>

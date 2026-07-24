@@ -5,7 +5,7 @@ import SectionHeading from "@/components/common/SectionHeading";
 import SmartImage from "@/components/common/SmartImage";
 import ServiceCard from "@/components/services/ServiceCard";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import Accordion from "@/components/common/Accordion";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
@@ -98,8 +98,7 @@ export default async function DepartmentDetailPage({ params }) {
         ]}
       >
         <div className="pageHero__actions">
-          <Link className="button button--primary" href={`/appointment?department=${department.slug}`}>Qəbula yazıl <Icon name="arrow" size={18} /></Link>
-          <a className="button button--outline" href={contact.phoneHref}><Icon name="phone" size={18} /> Məlumat al</a>
+          <a className="button button--primary" href={contact.phoneHref}>Bizimlə əlaqə saxla <Icon name="phone" size={18} /></a>
         </div>
       </PageHero>
       <section className="section departmentIntro">
@@ -148,7 +147,7 @@ export default async function DepartmentDetailPage({ params }) {
         <section className="section section--soft">
           <div className="container">
             <SectionHeading eyebrow="Həkim komandası" title={`${department.name} mütəxəssisləri`} />
-            <div className="cardGrid cardGrid--three">{departmentDoctors.map((doctor) => <DoctorCard doctor={doctor} key={doctor.slug} />)}</div>
+            <div className="cardGrid cardGrid--three">{departmentDoctors.map((doctor) => <DoctorCard doctor={doctor} phoneHref={contact.phoneHref} key={doctor.slug} />)}</div>
           </div>
         </section>
       )}
@@ -160,7 +159,7 @@ export default async function DepartmentDetailPage({ params }) {
           </div>
         </section>
       )}
-      <AppointmentCta contact={contact} title={`${department.name} qəbulu üçün vaxt seçin`} />
+      <ContactCta contact={contact} title={`${department.name} haqqında məlumat alın`} />
       <JsonLd data={clinicSchema} />
       {department.faq.length > 0 && <JsonLd data={faqSchema} />}
     </>

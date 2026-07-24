@@ -29,7 +29,6 @@ export default async function sitemap() {
     "/departments",
     "/services",
     "/news",
-    "/appointment",
     "/contact",
     "/faq",
     "/privacy-policy",

@@ -20,13 +20,6 @@ enum ContentStatus {
   ARCHIVED
 }
 
-enum AppointmentStatus {
-  NEW
-  CONFIRMED
-  COMPLETED
-  CANCELLED
-}
-
 enum MessageStatus {
   NEW
   IN_PROGRESS
@@ -69,7 +62,6 @@ model User {
   role                Role                 @relation(fields: [roleId], references: [id], onDelete: Restrict)
   refreshTokens       RefreshToken[]
   articles            Article[]            @relation("ArticleAuthor")
-  assignedAppointments AppointmentRequest[] @relation("AppointmentAssignee")
   assignedMessages    ContactMessage[]      @relation("MessageAssignee")
   uploadedMedia       MediaFile[]           @relation("MediaUploader")
   activityLogs        ActivityLog[]         @relation("ActivityActor")
@@ -242,7 +234,6 @@ model Doctor {
   certificates    DoctorCertificate[]
   schedules       DoctorSchedule[]
   services        Service[]
-  appointments    AppointmentRequest[]
   testimonials    Testimonial[]
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
@@ -342,7 +333,6 @@ model Department {
   doctors      Doctor[]
   services     Service[]
   branches     Branch[]
-  appointments AppointmentRequest[]
   faqs         FAQ[]
   testimonials Testimonial[]
   createdAt    DateTime             @default(now())
@@ -406,44 +396,12 @@ model Branch {
   departments    Department[]
   doctors        Doctor[]
   schedules      DoctorSchedule[]
-  appointments   AppointmentRequest[]
   createdAt      DateTime             @default(now())
   updatedAt      DateTime             @updatedAt
   deletedAt      DateTime?
 
   @@index([active, sortOrder])
   @@index([city])
-  @@index([deletedAt])
-}
-
-model AppointmentRequest {
-  id             String            @id @default(uuid())
-  firstName      String
-  lastName       String
-  phone          String
-  email          String?
-  departmentId   String?
-  department     Department?       @relation(fields: [departmentId], references: [id], onDelete: SetNull)
-  doctorId       String?
-  doctor         Doctor?           @relation(fields: [doctorId], references: [id], onDelete: SetNull)
-  branchId       String?
-  branch         Branch?           @relation(fields: [branchId], references: [id], onDelete: SetNull)
-  desiredDate    DateTime
-  desiredTime    String
-  message        String?
-  privacyConsent Boolean
-  status         AppointmentStatus @default(NEW)
-  source         String            @default("website")
-  adminNotes     String?
-  assignedToId   String?
-  assignedTo     User?             @relation("AppointmentAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  deletedAt      DateTime?
-
-  @@index([status, createdAt])
-  @@index([doctorId, desiredDate])
-  @@index([assignedToId])
   @@index([deletedAt])
 }
 

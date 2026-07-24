@@ -1,6 +1,6 @@
 import PageHero from "@/components/common/PageHero";
 import ServiceCard from "@/components/services/ServiceCard";
-import AppointmentCta from "@/components/common/AppointmentCta";
+import ContactCta from "@/components/common/ContactCta";
 import { ContentStatusNotice } from "@/components/common/ContentStatus";
 import EmptyState from "@/components/common/EmptyState";
 import Reveal from "@/components/animations/Reveal";
@@ -16,7 +16,7 @@ const PAGE_FALLBACK = {
   sections: [
     { key: "hero", type: "HERO", label: "Səhifə təqdimatı", eyebrow: "Tibbi xidmətlər", title: "Profilaktikadan müalicəyədək aydın xidmət yolu", description: "Hər xidmət klinik ehtiyaca uyğun planlanır, hazırlıq və nəticə mərhələləri əvvəlcədən izah edilir.", active: true },
     { key: "collection", type: "COLLECTION", label: "Xidmət siyahısı", active: true },
-    { key: "appointment", type: "CTA", label: "Qəbul çağırışı", title: "Sizə uyğun xidməti birlikdə seçək", description: "Hazırlıq və qəbul mərhələləri haqqında komandamızdan məlumat alın.", active: true },
+    { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", title: "Sizə uyğun xidməti birlikdə seçək", description: "Hazırlıq qaydaları və xidmət detalları haqqında komandamızdan telefonla məlumat alın.", active: true },
   ],
 };
 
@@ -51,7 +51,7 @@ export default async function ServicesPage() {
             </div>
           </section>
         );
-        if (section.key === "appointment") return <AppointmentCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} primaryLabel={section.content.primaryLabel} primaryHref={section.content.primaryHref} secondaryLabel={section.content.secondaryLabel} secondaryHref={section.content.secondaryHref} />;
+        if (section.key === "contact-cta") return <ContactCta key={section.id || section.key} eyebrow={section.eyebrow} title={section.title} text={section.description} />;
         return <CmsPageSection key={section.id || section.key} section={section} />;
       })}
     </div>

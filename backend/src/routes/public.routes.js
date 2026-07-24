@@ -6,7 +6,6 @@ import {
   configurationController,
   contentPageController,
   contentPagesController,
-  createAppointmentController,
   createContactController,
   departmentController,
   departmentsController,
@@ -20,12 +19,7 @@ import {
 import { formRateLimit } from '../middleware/rate-limits.js';
 import { validate } from '../middleware/validate.js';
 import { asyncHandler } from '../utils/async-handler.js';
-import {
-  appointmentSchema,
-  contactSchema,
-  listQuerySchema,
-  slugParamsSchema
-} from '../validators/public.validators.js';
+import { contactSchema, listQuerySchema, slugParamsSchema } from '../validators/public.validators.js';
 
 export const publicRouter = Router();
 
@@ -74,12 +68,6 @@ publicRouter.get(
     query: z.object({ q: z.string().trim().min(2).max(100) }).strict()
   }),
   asyncHandler(searchController)
-);
-publicRouter.post(
-  '/appointments',
-  formRateLimit,
-  validate(appointmentSchema),
-  asyncHandler(createAppointmentController)
 );
 publicRouter.post(
   '/contact',

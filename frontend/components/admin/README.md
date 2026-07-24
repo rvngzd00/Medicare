@@ -20,7 +20,7 @@ The backend must allow the frontend origin through `CORS_ORIGINS`. The top-level
 
 The resource list/editor screens use the supported individual CRUD endpoints for doctors, departments, services, articles, and users. User edit pages load the dedicated `GET /admin/users/:id` route, so they are not limited by list pagination. Bulk actions are composed from individual supported requests, so there is no undocumented bulk endpoint dependency. Editors expose only fields that can be persisted safely by the current backend contract.
 
-Appointments persist `status` and `adminNotes`. Messages operate on admin contacts and persist contact status. A reply draft is durably appended to `adminNotes`; it is explicitly labelled as an internal note because the backend has no mail-send endpoint.
+Messages operate on admin contacts and persist contact status. A reply draft is durably appended to `adminNotes`; it is explicitly labelled as an internal note because the backend has no mail-send endpoint.
 
 Content modules map to backend resources as follows:
 
@@ -42,4 +42,4 @@ The Home hero and About page are singleton records and therefore cannot be creat
 
 Roles load the backend permission catalogue and preserve granular permission codes that are only partially represented by a grouped checkbox. Settings persist public configuration records; auth security policy and server secrets are shown as server-managed because those controls are not mutable through the current API.
 
-All effect-based requests use `AbortController`. API errors are normalized from the backend error envelope, and real-mode screens expose loading, empty, error, retry, confirmation, and mutation feedback states. Sidebar modules are filtered using `/auth/me` permission codes; the API remains the authoritative enforcement layer. Appointments persist status/admin notes; contacts persist status and reply drafts as internal notes. No e-mail delivery is claimed because the API does not provide a mail-send endpoint.
+All effect-based requests use `AbortController`. API errors are normalized from the backend error envelope, and real-mode screens expose loading, empty, error, retry, confirmation, and mutation feedback states. Sidebar modules are filtered using `/auth/me` permission codes; the API remains the authoritative enforcement layer. Contacts persist status and reply drafts as internal notes. No e-mail delivery is claimed because the API does not provide a mail-send endpoint.

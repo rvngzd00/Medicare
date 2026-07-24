@@ -256,7 +256,7 @@
   height: 2.6rem;
 }
 
-.navAppointment {
+.navContact {
   min-height: 2.9rem;
 }
 
@@ -396,11 +396,11 @@
   color: var(--red-600);
 }
 
-.appointmentCta {
+.contactCta {
   padding-top: 0;
 }
 
-.appointmentCta__card {
+.contactCta__card {
   position: relative;
   display: grid;
   min-height: 21rem;
@@ -417,7 +417,7 @@
   box-shadow: 0 28px 70px rgba(117, 25, 37, 0.18);
 }
 
-.appointmentCta__card::after {
+.contactCta__card::after {
   position: absolute;
   top: -10rem;
   right: -7rem;
@@ -429,27 +429,27 @@
   box-shadow: 0 0 0 4rem rgba(255, 255, 255, 0.025), 0 0 0 8rem rgba(255, 255, 255, 0.018);
 }
 
-.appointmentCta__copy {
+.contactCta__copy {
   position: relative;
   z-index: 2;
   max-width: 43rem;
 }
 
-.appointmentCta h2 {
+.contactCta h2 {
   margin: 0;
   color: #fff;
   font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 1.08;
 }
 
-.appointmentCta__copy > p {
+.contactCta__copy > p {
   max-width: 37rem;
   margin: 1rem 0 0;
   font-size: var(--type-copy);
   line-height: 1.7;
 }
 
-.appointmentCta__actions {
+.contactCta__actions {
   position: relative;
   z-index: 2;
   display: flex;
@@ -459,7 +459,7 @@
   gap: 1rem;
 }
 
-.appointmentCta__phone {
+.contactCta__phone {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -467,7 +467,7 @@
   color: #fff;
 }
 
-.appointmentCta__phone > span:first-child {
+.contactCta__phone > span:first-child {
   display: grid;
   width: 2.4rem;
   height: 2.4rem;
@@ -477,20 +477,20 @@
   place-items: center;
 }
 
-.appointmentCta__phone > span:last-child {
+.contactCta__phone > span:last-child {
   display: flex;
   flex-direction: column;
   font-size: var(--type-ui);
   font-weight: 750;
 }
 
-.appointmentCta__phone small {
+.contactCta__phone small {
   color: rgba(255, 255, 255, 0.55);
   font-size: var(--type-micro);
   font-weight: 600;
 }
 
-.appointmentCta__pulse {
+.contactCta__pulse {
   position: absolute;
   bottom: -2rem;
   left: 45%;
@@ -499,14 +499,14 @@
   opacity: 0.12;
 }
 
-.appointmentCta__pulse span:nth-child(1),
-.appointmentCta__pulse span:nth-child(3) {
+.contactCta__pulse span:nth-child(1),
+.contactCta__pulse span:nth-child(3) {
   width: 10rem;
   height: 1px;
   background: #fff;
 }
 
-.appointmentCta__pulse span:nth-child(2) {
+.contactCta__pulse span:nth-child(2) {
   width: 5rem;
   height: 5rem;
   margin-inline: -1rem;
@@ -1040,7 +1040,7 @@
     font-size: var(--type-caption);
   }
 
-  .navActions .navAppointment {
+  .navActions .navContact {
     display: none;
   }
 
@@ -1078,7 +1078,7 @@
     display: grid;
   }
 
-  .navActions .navAppointment {
+  .navActions .navContact {
     display: inline-flex;
   }
 
@@ -1180,11 +1180,11 @@
     grid-template-columns: 1fr;
   }
 
-  .appointmentCta__card {
+  .contactCta__card {
     grid-template-columns: 1fr;
   }
 
-  .appointmentCta__actions {
+  .contactCta__actions {
     width: min(100%, 19rem);
   }
 }
@@ -1194,7 +1194,7 @@
     min-height: 4.6rem;
   }
 
-  .navActions .navAppointment {
+  .navActions .navContact {
     display: none;
   }
 
@@ -1227,16 +1227,16 @@
     width: 100%;
   }
 
-  .appointmentCta__card {
+  .contactCta__card {
     padding: 2.2rem 1.35rem;
     border-radius: var(--radius-lg);
   }
 
-  .appointmentCta__actions {
+  .contactCta__actions {
     width: 100%;
   }
 
-  .appointmentCta__phone {
+  .contactCta__phone {
     justify-content: flex-start;
   }
 

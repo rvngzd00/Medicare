@@ -18,6 +18,15 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: "/appointment",
+        destination: "/contact",
+        permanent: true
+      }
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [320, 430, 768, 1024, 1280, 1440, 1920],
