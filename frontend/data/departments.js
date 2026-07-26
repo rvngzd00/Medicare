@@ -11,7 +11,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Arterial hipertenziya", "Ürək ritm pozğunluğu", "Koronar arteriya xəstəliyi", "Ürək çatışmazlığı"],
     serviceSlugs: ["kardioloji-check-up", "exokardioqrafiya", "laborator-diaqnostika"],
-    technologies: ["Rəqəmsal EKQ", "24–72 saatlıq Holter", "Stress exokardioqrafiya"],
     faq: [
       { question: "Profilaktik ürək müayinəsinə nə vaxt başlamaq lazımdır?", answer: "Ailə tarixçəsi və risk faktorları yoxdursa, 30 yaşdan etibarən illik təzyiq və əsas laborator göstəricilərin qiymətləndirilməsi tövsiyə olunur." },
       { question: "Sinə ağrısı hər zaman ürəklə bağlıdır?", answer: "Xeyr, lakin qəfil və sıxıcı sinə ağrısı, təngnəfəslik və soyuq tərləmə təcili qiymətləndirilməlidir." }
@@ -26,8 +25,7 @@ export const departments = [
     icon: "brain",
     image: "/images/department-placeholder.svg",
     conditions: ["Miqren", "Epilepsiya", "Baş gicəllənməsi", "Nevropatiyalar"],
-    serviceSlugs: ["mrt-diaqnostika", "laborator-diaqnostika", "fizioterapiya-reabilitasiya"],
-    technologies: ["3 Tesla MRT", "EEQ monitorinq", "Elektroneyromioqrafiya"],
+    serviceSlugs: ["laborator-diaqnostika", "fizioterapiya-reabilitasiya"],
     faq: [
       { question: "Tez-tez baş ağrısı üçün həkimə müraciət etməliyəm?", answer: "Ağrı yeni başlayıbsa, güclənirsə və ya görmə, nitq, keyimə kimi əlamətlərlə müşayiət olunursa nevroloq müayinəsi vacibdir." }
     ]
@@ -42,7 +40,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Kəskin respirator infeksiyalar", "Allergik vəziyyətlər", "İnkişaf ləngiməsi", "Həzm problemləri"],
     serviceSlugs: ["usaq-check-up", "laborator-diaqnostika", "vaksinasiya"],
-    technologies: ["Uşaq USM", "Sürətli test paneli", "İnkişaf skrininqi"],
     faq: [
       { question: "Sağlam uşaq müayinəsi nə qədər tez-tez olmalıdır?", answer: "İlk yaşda daha sıx, sonrakı dövrdə isə pediatrın fərdi inkişaf planına uyğun ən azı ildə bir dəfə tövsiyə edilir." }
     ]
@@ -57,7 +54,6 @@ export const departments = [
     image: "/images/facility-placeholder.svg",
     conditions: ["Öd daşı xəstəliyi", "Yırtıqlar", "Tiroid düyünləri", "Yumşaq toxuma patologiyaları"],
     serviceSlugs: ["laparoskopik-cerrahiyye", "anestezioloji-konsultasiya"],
-    technologies: ["4K laparoskopiya", "Elektrocərrahi platforma", "İnteqrə olunmuş əməliyyat zalı"],
     faq: [
       { question: "Minimal invaziv əməliyyatın üstünlüyü nədir?", answer: "Kiçik kəsik, daha az ağrı və çox vaxt daha sürətli gündəlik həyata dönüş imkanı yaradır." }
     ]
@@ -72,7 +68,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Menstrual pozğunluqlar", "Endometrioz", "Uşaqlıq boynu xəstəlikləri", "Menopauza simptomları"],
     serviceSlugs: ["qadin-check-up", "ultrases-muayinesi", "laborator-diaqnostika"],
-    technologies: ["Rəqəmsal kolposkopiya", "4D USM", "Minimal invaziv histeroskopiya"],
     faq: [
       { question: "Profilaktik ginekoloji baxış nə qədər tez-tez aparılmalıdır?", answer: "Şəxsi risklər nəzərə alınmaqla əksər qadınlar üçün ildə bir dəfə planlı müayinə uyğundur." }
     ]
@@ -87,7 +82,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Akne", "Dermatit", "Psoriaz", "Dəri törəmələri"],
     serviceSlugs: ["dermatoskopiya", "laborator-diaqnostika"],
-    technologies: ["Rəqəmsal dermatoskopiya", "Fototerapiya", "Dəri xəritələndirmə"],
     faq: [
       { question: "Xalın dəyişməsi nə zaman riskli sayılır?", answer: "Forma, sərhəd, rəng və ölçüdə dəyişiklik və ya qanama olduqda gecikmədən dermatoloqa müraciət edin." }
     ]
@@ -102,7 +96,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Karies", "Diş əti xəstəlikləri", "Diş sırası pozğunluğu", "Diş itkisi"],
     serviceSlugs: ["reqemsal-stomatologiya", "laborator-diaqnostika"],
-    technologies: ["3D dental tomoqrafiya", "İntraoral skaner", "CAD/CAM planlama"],
     faq: [
       { question: "Profilaktik diş müayinəsi nə qədər tez-tez lazımdır?", answer: "Fərdi riskə görə dəyişsə də, adətən hər altı aydan bir müayinə və professional təmizlik tövsiyə olunur." }
     ]
@@ -117,7 +110,6 @@ export const departments = [
     image: "/images/department-placeholder.svg",
     conditions: ["Refraksiya qüsurları", "Qlaukoma", "Katarakta", "Tor qişa xəstəlikləri"],
     serviceSlugs: ["goz-diaqnostikasi", "laborator-diaqnostika"],
-    technologies: ["OCT angioqrafiya", "Avtorefraktometriya", "Rəqəmsal fundus kamera"],
     faq: [
       { question: "Görmədə qəfil zəifləmə olarsa nə etməliyəm?", answer: "Bu təcili oftalmoloji qiymətləndirmə tələb edə bilər. Eyni gün klinika ilə əlaqə saxlayın." }
     ]
@@ -131,11 +123,8 @@ export const departments = [
     icon: "scan",
     image: "/images/diagnostic-suite.png",
     conditions: ["Nevroloji patologiyalar", "Dayaq-hərəkət zədələri", "Orqan xəstəlikləri", "Profilaktik skrininq"],
-    serviceSlugs: ["mrt-diaqnostika", "komputer-tomoqrafiya", "ultrases-muayinesi"],
-    technologies: ["3 Tesla MRT", "128 kəsikli KT", "Elastoqrafiyalı USM"],
-    faq: [
-      { question: "MRT üçün hazırlıq lazımdır?", answer: "Müayinə növündən asılıdır. Metal implant, hamiləlik və digər vacib məlumatları əvvəlcədən bildirmək lazımdır." }
-    ]
+    serviceSlugs: ["komputer-tomoqrafiya", "ultrases-muayinesi"],
+    faq: []
   },
   {
     slug: "laboratoriya",
@@ -147,7 +136,6 @@ export const departments = [
     image: "/images/facility-placeholder.svg",
     conditions: ["Profilaktik skrininq", "Hormonal qiymətləndirmə", "İnfeksiya diaqnostikası", "Müalicə monitorinqi"],
     serviceSlugs: ["laborator-diaqnostika", "genetik-testler", "evde-analiz"],
-    technologies: ["Avtomat biokimya xətti", "PCR laboratoriyası", "Barkod izləmə sistemi"],
     faq: [
       { question: "Analiz üçün ac gəlmək lazımdır?", answer: "Bəzi analizlər üçün 8–12 saat aclıq tələb olunur. Sifariş zamanı sizə fərdi hazırlıq qaydası təqdim edilir." }
     ]

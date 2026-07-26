@@ -12,18 +12,6 @@ export const services = [
     image: "/images/department-placeholder.svg"
   },
   {
-    slug: "mrt-diaqnostika",
-    name: "3 Tesla MRT",
-    department: "radiologiya",
-    summary: "Yüksək ayırdetmə ilə şüalanmasız və dəqiq maqnit-rezonans görüntüləmə.",
-    description: "3 Tesla MRT sistemi daha qısa müddətdə detallı görüntülər əldə etməyə və mürəkkəb klinik sualları dəqiqləşdirməyə imkan verir.",
-    icon: "scan",
-    duration: "20–50 dəqiqə",
-    preparation: "Müayinə sahəsinə görə fərdi təlimat təqdim olunur.",
-    includes: ["İlkin təhlükəsizlik sorğusu", "Fərdi görüntüləmə protokolu", "Radioloq rəyi", "Rəqəmsal nəticə"],
-    image: "/images/diagnostic-suite.png"
-  },
-  {
     slug: "laborator-diaqnostika",
     name: "Laborator diaqnostika",
     department: "laboratoriya",

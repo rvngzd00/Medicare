@@ -20,7 +20,7 @@ export async function generateMetadata() {
   const result = await getPageContent("news", PAGE_FALLBACK);
   return createCmsMetadata(result.item, {
     title: "Xəbərlər və tibbi məqalələr",
-    description: "Medicare həkimlərindən sağlamlıq, profilaktika və müasir tibbi texnologiyalar haqqında etibarlı məqalələr.",
+    description: "Medicare həkimlərindən sağlamlıq, profilaktika və müasir tibbi yanaşmalar haqqında etibarlı məqalələr.",
     path: "/news"
   });
 }

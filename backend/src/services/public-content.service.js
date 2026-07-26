@@ -134,7 +134,9 @@ export async function getDoctor(slug) {
       department: {
         select: { id: true, slug: true, name: true, summary: true }
       },
-      branch: true,
+      branch: {
+        select: { id: true, slug: true, name: true }
+      },
       profileImage: { select: mediaSelect },
       seo: seoInclude,
       educations: { orderBy: { sortOrder: 'asc' } },
@@ -171,7 +173,13 @@ export async function getDoctor(slug) {
       profileImage: { select: mediaSelect }
     }
   });
-  return { ...doctor, relatedDoctors };
+  return {
+    ...doctor,
+    phone: undefined,
+    email: undefined,
+    socialLinks: undefined,
+    relatedDoctors
+  };
 }
 
 export async function listDepartments(query) {
@@ -206,7 +214,10 @@ export async function listDepartments(query) {
     }),
     prisma.department.count({ where })
   ]);
-  return { items, meta: paginationMeta(total, page, limit) };
+  return {
+    items: items.map((item) => ({ ...item, technologies: undefined })),
+    meta: paginationMeta(total, page, limit)
+  };
 }
 
 export async function getDepartment(slug) {
@@ -246,7 +257,7 @@ export async function getDepartment(slug) {
   if (!department) {
     throw new ApiError(404, 'DEPARTMENT_NOT_FOUND', 'Department was not found.');
   }
-  return department;
+  return { ...department, technologies: undefined };
 }
 
 export async function listServices(query) {
@@ -500,12 +511,6 @@ export async function listSimpleContent(type, query = {}) {
       where: { active: true, deletedAt: null },
       orderBy: { sortOrder: 'asc' },
       include: { media: { select: mediaSelect } }
-    },
-    leadership: {
-      delegate: prisma.leadershipMember,
-      where: { active: true, deletedAt: null },
-      orderBy: { sortOrder: 'asc' },
-      include: { image: { select: mediaSelect } }
     },
     'article-categories': {
       delegate: prisma.articleCategory,

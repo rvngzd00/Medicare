@@ -120,16 +120,10 @@ export default async function DepartmentDetailPage({ params }) {
         </div>
       </section>
       <section className="section section--soft">
-        <div className="container treatmentGrid">
+        <div className="container">
           <div>
             <SectionHeading eyebrow="Müalicə istiqamətləri" title="Kompleks qiymətləndirdiyimiz hallar" text="Siyahıda olmayan şikayətlər üçün də şöbə koordinatoru sizi uyğun mütəxəssisə yönləndirəcək." />
             <ul className="largeCheckList">{department.conditions.map((item) => <li key={item}><Icon name="check" size={18} />{item}</li>)}</ul>
-          </div>
-          <div className="technologyCard">
-            <span className="technologyCard__icon"><Icon name="scan" size={28} /></span>
-            <h2>Texnologiyalar</h2>
-            <p>Klinik sualı dəqiqləşdirən müasir diaqnostika imkanları.</p>
-            <ol>{department.technologies.map((item, index) => <li key={item}><span>0{index + 1}</span>{item}</li>)}</ol>
           </div>
         </div>
       </section>

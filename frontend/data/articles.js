@@ -1,4 +1,4 @@
-export const articleCategories = ["Bütün yazılar", "Ürək sağlamlığı", "Ailə sağlamlığı", "Profilaktika", "Texnologiya"];
+export const articleCategories = ["Bütün yazılar", "Ürək sağlamlığı", "Ailə sağlamlığı", "Profilaktika"];
 
 export const articles = [
   {
@@ -50,23 +50,6 @@ export const articles = [
     content: [
       { heading: "Hamı üçün eyni paket yoxdur", paragraphs: ["Faydalı check-up proqramı çox sayda analiz deyil, şəxsi risklərə uyğun seçilmiş müayinələr deməkdir. Yaş, cins, ailə tarixçəsi, iş və yuxu rejimi seçimə təsir edir."] },
       { heading: "Nəticənin izahı proqramın bir hissəsidir", paragraphs: ["Analiz siyahısı həkim konsultasiyası və aydın fəaliyyət planı olmadan natamam qalır. Nəticələrin birlikdə şərh edildiyi proqramlara üstünlük verin."] }
-    ]
-  },
-  {
-    slug: "3-tesla-mrt-ustunlukleri",
-    title: "3 Tesla MRT nəyi daha aydın göstərir?",
-    excerpt: "Yüksək maqnit gücünün görüntü keyfiyyəti və müayinə planına təsiri barədə sadə izah.",
-    category: "Texnologiya",
-    author: "Dr. Emin Hüseynov",
-    doctorSlug: "dr-emin-huseynov",
-    date: "2026-05-06",
-    displayDate: "6 may 2026",
-    readTime: "5 dəq",
-    image: "/images/article-placeholder.svg",
-    featured: false,
-    content: [
-      { heading: "Daha detallı görüntü", paragraphs: ["3 Tesla MRT bəzi toxumalarda daha yüksək siqnal və detal əldə etməyə imkan verir. Bu üstünlük xüsusən beyin, oynaq və yumşaq toxuma müayinələrində əhəmiyyətli ola bilər."] },
-      { heading: "Düzgün protokol əsasdır", paragraphs: ["Cihazın gücü təkbaşına kifayət etmir. Klinik suala uyğun protokol və ixtisaslaşmış radioloq interpretasiyası nəticənin dəyərini müəyyən edir."] }
     ]
   },
   {

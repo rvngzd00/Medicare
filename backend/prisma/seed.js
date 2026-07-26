@@ -15,7 +15,6 @@ const permissionGroups = {
   branches: ['branches.read', 'branches.write', 'branches.delete'],
   gallery: ['gallery.read', 'gallery.write', 'gallery.delete'],
   certificates: ['certificates.read', 'certificates.write', 'certificates.delete'],
-  leadership: ['leadership.read', 'leadership.write', 'leadership.delete'],
   navigation: ['navigation.read', 'navigation.write', 'navigation.delete'],
   settings: ['settings.read', 'settings.write'],
   contacts: ['contacts.read', 'contacts.write', 'contacts.delete'],
@@ -50,7 +49,6 @@ const roleDefinitions = [
       ...permissionGroups.testimonials,
       ...permissionGroups.gallery,
       ...permissionGroups.certificates,
-      ...permissionGroups.leadership,
       ...permissionGroups.navigation,
       ...permissionGroups.media,
       ...permissionGroups.pages,
@@ -208,7 +206,7 @@ async function seedContent() {
       summary: 'Ürək-damar sağlamlığı üçün dəqiq diaqnostika və fərdi müalicə.',
       description: 'Medicare Kardiologiya şöbəsi profilaktik müayinədən kompleks müalicəyə qədər sübuta əsaslanan tibbi xidmət göstərir.',
       conditions: ['Arterial hipertenziya', 'Ürək ritm pozuntuları', 'Koronar ürək xəstəliyi'],
-      technologies: ['Rəqəmsal EKQ', 'Exokardioqrafiya', '24 saatlıq Holter monitorinqi'],
+      technologies: [],
       featured: true,
       sortOrder: 1
     },
@@ -218,7 +216,7 @@ async function seedContent() {
       summary: 'Sinir sistemi xəstəliklərinin müasir diaqnostikası və müalicəsi.',
       description: 'Nevroloqlarımız baş ağrısı, başgicəllənmə və periferik sinir sistemi problemləri üçün multidissiplinar yanaşma tətbiq edir.',
       conditions: ['Miqren', 'Nevropatiya', 'Yuxu pozuntuları'],
-      technologies: ['EEQ', 'Doppler müayinəsi', 'Neyrofizioloji qiymətləndirmə'],
+      technologies: [],
       featured: true,
       sortOrder: 2
     },
@@ -228,7 +226,7 @@ async function seedContent() {
       summary: 'Uşaqların sağlam böyüməsi üçün ailə yönümlü tibbi xidmət.',
       description: 'Doğuşdan yeniyetməlik dövrünədək profilaktika, peyvənd izlənməsi və xəstəliklərin müalicəsi vahid qayğı planında birləşdirilir.',
       conditions: ['Mövsümi infeksiyalar', 'Allergik vəziyyətlər', 'İnkişaf izlənməsi'],
-      technologies: ['Pediatrik ultrasonoqrafiya', 'Rəqəmsal laboratoriya', 'İnkişaf skrininqi'],
+      technologies: [],
       featured: true,
       sortOrder: 3
     }
@@ -511,7 +509,6 @@ async function seedContent() {
         ['departments', 'COLLECTION', 'Tibbi şöbələr', 'Bir-birini tamamlayan ixtisaslar', 'Tibbi şöbələr', 'Komandalarımız mürəkkəb halları birlikdə dəyərləndirir, siz isə bütün prosesi bir mərkəzdə tamamlayırsınız.', { collection: 'departments', limit: 6, linkLabel: 'Bütün şöbələr', linkHref: '/departments' }],
         ['doctors', 'COLLECTION', 'Həkim komandamız', 'Bilik qədər ünsiyyətə də önəm verən mütəxəssislər', 'Həkim komandamız', 'Sizin sualınızı dinləyən, seçimlərinizi aydın izah edən və müalicə yolunu birlikdə quran həkimlər.', { collection: 'doctors', limit: 4, linkLabel: 'Bütün həkimlər', linkHref: '/doctors' }],
         ['why-medicare', 'FEATURE_GRID', 'Niyə Medicare?', 'Tibbi dəqiqlik, insani diqqətlə birlikdə', 'Niyə Medicare?', 'Sistemimizi pasiyentin özünü məlumatlı, təhlükəsiz və rahat hiss etməsi üçün qurmuşuq.', {}],
-        ['technology', 'MEDIA', 'Texnologiya və imkanlar', 'Daha aydın görüntü. Daha inamlı qərar.', 'Texnologiya və imkanlar', 'Avadanlığın gücünü ixtisaslaşmış həkim interpretasiyası və düzgün klinik protokolla tamamlayırıq.', { image: '/images/diagnostic-suite.png', imageAlt: 'Medicare diaqnostika mərkəzi', linkLabel: 'İnfrastrukturumuza bax', linkHref: '/about#infrastructure' }],
         ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Sağlamlığınızı təxirə salmayın', 'Əlaqə', 'Sizə uyğun şöbə və həkim haqqında məlumat üçün komandamıza zəng edin.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }],
         ['testimonials', 'COLLECTION', 'Pasiyent rəyləri', 'Etibar, hər görüşdə yenidən qazanılır', 'Pasiyent təcrübəsi', 'Pasiyentlərin paylaşdığı təcrübələr xidmətimizi daha yaxşı qurmağımıza kömək edir.', { collection: 'testimonials' }],
         ['articles', 'COLLECTION', 'Sağlamlıq jurnalı', 'Bilik, sağlam qərarın başlanğıcıdır', 'Sağlamlıq jurnalı', 'Həkimlərimizin gündəlik sağlamlıq və müasir tibbi yanaşmalar haqqında aydın izahları.', { collection: 'articles', limit: 3, linkLabel: 'Bütün məqalələr', linkHref: '/news' }],
@@ -530,7 +527,6 @@ async function seedContent() {
         ['mission', 'FEATURE_GRID', 'Missiya və vizyon', 'Missiyamız və vizyonumuz', 'Məqsədimiz', 'Elmi əsaslı tibbi xidməti insana yaxın, aydın və əlçatan formada təqdim edirik.', {}],
         ['timeline', 'FEATURE_GRID', 'İnkişaf yolu', 'Hər mərhələdə daha güclü klinik sistem', 'İnkişaf yolu', 'İnfrastruktur böyüdükcə əsas prinsipimiz dəyişməyib: təhlükəsiz və izah edilən tibbi qayğı.', {}],
         ['values', 'FEATURE_GRID', 'Dəyərlərimiz', 'Hər qərara istiqamət verən prinsiplər', 'Dəyərlərimiz', 'Tibbi nəticə ilə pasiyent təcrübəsini bir-birindən ayırmırıq.', {}],
-        ['leadership', 'COLLECTION', 'Rəhbərlik', 'Keyfiyyət mədəniyyətini quran komanda', 'Rəhbərlik', 'Klinik, əməliyyat və pasiyent təcrübəsi üzrə vahid strateji baxış.', { collection: 'leadership' }],
         ['infrastructure', 'MEDIA', 'İnfrastruktur', 'Dəqiqlik üçün düşünülmüş məkanlar', 'İnfrastruktur', 'Hər zona təhlükəsizlik, rahatlıq və klinik komandanın sürətli əməkdaşlığı üçün planlanıb.', { collection: 'gallery' }],
         ['certificates', 'COLLECTION', 'Keyfiyyət və etibar', 'Standartlarımız sənədləşir, hər gün tətbiq olunur', 'Keyfiyyət və etibar', 'Daxili audit, infeksiya nəzarəti və klinik təhlükəsizlik göstəriciləri davamlı izlənir.', { collection: 'certificates' }],
         ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Medicare təcrübəsini yaxından tanıyın', 'Əlaqə', 'Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }]

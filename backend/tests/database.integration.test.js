@@ -49,6 +49,21 @@ test(
         .get(`/api/v1/public/doctors/${doctor.slug}`)
         .expect(200);
       assert.equal(doctorResponse.body.data.id, doctor.id);
+      assert.equal('phone' in doctorResponse.body.data, false);
+      assert.equal('email' in doctorResponse.body.data, false);
+      assert.equal('socialLinks' in doctorResponse.body.data, false);
+      assert.equal('phone' in doctorResponse.body.data.branch, false);
+      assert.equal('email' in doctorResponse.body.data.branch, false);
+
+      const departmentsResponse = await request(app)
+        .get('/api/v1/public/departments')
+        .expect(200);
+      assert.ok(departmentsResponse.body.data.length >= 1);
+      assert.equal('technologies' in departmentsResponse.body.data[0], false);
+
+      await request(app)
+        .get('/api/v1/public/content/leadership')
+        .expect(422);
 
       const configurationResponse = await request(app)
         .get('/api/v1/public/configuration')

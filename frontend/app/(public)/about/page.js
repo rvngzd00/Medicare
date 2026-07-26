@@ -13,7 +13,6 @@ import { createMetadata } from "@/utils/seo";
 import {
   getCertificatesContent,
   getGalleryContent,
-  getLeadershipContent,
   getPageContent,
 } from "@/services/content";
 import { resolvePageSections } from "@/utils/cmsSections";
@@ -25,7 +24,6 @@ const ABOUT_SECTIONS = [
   { key: "mission", type: "FEATURE_GRID", label: "Missiya və vizyon", eyebrow: "Məqsədimiz", title: "Missiyamız və vizyonumuz", description: "Elmi əsaslı tibbi xidməti insana yaxın, aydın və əlçatan formada təqdim edirik.", active: true },
   { key: "timeline", type: "FEATURE_GRID", label: "İnkişaf yolu", eyebrow: "İnkişaf yolu", title: "Hər mərhələdə daha güclü klinik sistem", description: "İnfrastruktur böyüdükcə əsas prinsipimiz dəyişməyib: təhlükəsiz və izah edilən tibbi qayğı.", active: true },
   { key: "values", type: "FEATURE_GRID", label: "Dəyərlərimiz", eyebrow: "Dəyərlərimiz", title: "Hər qərara istiqamət verən prinsiplər", description: "Tibbi nəticə ilə pasiyent təcrübəsini bir-birindən ayırmırıq.", active: true },
-  { key: "leadership", type: "COLLECTION", label: "Rəhbərlik", eyebrow: "Rəhbərlik", title: "Keyfiyyət mədəniyyətini quran komanda", description: "Klinik, əməliyyat və pasiyent təcrübəsi üzrə vahid strateji baxış.", active: true },
   { key: "infrastructure", type: "MEDIA", label: "İnfrastruktur", eyebrow: "İnfrastruktur", title: "Dəqiqlik üçün düşünülmüş məkanlar", description: "Hər zona təhlükəsizlik, rahatlıq və klinik komandanın sürətli əməkdaşlığı üçün planlanıb.", active: true },
   { key: "certificates", type: "COLLECTION", label: "Keyfiyyət və etibar", eyebrow: "Keyfiyyət və etibar", title: "Standartlarımız sənədləşir, hər gün tətbiq olunur", description: "Daxili audit, infeksiya nəzarəti və klinik təhlükəsizlik göstəriciləri davamlı izlənir.", active: true },
   { key: "contact-cta", type: "CTA", label: "Telefon əlaqə çağırışı", eyebrow: "Əlaqə", title: "Medicare təcrübəsini yaxından tanıyın", description: "Hospitalımız, həkimlərimiz və sizə uyğun xidmət planı haqqında komandamızdan məlumat alın.", active: true },
@@ -71,7 +69,7 @@ export async function generateMetadata() {
     description:
       page.seo?.description ||
       page.excerpt ||
-      "Medicare Hospital-ın tarixi, missiyası, tibbi yanaşması, rəhbərliyi və müasir infrastrukturu ilə tanış olun.",
+      "Medicare Hospital-ın tarixi, missiyası, tibbi yanaşması və infrastrukturu ilə tanış olun.",
     path: "/about",
     image: page.seo?.ogImage?.url,
     canonical: page.seo?.canonicalUrl,
@@ -84,14 +82,8 @@ export async function generateMetadata() {
 }
 
 export default async function AboutPage() {
-  const [
-    pageContent,
-    leadershipContent,
-    galleryContent,
-    certificateContent,
-  ] = await Promise.all([
+  const [pageContent, galleryContent, certificateContent] = await Promise.all([
     getPageContent("about", ABOUT_PAGE_FALLBACK),
-    getLeadershipContent(),
     getGalleryContent(),
     getCertificatesContent(),
   ]);
@@ -100,27 +92,23 @@ export default async function AboutPage() {
   const aboutContentStatus = {
     unavailable: [
       pageContent,
-      leadershipContent,
       galleryContent,
       certificateContent,
     ].some((result) => result.unavailable),
     source: [
       pageContent,
-      leadershipContent,
       galleryContent,
       certificateContent,
     ].some((result) => result.unavailable)
       ? "fallback"
       : [
             pageContent,
-            leadershipContent,
             galleryContent,
             certificateContent,
           ].every((result) => result.source === "live")
         ? "live"
         : "mock",
   };
-  const leadership = leadershipContent.items;
   const gallery = galleryContent.items;
   const certificates = certificateContent.items;
 
@@ -296,47 +284,6 @@ export default async function AboutPage() {
                     </Reveal>
                   ))}
                 </div>
-              </div>
-            </section>
-          );
-        }
-
-        if (section.key === "leadership") {
-          return (
-            <section className="section" key={section.id || section.key}>
-              <div className="container">
-                <SectionHeading
-                  eyebrow={section.eyebrow}
-                  title={section.title}
-                  text={section.description}
-                />
-                {leadership.length > 0 ? (
-                  <div className="leadershipGrid">
-                    {leadership.map((member, index) => (
-                      <Reveal
-                        className="leaderCard"
-                        key={member.id || member.name}
-                        delay={index * 80}
-                      >
-                        <div className="leaderCard__image">
-                          <SmartImage
-                            src={member.image}
-                            alt={`${member.name}, ${member.role}`}
-                            sizes="(max-width: 640px) 100vw, 33vw"
-                            fallbackLabel={member.name}
-                          />
-                        </div>
-                        <div>
-                          <span>{member.role}</span>
-                          <h3>{member.name}</h3>
-                          <p>{member.bio}</p>
-                        </div>
-                      </Reveal>
-                    ))}
-                  </div>
-                ) : (
-                  <EmptyState title="Rəhbərlik profili yoxdur" />
-                )}
               </div>
             </section>
           );

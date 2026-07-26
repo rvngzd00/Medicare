@@ -32,7 +32,7 @@ import {
   positiveSectionLimit,
   resolvePageSections,
 } from "@/utils/cmsSections";
-import { facilities, values } from "@/data/site";
+import { values } from "@/data/site";
 import { SITE_URL } from "@/constants/site";
 
 const HOME_DESCRIPTION =
@@ -118,21 +118,6 @@ const HOME_SECTIONS = [
     title: "Tibbi dəqiqlik, insani diqqətlə birlikdə",
     description:
       "Sistemimizi pasiyentin özünü məlumatlı, təhlükəsiz və rahat hiss etməsi üçün qurmuşuq.",
-  },
-  {
-    key: "technology",
-    type: "MEDIA",
-    label: "Texnologiya və imkanlar",
-    eyebrow: "Texnologiya və imkanlar",
-    title: "Daha aydın görüntü. Daha inamlı qərar.",
-    description:
-      "Avadanlığın gücünü ixtisaslaşmış həkim interpretasiyası və düzgün klinik protokolla tamamlayırıq.",
-    content: {
-      image: "/images/diagnostic-suite.png",
-      imageAlt: "Medicare 3 Tesla MRT diaqnostika mərkəzi",
-      linkLabel: "İnfrastrukturumuza bax",
-      linkHref: "/about#infrastructure",
-    },
   },
   {
     key: "contact-cta",
@@ -500,75 +485,6 @@ export default async function HomePage() {
                       </Reveal>
                     ))}
                   </div>
-                </div>
-              </section>
-            );
-          }
-
-          if (section.key === "technology") {
-            const facilityItems = Array.isArray(section.content.items)
-              ? section.content.items
-              : facilities;
-            return (
-              <section
-                className="section technologySection"
-                key={section.id || section.key}
-              >
-                <div className="container technologySection__grid">
-                  <Reveal
-                    className="technologySection__visual"
-                    variant="right"
-                  >
-                    <SmartImage
-                      src={
-                        section.content.image ||
-                        "/images/diagnostic-suite.png"
-                      }
-                      alt={
-                        section.content.imageAlt ||
-                        "Medicare diaqnostika mərkəzi"
-                      }
-                      sizes="(max-width: 900px) 100vw, 55vw"
-                    />
-                    <div className="technologySection__badge">
-                      <strong>
-                        {section.content.badgeMetric || "24/7"}
-                      </strong>
-                      <span>
-                        {section.content.badgeLabel || "Diaqnostika xidməti"}
-                      </span>
-                    </div>
-                  </Reveal>
-                  <Reveal
-                    className="technologySection__content"
-                    variant="left"
-                  >
-                    <SectionHeading
-                      eyebrow={section.eyebrow}
-                      title={section.title}
-                      text={section.description}
-                    />
-                    <div className="facilityList">
-                      {facilityItems.map((facility, index) => (
-                        <article key={facility.title || index}>
-                          <strong>{facility.metric}</strong>
-                          <div>
-                            <h3>{facility.title}</h3>
-                            <p>{facility.text || facility.description}</p>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                    {section.content.linkHref && (
-                      <Link
-                        className="button button--dark"
-                        href={section.content.linkHref}
-                      >
-                        {section.content.linkLabel || "Ətraflı bax"}
-                        <Icon name="arrow" size={18} />
-                      </Link>
-                    )}
-                  </Reveal>
                 </div>
               </section>
             );

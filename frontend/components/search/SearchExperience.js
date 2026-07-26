@@ -33,7 +33,7 @@ export default function SearchExperience({ initialQuery = "", collections }) {
         <div className="searchExperience__hint">
           <p>Axtarış üçün ən azı 2 simvol yazın.</p>
           <div className="chipList">
-            {["Kardiologiya", "MRT", "Pediatr", "Check-up"].map((word) => <button type="button" key={word} onClick={() => setQuery(word)}>{word}</button>)}
+            {["Kardiologiya", "Laboratoriya", "Pediatr", "Check-up"].map((word) => <button type="button" key={word} onClick={() => setQuery(word)}>{word}</button>)}
           </div>
         </div>
       ) : results.length ? (

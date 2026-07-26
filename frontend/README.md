@@ -79,7 +79,6 @@ Backend işləyərkən real public məzmun və forma sorğuları üçün `NEXT_P
 - `GET /public/content/branches`
 - `GET /public/content/faqs`
 - `GET /public/content/testimonials`
-- `GET /public/content/leadership`
 - `GET /public/content/gallery`
 - `GET /public/content/certificates`
 - `GET /public/pages/about`
@@ -93,7 +92,7 @@ Tam URL `NEXT_PUBLIC_API_URL` ilə birləşdirilir; public rejim üçün bu dəy
 
 Yalnız açıq şəkildə seçilən `NEXT_PUBLIC_USE_MOCK_API=true` rejimində ana səhifə, kataloqlar, axtarış, FAQ, əlaqə/filial, haqqımızda kontent blokları və detail səhifələri lokal data ilə yaradılır; əlaqə forması gecikməni simulyasiya edən lokal uğurlu cavab qaytarır. Backend olmadan həm lint, həm də production build tamamlanır.
 
-`NEXT_PUBLIC_USE_MOCK_API=false` olduqda ana səhifədəki seçilmiş kontent, həkim/şöbə/xidmət/məqalə indeksləri və detail route-ları, axtarış datası, FAQ, rəylər, filiallar, rəhbərlik, qalereya, sertifikatlar və “Haqqımızda” səhifəsi server tərəfdə public API-dən alınır. Public konfiqurasiya sorğusu brend adı/sloqanı, hero məzmununu, əlaqə məlumatlarını, ayrıca header/footer naviqasiyasını, sosial linkləri, qlobal SEO, optional GA4 identifikatorunu, cookie banner görünməsini və maintenance vəziyyətini idarə edir. Analytics yalnız istifadəçi “bütün kukilər” seçdikdən sonra yüklənir. Sitemap-də detail URL-ləri ilə yanaşı adminin yaratdığı yeni nəşr edilmiş CMS səhifələri də eyni canlı mənbədən qurulur.
+`NEXT_PUBLIC_USE_MOCK_API=false` olduqda ana səhifədəki seçilmiş kontent, həkim/şöbə/xidmət/məqalə indeksləri və detail route-ları, axtarış datası, FAQ, rəylər, filiallar, qalereya, sertifikatlar və “Haqqımızda” səhifəsi server tərəfdə public API-dən alınır. Public konfiqurasiya sorğusu brend adı/sloqanı, hero məzmununu, əlaqə məlumatlarını, ayrıca header/footer naviqasiyasını, sosial linkləri, qlobal SEO, optional GA4 identifikatorunu, cookie banner görünməsini və maintenance vəziyyətini idarə edir. Analytics yalnız istifadəçi “bütün kukilər” seçdikdən sonra yüklənir. Sitemap-də detail URL-ləri ilə yanaşı adminin yaratdığı yeni nəşr edilmiş CMS səhifələri də eyni canlı mənbədən qurulur.
 
 Kolleksiya və konfiqurasiya GET sorğuları Next.js Data Cache vasitəsilə 300 saniyəlik `revalidate` intervalı ilə yenilənir; səhifə qurucusunun `ContentPage/PageSection` sorğuları isə admin dəyişikliklərini gecikdirmədən göstərmək üçün `no-store` işləyir. Hər sorğu üçün 5 saniyəlik timeout tətbiq olunur. API müvəqqəti əlçatmaz olduqda kolleksiyalar və konfiqurasiya xəbərdarlıqla lokal fallback-a keçir. Server uğurla boş kolleksiya, naviqasiya və ya sosial-link siyahısı qaytararsa demo dəyərləri bərpa edilmir; bu, həqiqi empty state kimi qəbul olunur.
 
@@ -126,7 +125,7 @@ npm run start
 - Dashboard, ümumi göstəricilər və fəaliyyət axını
 - Həkim, şöbə, xidmət, məqalə və istifadəçi CRUD ekranları
 - Əlaqə mesajları
-- Ana səhifə, “Haqqımızda”, FAQ, filial, rəy, qalereya, sertifikat, rəhbərlik, naviqasiya, sosial hesab və əlaqə kontenti
+- Ana səhifə, “Haqqımızda”, FAQ, filial, rəy, qalereya, sertifikat, naviqasiya, sosial hesab və əlaqə kontenti
 - WordPress tipli səhifə qurucusu: yeni səhifə, blok tipi, mətn, media/link parametrləri, görünürlük, sıra, nəşr statusu, SEO və revision bərpası
 - Rollar və icazələr
 - Sayt, əlaqə, sosial media və SEO parametrləri

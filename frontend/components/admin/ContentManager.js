@@ -25,7 +25,7 @@ const sectionBlocks = {
     { id: "story", title: "Medicare tarixçəsi", eyebrow: "2017-ci ildən etibarən", description: "Xəstəxananın inkişaf yolu və əsas mərhələləri.", type: "Mətn", visible: true },
     { id: "mission", title: "Missiya və vizyon", eyebrow: "Məqsədimiz", description: "Pasiyent yönümlü tibbi xidmət prinsipləri.", type: "Mətn", visible: true },
     { id: "values", title: "Dəyərlərimiz", eyebrow: "Bizi birləşdirən prinsiplər", description: "Etibar, peşəkarlıq, empatiya və innovasiya.", type: "Kartlar", visible: true },
-    { id: "infrastructure", title: "İnfrastruktur", eyebrow: "Müasir klinik mühit", description: "Texnologiya, otaqlar və tibbi imkanlar.", type: "Qalereya", visible: true },
+    { id: "infrastructure", title: "İnfrastruktur", eyebrow: "Klinik mühit", description: "Hospital otaqları və pasiyent məkanları.", type: "Qalereya", visible: true },
   ],
   faq: [
     { id: "faq-1", title: "Hospital ilə necə əlaqə saxlaya bilərəm?", eyebrow: "Əlaqə", description: "+994 12 450 32 91 nömrəsinə zəng edərək hospitalın əlaqə mərkəzi ilə danışa bilərsiniz.", type: "Sual-cavab", visible: true },
@@ -39,13 +39,8 @@ const sectionBlocks = {
   branches: [
     { id: "sabunchu", title: "Medicare Hospital — Sabunçu", eyebrow: "Sabunçu rayonu", description: "Əslidar Məmmədəliyev küç. 5 · 24/7 açıq", type: "Filial", visible: true },
   ],
-  leadership: [
-    { id: "director", title: "Prof. Dr. Anar Məmmədov", eyebrow: "Baş direktor", description: "Tibb elmləri doktoru, səhiyyə idarəçiliyi üzrə 25 il təcrübə.", type: "Profil", visible: true },
-    { id: "medical-director", title: "Dr. Günel Abbasova", eyebrow: "Tibbi direktor", description: "Klinik keyfiyyət və pasiyent təhlükəsizliyi rəhbəri.", type: "Profil", visible: true },
-  ],
   gallery: [
     { id: "hospital", title: "Xəstəxana infrastrukturu", eyebrow: "12 media", description: "Fasad, qəbul zonası, palatalar və pasiyent məkanları.", type: "Albom", visible: true },
-    { id: "technology", title: "Tibbi texnologiyalar", eyebrow: "18 media", description: "Diaqnostika və müalicə avadanlıqları.", type: "Albom", visible: true },
     { id: "team", title: "Komandamız", eyebrow: "12 media", description: "Tibbi heyət və korporativ tədbirlər.", type: "Albom", visible: true },
   ],
   certificates: [
@@ -55,7 +50,7 @@ const sectionBlocks = {
   navigation: [
     { id: "header", title: "Əsas naviqasiya", eyebrow: "Header", description: "Ana səhifə · Haqqımızda · Şöbələr · Həkimlər · Xidmətlər · Xəbərlər · Əlaqə", type: "Menyu", visible: true },
     { id: "footer-medical", title: "Tibbi xidmətlər", eyebrow: "Footer sütunu", description: "Şöbə və xidmətlərə sürətli keçidlər.", type: "Menyu", visible: true },
-    { id: "footer-corporate", title: "Korporativ linklər", eyebrow: "Footer sütunu", description: "Haqqımızda, rəhbərlik, sertifikatlar və əlaqə.", type: "Menyu", visible: true },
+    { id: "footer-corporate", title: "Korporativ linklər", eyebrow: "Footer sütunu", description: "Haqqımızda, sertifikatlar və əlaqə.", type: "Menyu", visible: true },
   ],
   social: [
     { id: "instagram", title: "Instagram", eyebrow: "instagram", description: "https://www.instagram.com/", type: "Sosial hesab", visible: true },
@@ -76,7 +71,6 @@ const contentDefinitions = {
   faq: { resource: "faqs", type: "Sual-cavab" },
   testimonials: { resource: "testimonials", type: "Rəy", supportsFeatured: true },
   branches: { resource: "branches", type: "Filial" },
-  leadership: { resource: "leadership", type: "Profil", supportsMedia: true },
   gallery: { resource: "gallery", type: "Media qeydi", requiresMedia: true },
   certificates: { resource: "certificates", type: "Sənəd", supportsMedia: true },
   navigation: { resource: "navigation", type: "Menyu keçidi" },
@@ -94,12 +88,6 @@ function dateInput(value) {
   return date && !Number.isNaN(date.getTime())
     ? date.toISOString().slice(0, 10)
     : "";
-}
-
-function splitPersonName(value) {
-  const parts = String(value || "").trim().split(/\s+/).filter(Boolean);
-  if (parts.length < 2) return { firstName: parts[0] || "", lastName: "" };
-  return { firstName: parts.slice(0, -1).join(" "), lastName: parts.at(-1) };
 }
 
 function contentRecordToBlock(section, record) {
@@ -134,17 +122,6 @@ function contentRecordToBlock(section, record) {
     longitude: record.longitude == null ? "" : String(record.longitude),
     workingHours: jsonText(record.workingHours || {}),
     mapEmbedUrl: record.mapEmbedUrl || ""
-  };
-  if (section === "leadership") return {
-    ...common,
-    title: [record.firstName, record.lastName].filter(Boolean).join(" "),
-    eyebrow: record.position || "",
-    description: record.bio || "",
-    email: record.email || "",
-    socialLinks: jsonText(record.socialLinks || {}),
-    mediaFile: "",
-    mediaName: record.image?.originalName || record.image?.altText || "",
-    mediaId: record.imageId
   };
   if (section === "gallery") return { ...common, title: record.title, eyebrow: record.category || "", description: record.description || "", mediaFile: "", mediaName: record.media?.originalName || record.media?.altText || "Mövcud media", mediaId: record.mediaId };
   if (section === "certificates") return {
@@ -195,17 +172,6 @@ function contentBlockPayload(section, block, index) {
       `${block.title} iş saatları`
     ),
     mapEmbedUrl: block.mapEmbedUrl || null
-  };
-  if (section === "leadership") return {
-    ...common,
-    ...splitPersonName(block.title),
-    position: block.eyebrow,
-    bio: block.description,
-    email: block.email || null,
-    socialLinks: parseJsonDescription(
-      { description: block.socialLinks || "{}" },
-      `${block.title} sosial keçidləri`
-    )
   };
   if (section === "gallery") return { ...common, title: block.title, category: block.eyebrow, description: block.description };
   if (section === "certificates") return {
@@ -489,17 +455,11 @@ export function ContentSectionEditor({ section }) {
       setToast({ tone: "warning", message: "Filial üçün telefon nömrəsi məcburidir." });
       return;
     }
-    const eyebrowRequired = ["branches", "leadership", "certificates", "navigation", "social", "contact"];
+    const eyebrowRequired = ["branches", "certificates", "navigation", "social", "contact"];
     const incompleteEyebrow = eyebrowRequired.includes(section) && blocks.find((block) => !block.eyebrow?.trim());
     if (incompleteEyebrow) {
       setSelectedId(incompleteEyebrow.id);
       setToast({ tone: "warning", message: "Üst başlıq / kateqoriya sahəsi bu resurs üçün məcburidir." });
-      return;
-    }
-    const invalidLeadershipName = section === "leadership" && blocks.find((block) => splitPersonName(block.title).lastName === "");
-    if (invalidLeadershipName) {
-      setSelectedId(invalidLeadershipName.id);
-      setToast({ tone: "warning", message: "Rəhbərlik profili üçün ad və soyad daxil edin." });
       return;
     }
     const missingGalleryMedia = section === "gallery" && blocks.find((block) => block._isNew && !(typeof File !== "undefined" && block.mediaFile instanceof File));
@@ -684,19 +644,6 @@ export function ContentSectionEditor({ section }) {
                     <div className={styles.formField}>
                       <label htmlFor="block-map-url">Xəritə embed URL</label>
                       <input id="block-map-url" type="url" value={selected.mapEmbedUrl || ""} onChange={(event) => updateSelected("mapEmbedUrl", event.target.value)} />
-                    </div>
-                  </>
-                )}
-                {section === "leadership" && (
-                  <>
-                    <div className={styles.formField}>
-                      <label htmlFor="block-leadership-email">İş e-maili</label>
-                      <input id="block-leadership-email" type="email" value={selected.email || ""} onChange={(event) => updateSelected("email", event.target.value)} />
-                    </div>
-                    <div className={styles.formField}>
-                      <label htmlFor="block-social-links">Sosial keçidlər (JSON)</label>
-                      <textarea id="block-social-links" rows={5} value={selected.socialLinks || "{}"} onChange={(event) => updateSelected("socialLinks", event.target.value)} />
-                      <div className={styles.fieldMeta}><span>Məsələn: {`{"linkedin":"https://linkedin.com/in/profil"}`}</span></div>
                     </div>
                   </>
                 )}

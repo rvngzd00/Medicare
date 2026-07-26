@@ -3,7 +3,6 @@ import Link from "next/link";
 import PageHero from "@/components/common/PageHero";
 import SmartImage from "@/components/common/SmartImage";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import ContactCta from "@/components/common/ContactCta";
 import Icon from "@/components/common/Icon";
 import JsonLd from "@/components/seo/JsonLd";
 import Reveal from "@/components/animations/Reveal";
@@ -13,8 +12,7 @@ import {
 } from "@/components/common/ContentStatus";
 import {
   getDoctorContent,
-  getDoctorsContent,
-  getPublicConfigurationContent
+  getDoctorsContent
 } from "@/services/content";
 import { createMetadata, absoluteUrl } from "@/utils/seo";
 
@@ -32,7 +30,7 @@ export async function generateMetadata({ params }) {
   const seo = doctor.seo || {};
   return createMetadata({
     title: seo.title || doctor.name,
-    description: seo.description || `${doctor.name} — ${doctor.specialty}, ${doctor.experience} il təcrübə. Profil, iş qrafiki və birbaşa əlaqə məlumatları.`,
+    description: seo.description || `${doctor.name} — ${doctor.specialty}, ${doctor.experience} il təcrübə. Peşəkar profil, təhsil və iş qrafiki.`,
     path: `/doctors/${doctor.slug}`,
     image: seo.ogImage?.url || doctor.image,
     canonical: seo.canonicalUrl,
@@ -46,12 +44,10 @@ export async function generateMetadata({ params }) {
 
 export default async function DoctorDetailPage({ params }) {
   const { slug } = await params;
-  const [content, directory, configurationContent] = await Promise.all([
+  const [content, directory] = await Promise.all([
     getDoctorContent(slug),
-    getDoctorsContent(),
-    getPublicConfigurationContent()
+    getDoctorsContent()
   ]);
-  const contact = configurationContent.configuration.contact;
   const doctor = content.item;
   if (!doctor && content.unavailable) {
     return <ContentUnavailable title="Həkim profilini yükləyə bilmədik" />;
@@ -109,23 +105,7 @@ export default async function DoctorDetailPage({ params }) {
           <aside>
             <Reveal className="doctorProfile__portrait">
               <SmartImage src={doctor.image} alt={`${doctor.name}, ${doctor.specialty}`} sizes="(max-width: 800px) 100vw, 36vw" priority fallbackLabel={doctor.name} />
-              <span><i />Əlaqə mərkəzi açıqdır</span>
             </Reveal>
-            <div className="doctorProfile__actions">
-              <a className="button button--primary button--wide" href={contact.phoneHref}>
-                <Icon name="phone" size={19} /> Bizimlə əlaqə saxla
-              </a>
-            </div>
-            <div className="doctorProfile__contact">
-              <p><Icon name="location" size={18} /><span><small>Filial</small>{doctor.branch}</span></p>
-              <p><Icon name="globe" size={18} /><span><small>Dillər</small>{doctor.languages.join(", ")}</span></p>
-              <p><Icon name="shield" size={18} /><span><small>Təcrübə</small>{doctor.experience} il</span></p>
-            </div>
-            <div className="doctorProfile__social">
-              <span>Professional əlaqə</span>
-              <a href="mailto:official@medicarehospital.az"><Icon name="mail" size={18} /> E-mail</a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={18} /> LinkedIn</a>
-            </div>
           </aside>
           <div className="doctorProfile__content">
             <ContentStatusNotice result={degradedResult} />
@@ -163,7 +143,7 @@ export default async function DoctorDetailPage({ params }) {
                   return <p key={item}><span>{day}</span><strong>{time || ""}</strong></p>;
                 })}
               </div>
-              <small className="profileNote">İş qrafiki dəyişə bilər. Aktual məlumat üçün əlaqə mərkəzimizə zəng edin.</small>
+              <small className="profileNote">İş qrafiki dəyişə bilər.</small>
             </ProfileSection>
           </div>
         </div>
@@ -176,12 +156,11 @@ export default async function DoctorDetailPage({ params }) {
               <Link className="textAction" href={`/doctors?department=${doctor.department}`}>Bütün həkimlər <Icon name="arrow" size={18} /></Link>
             </div>
             <div className="cardGrid cardGrid--three">
-              {fallbackRelated.map((item) => <DoctorCard doctor={item} phoneHref={contact.phoneHref} key={item.slug} />)}
+              {fallbackRelated.map((item) => <DoctorCard doctor={item} key={item.slug} />)}
             </div>
           </div>
         </section>
       )}
-      <ContactCta contact={contact} />
       <JsonLd data={physicianSchema} />
     </>
   );

@@ -10,7 +10,6 @@ import { articles as mockArticles, getArticle as getMockArticle } from "@/data/a
 import {
   branches as mockBranches,
   facilities as mockFacilities,
-  leadership as mockLeadership,
   testimonials as mockTestimonials
 } from "@/data/site";
 import { faqs as mockFaqs } from "@/data/faqs";
@@ -213,14 +212,6 @@ export function getTestimonialsContent() {
     "/public/content/testimonials?limit=100",
     mockTestimonials,
     adaptTestimonial
-  );
-}
-
-export function getLeadershipContent() {
-  return getCollection(
-    "/public/content/leadership?limit=100",
-    mockLeadership,
-    adaptLeadership
   );
 }
 
@@ -510,9 +501,6 @@ function adaptDoctor(raw, context = {}) {
     schedule: Array.isArray(raw.schedules)
       ? raw.schedules.map(formatSchedule)
       : raw.schedule || [],
-    socialLinks: raw.socialLinks || {},
-    email: raw.email,
-    phone: raw.phone,
     seo: adaptSeo(raw.seo),
     relatedDoctors
   };
@@ -554,7 +542,6 @@ function adaptDepartment(raw) {
     serviceSlugs: services.length
       ? services.map((service) => service.slug)
       : raw.serviceSlugs || [],
-    technologies: raw.technologies || [],
     faq: (raw.faqs || raw.faq || []).map(adaptFaq),
     services,
     doctors,
@@ -680,17 +667,6 @@ function adaptTestimonial(raw) {
     name: raw.patientName || "Medicare pasiyenti",
     detail: raw.patientTitle || raw.department?.name || "Təsdiqlənmiş pasiyent rəyi",
     rating: Math.min(5, Math.max(1, Number(raw.rating) || 5))
-  };
-}
-
-function adaptLeadership(raw) {
-  if (raw.name && raw.role) return raw;
-  return {
-    id: raw.id,
-    name: [raw.firstName, raw.lastName].filter(Boolean).join(" "),
-    role: raw.position || "",
-    bio: raw.bio || "",
-    image: resolveMedia(raw.image, "/images/doctor-placeholder.svg")
   };
 }
 

@@ -51,7 +51,6 @@ publicRouter.get(
           'testimonials',
           'gallery',
           'certificates',
-          'leadership',
           'article-categories'
         ])
       })

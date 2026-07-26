@@ -76,7 +76,6 @@ export const adminEntities = Object.freeze({
       'summary',
       'description',
       'conditions',
-      'technologies',
       'phone',
       ...commonMediaSeoFields,
       'featured',
@@ -85,7 +84,7 @@ export const adminEntities = Object.freeze({
     ],
     integers: ['sortOrder'],
     booleans: ['active', 'featured'],
-    stringArrays: ['conditions', 'technologies'],
+    stringArrays: ['conditions'],
     idArrays: ['branchIds'],
     include: { image: true, seo: true, branches: true, _count: true }
   },
@@ -285,30 +284,6 @@ export const adminEntities = Object.freeze({
     booleans: ['active'],
     dateFields: ['issuedAt', 'expiresAt'],
     include: { media: true }
-  },
-  leadership: {
-    delegate: 'leadershipMember',
-    permission: 'leadership',
-    softDelete: true,
-    searchFields: ['firstName', 'lastName', 'position'],
-    orderBy: [{ sortOrder: 'asc' }],
-    slugSource: (data) => `${data.firstName || ''}-${data.lastName || ''}`,
-    required: ['firstName', 'lastName', 'position'],
-    writable: [
-      'slug',
-      'firstName',
-      'lastName',
-      'position',
-      'bio',
-      'email',
-      'socialLinks',
-      'imageId',
-      ...commonContentFields
-    ],
-    integers: ['sortOrder'],
-    booleans: ['active'],
-    jsonFields: ['socialLinks'],
-    include: { image: true }
   },
   navigation: {
     delegate: 'navigationItem',

@@ -47,34 +47,6 @@
   transform: scale(1.035);
 }
 
-.doctorStatus {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.48rem 0.7rem;
-  color: var(--navy-900);
-  font-size: var(--type-label);
-  font-weight: 750;
-  letter-spacing: 0.02em;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
-  backdrop-filter: blur(10px);
-}
-
-.doctorStatus::before {
-  width: 0.46rem;
-  height: 0.46rem;
-  content: "";
-  background: #2aad7b;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(42, 173, 123, 0.13);
-}
-
 .doctorContent {
   padding: 1.35rem 1.35rem 1.45rem;
 }
@@ -129,7 +101,7 @@
 
 .cardActions {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 0.6rem;
   margin-top: 1.15rem;
 }

@@ -31,14 +31,13 @@ Content modules map to backend resources as follows:
 | FAQ | `faqs` |
 | Pasiyent rəyləri | `testimonials` |
 | Filiallar | `branches` |
-| Rəhbərlik | `leadership` |
 | Qalereya | `gallery` plus media upload |
 | Sertifikatlar | `certificates` |
 | Naviqasiya | `navigation` |
 | Sosial media | `social-links` |
 | Əlaqə məlumatları | `settings` (`key=contact`) |
 
-The Home hero and About page are singleton records and therefore cannot be created or deleted from their section editors. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional leadership and certificate media use the same pipeline.
+The Home hero and About page are singleton records and therefore cannot be created or deleted from their section editors. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional certificate media uses the same pipeline.
 
 Roles load the backend permission catalogue and preserve granular permission codes that are only partially represented by a grouped checkbox. Settings persist public configuration records; auth security policy and server secrets are shown as server-managed because those controls are not mutable through the current API.
 

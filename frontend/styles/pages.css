@@ -218,101 +218,6 @@
   object-position: center 16%;
 }
 
-.doctorProfile__portrait > span {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.7rem;
-  color: var(--navy-900);
-  font-size: var(--type-caption);
-  font-weight: 750;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 99px;
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(8px);
-}
-
-.doctorProfile__portrait > span i {
-  width: 0.46rem;
-  height: 0.46rem;
-  background: #2aa979;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(42, 169, 121, 0.13);
-}
-
-.doctorProfile__actions {
-  display: grid;
-  gap: 0.65rem;
-  margin-top: 1rem;
-}
-
-.doctorProfile__contact {
-  display: grid;
-  margin-top: 1.2rem;
-  padding: 1.1rem;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-}
-
-.doctorProfile__contact p {
-  display: flex;
-  gap: 0.65rem;
-  margin: 0;
-  padding: 0.75rem 0;
-  color: var(--red-600);
-  border-bottom: 1px solid var(--line);
-}
-
-.doctorProfile__contact p:last-child {
-  border-bottom: 0;
-}
-
-.doctorProfile__contact span {
-  display: flex;
-  flex-direction: column;
-  color: var(--navy-800);
-  font-size: var(--type-label);
-  font-weight: 700;
-}
-
-.doctorProfile__contact small {
-  color: var(--text-soft);
-  font-size: var(--type-micro);
-  font-weight: 600;
-}
-
-.doctorProfile__social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.doctorProfile__social > span {
-  width: 100%;
-  color: var(--text-soft);
-  font-size: var(--type-caption);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.doctorProfile__social a {
-  display: inline-flex;
-  min-height: 2.3rem;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.7rem;
-  color: var(--text-muted);
-  font-size: var(--type-caption);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-}
-
 .doctorProfile__content > .reveal:first-child h2 {
   max-width: 43rem;
   margin: 0;
@@ -604,58 +509,6 @@
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-}
-
-.technologyCard {
-  padding: 2rem;
-  color: rgba(255, 255, 255, 0.6);
-  background:
-    radial-gradient(circle at 90% 12%, rgba(72, 145, 165, 0.2), transparent 30%),
-    var(--navy-950);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-}
-
-.technologyCard__icon {
-  display: grid;
-  width: 3.5rem;
-  height: 3.5rem;
-  color: #9bd0de;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  place-items: center;
-}
-
-.technologyCard h2 {
-  margin: 1.3rem 0 0;
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-.technologyCard > p {
-  margin: 0.6rem 0 1.2rem;
-  font-size: var(--type-ui);
-  line-height: 1.65;
-}
-
-.technologyCard ol {
-  display: grid;
-}
-
-.technologyCard li {
-  display: grid;
-  min-height: 3rem;
-  grid-template-columns: 2rem 1fr;
-  align-items: center;
-  font-size: var(--type-label);
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
-}
-
-.technologyCard li span {
-  color: #ff9da7;
-  font-size: var(--type-micro);
-  font-weight: 800;
 }
 
 /* Service detail */
@@ -1664,11 +1517,6 @@
 
   .doctorProfile__grid > aside {
     display: block;
-  }
-
-  .doctorProfile__actions,
-  .doctorProfile__contact {
-    margin-top: 1rem;
   }
 
   .profileDouble,

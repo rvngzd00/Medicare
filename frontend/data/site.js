@@ -1,8 +1,7 @@
 export const stats = [
   { value: 2017, suffix: "", label: "fəaliyyətə başlanğıc" },
   { value: 24, suffix: "/7", label: "xidmət rejimi" },
-  { value: 7, suffix: "+", label: "tibbi istiqamət" },
-  { value: 1, suffix: "", label: "Sabunçu ünvanı" }
+  { value: 7, suffix: "+", label: "tibbi istiqamət" }
 ];
 
 export const branches = [
@@ -36,7 +35,7 @@ export const values = [
   },
   {
     title: "Davamlı inkişaf",
-    text: "Komandamızın biliklərini və texnologiyalarımızı beynəlxalq standartlarla yeniləyirik.",
+    text: "Komandamızın biliklərini və klinik yanaşmalarını davamlı olaraq yeniləyirik.",
     icon: "spark"
   }
 ];
@@ -88,34 +87,7 @@ export const timeline = [
   }
 ];
 
-export const leadership = [
-  {
-    name: "Dr. Kamran Rzayev",
-    role: "Baş direktor",
-    bio: "Səhiyyə idarəçiliyi və klinik keyfiyyət sistemlərində 22 illik təcrübə.",
-    image: "/images/doctors/orxan-huseynli.png"
-  },
-  {
-    name: "Dr. Lalə Abbasova",
-    role: "Tibbi direktor",
-    bio: "Multidissiplinar müalicə protokolları və pasiyent təhlükəsizliyi üzrə ekspert.",
-    image: "/images/doctors/nigar-aliyeva.png"
-  },
-  {
-    name: "Aysel Mirzəyeva",
-    role: "Əməliyyat direktoru",
-    bio: "Xidmət dizaynı, rəqəmsal klinika və pasiyent təcrübəsi proqramlarına rəhbərlik edir.",
-    image: "/images/doctors/elcin-memmedov.png"
-  }
-];
-
 export const facilities = [
-  {
-    title: "3 Tesla MRT",
-    text: "Yüksək dəqiqlikli neyroloji və dayaq-hərəkət görüntüləməsi.",
-    metric: "3T",
-    image: "/images/diagnostic-suite.png"
-  },
   {
     title: "Rəqəmsal əməliyyat bloku",
     text: "İnteqrasiya olunmuş görüntü və steril hava nəzarəti sistemi.",

@@ -16,7 +16,6 @@ const contentEntities = [
   "branches",
   "gallery",
   "certificates",
-  "leadership",
   "navigation",
   "social_links",
   "media",
