@@ -1,37 +1,30 @@
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/v1";
-let apiMediaPattern;
+// MEDICARE_CPANEL_LOW_RESOURCE
+import originalConfig from "./next.config.base.mjs";
 
-try {
-  const apiOrigin = new URL(apiUrl);
-  apiMediaPattern = {
-    protocol: apiOrigin.protocol.replace(":", ""),
-    hostname: apiOrigin.hostname,
-    port: apiOrigin.port,
-    pathname: "/**"
+function applyLimits(config = {}) {
+  return {
+    ...config,
+
+    eslint: {
+      ...(config.eslint || {}),
+      ignoreDuringBuilds: true,
+    },
+
+    experimental: {
+      ...(config.experimental || {}),
+      cpus: 1,
+      workerThreads: false,
+      staticGenerationMaxConcurrency: 1,
+      staticGenerationMinPagesPerWorker: 1000,
+    },
   };
-} catch {
-  apiMediaPattern = null;
 }
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  poweredByHeader: false,
-  compress: true,
-  async redirects() {
-    return [
-      {
-        source: "/appointment",
-        destination: "/contact",
-        permanent: true
-      }
-    ];
-  },
-  images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [320, 430, 768, 1024, 1280, 1440, 1920],
-    remotePatterns: apiMediaPattern ? [apiMediaPattern] : []
-  }
-};
+export default async function medicareConfig(...args) {
+  const resolved =
+    typeof originalConfig === "function"
+      ? await originalConfig(...args)
+      : originalConfig;
 
-export default nextConfig;
+  return applyLimits(resolved || {});
+}

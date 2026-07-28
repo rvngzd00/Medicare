@@ -1,0 +1,38 @@
+name: Deploy Medicare
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: medicare-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to cPanel
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+
+        run: |
+          install -m 700 -d ~/.ssh
+
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/medicare_actions
+          chmod 600 ~/.ssh/medicare_actions
+
+          ssh-keyscan -H 94.20.248.25 >> ~/.ssh/known_hosts
+
+          ssh \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=6 \
+            -i ~/.ssh/medicare_actions \
+            medicarehospital@94.20.248.25 \
+            '/home/medicarehospital/deploy-medicare.sh'
