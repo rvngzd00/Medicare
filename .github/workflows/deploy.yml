@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 concurrency:
@@ -13,12 +12,11 @@ concurrency:
 
 jobs:
   deploy:
-    name: Deploy to cPanel
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
-      - name: Deploy over SSH
+      - name: Deploy to cPanel
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
 
@@ -28,11 +26,27 @@ jobs:
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/medicare_actions
           chmod 600 ~/.ssh/medicare_actions
 
-          ssh-keyscan -H 94.20.248.25 >> ~/.ssh/known_hosts
+          for attempt in 1 2 3; do
+            echo "SSH attempt: $attempt"
 
-          ssh \
-            -o ServerAliveInterval=30 \
-            -o ServerAliveCountMax=6 \
-            -i ~/.ssh/medicare_actions \
-            medicarehospital@94.20.248.25 \
-            '/home/medicarehospital/deploy-medicare.sh'
+            if ssh \
+              -o StrictHostKeyChecking=accept-new \
+              -o IdentitiesOnly=yes \
+              -o ConnectTimeout=20 \
+              -o ConnectionAttempts=1 \
+              -o ServerAliveInterval=30 \
+              -o ServerAliveCountMax=6 \
+              -i ~/.ssh/medicare_actions \
+              medicarehospital@94.20.248.25 \
+              '/home/medicarehospital/deploy-medicare.sh'
+            then
+              echo "Deployment successful"
+              exit 0
+            fi
+
+            echo "SSH failed. Retrying..."
+            sleep 20
+          done
+
+          echo "Deployment failed after 3 attempts"
+          exit 1
