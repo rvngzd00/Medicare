@@ -126,6 +126,7 @@ npm run start
 - Həkim, şöbə, xidmət, məqalə və istifadəçi CRUD ekranları
 - Əlaqə mesajları
 - Ana səhifə, “Haqqımızda”, FAQ, filial, rəy, qalereya, sertifikat, naviqasiya, sosial hesab və əlaqə kontenti
+- Baş direktorun adı, vəzifəsi, fotosu, müraciəti, imzası və ana səhifədə görünməsi
 - WordPress tipli səhifə qurucusu: yeni səhifə, blok tipi, mətn, media/link parametrləri, görünürlük, sıra, nəşr statusu, SEO və revision bərpası
 - Rollar və icazələr
 - Sayt, əlaqə, sosial media və SEO parametrləri

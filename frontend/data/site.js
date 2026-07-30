@@ -4,6 +4,18 @@ export const stats = [
   { value: 7, suffix: "+", label: "tibbi istiqamət" }
 ];
 
+export const executiveDirector = {
+  id: "executive-director-demo",
+  fullName: "Dr. Kamran Rzayev",
+  role: "Baş direktor",
+  message:
+    "İnanırıq ki, keyfiyyətli tibbi xidmət dəqiq qərarla yanaşı, pasiyentə aydın və diqqətli münasibətdən başlayır.",
+  signature: "Dr. Kamran Rzayev",
+  image: "",
+  imageAlt: "Dr. Kamran Rzayev — Baş direktor",
+  active: true
+};
+
 export const branches = [
   {
     id: "sabunchu",

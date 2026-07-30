@@ -16,6 +16,7 @@ const navigationPermissions = {
   "/admin/articles": ["articles.read"],
   "/admin/messages": ["contacts.read"],
   "/admin/content": ["home_sections.read", "pages.read"],
+  "/admin/content/director": ["home_sections.read"],
   "/admin/pages": ["pages.read"],
   "/admin/settings": ["settings.read"],
   "/admin/users": ["users.read"],
@@ -235,7 +236,7 @@ export default function AdminShell({ children }) {
               <p>{group.label}</p>
               <ul>
                 {group.items.map((item) => {
-                  const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
+                  const active = currentNavigationHref === item.href;
                   return (
                     <li key={item.href}>
                       <Link className={`${styles.navLink} ${active ? styles.navLinkActive : ""}`} href={item.href} aria-current={active ? "page" : undefined}>

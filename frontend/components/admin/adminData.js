@@ -22,6 +22,7 @@ export const adminNavigation = [
     label: "Sayt və sistem",
     items: [
       { label: "Sayt kontenti", href: "/admin/content", icon: "content" },
+      { label: "Baş direktor", href: "/admin/content/director", icon: "users" },
       { label: "Səhifə qurucusu", href: "/admin/pages", icon: "menu" },
       { label: "Parametrlər", href: "/admin/settings", icon: "settings" },
       { label: "İstifadəçilər", href: "/admin/users", icon: "users" },
@@ -38,6 +39,7 @@ export const pageMeta = {
   "/admin/articles": ["Məqalələr", "Xəbərlər və sağlamlıq materialları"],
   "/admin/messages": ["Mesajlar", "Əlaqə mərkəzi gələnlər qutusu"],
   "/admin/content": ["Sayt kontenti", "Public səhifə və bölmələr"],
+  "/admin/content/director": ["Baş direktor", "Ana səhifədəki rəhbər təqdimatı"],
   "/admin/pages": ["Səhifə qurucusu", "Səhifə, bölmə, sıra və nəşr idarəsi"],
   "/admin/settings": ["Parametrlər", "Sayt və sistem konfiqurasiyası"],
   "/admin/users": ["İstifadəçilər", "Admin hesablarının idarəsi"],
@@ -367,6 +369,7 @@ export const messageRows = [
 
 export const contentSections = [
   { id: "home", title: "Ana səhifə", description: "Əsas hero təqdimatı və CTA keçidləri", icon: "home", items: 1, updated: "18 dəq əvvəl", status: "Aktiv" },
+  { id: "director", title: "Baş direktor", description: "Ad, vəzifə, foto, müraciət, imza və ana səhifə görünməsi", icon: "users", items: 1, updated: "İndi", status: "Aktiv" },
   { id: "about", title: "Haqqımızda", description: "Tarix, missiya, vizyon, dəyərlər və infrastruktur", icon: "content", items: 9, updated: "Dünən", status: "Aktiv" },
   { id: "faq", title: "Tez-tez verilən suallar", description: "Kateqoriyalar üzrə sual-cavab bazası", icon: "messages", items: 18, updated: "19 iyul", status: "Aktiv" },
   { id: "testimonials", title: "Pasiyent rəyləri", description: "Təsdiqlənmiş rəylər və görünmə sırası", icon: "users", items: 8, updated: "18 iyul", status: "Aktiv" },
@@ -380,6 +383,7 @@ export const contentSections = [
 
 export const contentEditorMeta = {
   home: { title: "Ana səhifə kontenti", description: "Hero başlığını, açıqlamasını, CTA keçidlərini və görünməsini idarə edin." },
+  director: { title: "Baş direktor", description: "Direktor profilini və ana səhifədəki təqdimat kartını idarə edin." },
   about: { title: "Haqqımızda kontenti", description: "Korporativ hekayə, missiya, vizyon və dəyərləri yeniləyin." },
   faq: { title: "FAQ idarəetməsi", description: "Sual-cavab bloklarını kateqoriyalar üzrə təşkil edin." },
   testimonials: { title: "Pasiyent rəyləri", description: "Rəyləri yoxlayın, sıralayın və yayımlayın." },

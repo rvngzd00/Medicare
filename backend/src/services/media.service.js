@@ -138,40 +138,54 @@ export async function listMedia(query) {
 }
 
 export async function deleteMedia(id) {
-  const media = await prisma.mediaFile.findFirst({
-    where: { id, deletedAt: null },
-    include: {
-      _count: {
-        select: {
-          doctorImages: true,
-          departmentImages: true,
-          serviceImages: true,
-          branchImages: true,
-          articleImages: true,
-          testimonialImages: true,
-          galleryItems: true,
-          certificateFiles: true,
-          leadershipImages: true,
-          seoImages: true
+  const media = await prisma.$transaction(async (transaction) => {
+    const lockedMedia = await transaction.$queryRaw`
+      SELECT "id"
+      FROM "MediaFile"
+      WHERE "id" = ${id} AND "deletedAt" IS NULL
+      FOR UPDATE
+    `;
+    if (lockedMedia.length === 0) {
+      throw new ApiError(404, 'MEDIA_NOT_FOUND', 'Media file was not found.');
+    }
+
+    const record = await transaction.mediaFile.findUnique({
+      where: { id },
+      include: {
+        _count: {
+          select: {
+            doctorImages: true,
+            departmentImages: true,
+            serviceImages: true,
+            branchImages: true,
+            articleImages: true,
+            testimonialImages: true,
+            galleryItems: true,
+            certificateFiles: true,
+            leadershipImages: true,
+            executiveDirectorProfiles: true,
+            seoImages: true
+          }
         }
       }
+    });
+    const references = Object.values(record._count).reduce((sum, count) => sum + count, 0);
+    if (references > 0) {
+      throw new ApiError(
+        409,
+        'MEDIA_IN_USE',
+        'Media is still referenced and cannot be deleted.',
+        { references }
+      );
     }
-  });
-  if (!media) throw new ApiError(404, 'MEDIA_NOT_FOUND', 'Media file was not found.');
-  const references = Object.values(media._count).reduce((sum, count) => sum + count, 0);
-  if (references > 0) {
-    throw new ApiError(
-      409,
-      'MEDIA_IN_USE',
-      'Media is still referenced and cannot be deleted.',
-      { references }
-    );
-  }
 
-  await prisma.mediaFile.update({
-    where: { id },
-    data: { deletedAt: new Date() }
+    await transaction.mediaFile.update({
+      where: { id },
+      data: { deletedAt: new Date() }
+    });
+    return record;
   });
+
   if (media.provider === 'LOCAL') {
     await storage
       .delete(media.storageKey, media.thumbnailUrl)

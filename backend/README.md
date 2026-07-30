@@ -96,6 +96,7 @@ aktiv refresh sessiyaları ləğv olunur.
 Public:
 
 - `GET /api/v1/public/configuration`
+- `GET /api/v1/public/executive-director`
 - `GET /api/v1/public/doctors`, `/doctors/:slug`
 - `GET /api/v1/public/departments`, `/departments/:slug`
 - `GET /api/v1/public/services`, `/services/:slug`
@@ -107,6 +108,7 @@ Public:
 Admin:
 
 - `GET /api/v1/admin/dashboard`
+- `GET/PUT /api/v1/admin/executive-director`
 - CRUD: `doctors`, `departments`, `services`, `articles`,
   `article-categories`, `faqs`, `testimonials`, `branches`, `gallery`,
   `certificates`, `navigation`, `settings`,

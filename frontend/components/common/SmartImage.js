@@ -40,7 +40,7 @@ export default function SmartImage({
       height={fill ? undefined : height}
       sizes={sizes}
       priority={priority}
-      unoptimized={/^https?:\/\//i.test(safeSrc)}
+      unoptimized={/^(?:https?:\/\/|blob:)/i.test(safeSrc)}
       referrerPolicy={/^https?:\/\//i.test(safeSrc) ? "no-referrer" : undefined}
       className={className}
       onError={() => setFailed(true)}
@@ -50,6 +50,10 @@ export default function SmartImage({
 
 function safeImageSource(value) {
   const source = typeof value === "string" ? value.trim() : "";
-  if (/^\/(?!\/)/.test(source) || /^https?:\/\//i.test(source)) return source;
+  if (
+    /^\/(?!\/)/.test(source) ||
+    /^https?:\/\//i.test(source) ||
+    /^blob:/i.test(source)
+  ) return source;
   return "";
 }

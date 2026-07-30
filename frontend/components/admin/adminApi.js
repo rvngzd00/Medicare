@@ -9,6 +9,30 @@ export const ADMIN_DEMO_MODE = process.env.NEXT_PUBLIC_ADMIN_DEMO_MODE
   ? process.env.NEXT_PUBLIC_ADMIN_DEMO_MODE === "true"
   : process.env.NEXT_PUBLIC_USE_MOCK_API === "true";
 
+const LOCAL_API_HOSTS = new Set(["localhost", "127.0.0.1", "::1"]);
+
+export function getAdminApiBase() {
+  if (typeof window === "undefined" || ADMIN_API_BASE.startsWith("/")) {
+    return ADMIN_API_BASE;
+  }
+
+  try {
+    const apiUrl = new URL(ADMIN_API_BASE);
+    const browserHost = window.location.hostname;
+    if (
+      LOCAL_API_HOSTS.has(apiUrl.hostname) &&
+      !LOCAL_API_HOSTS.has(browserHost)
+    ) {
+      apiUrl.hostname = browserHost;
+      return apiUrl.toString().replace(/\/+$/, "");
+    }
+  } catch {
+    return ADMIN_API_BASE;
+  }
+
+  return ADMIN_API_BASE;
+}
+
 let inMemoryAccessToken = null;
 let refreshPromise = null;
 let latestResponseContext = { meta: null, message: null };
@@ -74,7 +98,7 @@ function unwrapPayload(payload) {
 async function refreshAccessToken(signal) {
   if (refreshPromise) return refreshPromise;
 
-  refreshPromise = fetch(`${ADMIN_API_BASE}/auth/refresh`, {
+  refreshPromise = fetch(`${getAdminApiBase()}/auth/refresh`, {
     method: "POST",
     credentials: "include",
     headers: { Accept: "application/json" },
@@ -116,7 +140,7 @@ async function request(path, options = {}) {
 
   let response;
   try {
-    response = await fetch(`${ADMIN_API_BASE}${path}`, {
+    response = await fetch(`${getAdminApiBase()}${path}`, {
       method,
       credentials: "include",
       headers: requestHeaders,
@@ -257,6 +281,22 @@ export const adminApi = {
     list: (params = {}, options = {}) => request(`/admin/settings?${new URLSearchParams(params)}`, options),
     create: (data, options = {}) => request("/admin/settings", { ...options, method: "POST", body: data }),
     update: (id, data, options = {}) => request(`/admin/settings/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),
+  },
+
+  executiveDirector: {
+    get: (options = {}) => request("/admin/executive-director", options),
+    update: (data, options = {}) => request("/admin/executive-director", {
+      ...options,
+      method: "PUT",
+      body: data,
+    }),
+  },
+
+  publicContent: {
+    getPage: (slug, options = {}) => request(
+      `/public/pages/${encodeURIComponent(slug)}`,
+      { ...options, auth: false, retryAfterRefresh: false },
+    ),
   },
 
   cms: {
