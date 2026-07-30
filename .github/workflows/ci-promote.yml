@@ -1,0 +1,83 @@
+name: Medicare CI
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: medicare-ci
+  cancel-in-progress: true
+
+jobs:
+  test-build-promote:
+    name: Test, Build and Promote
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.20.2
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Install backend dependencies
+        run: npm --prefix backend ci --include=optional
+
+      - name: Generate Prisma Client
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci?schema=public
+        run: npm --prefix backend run prisma:generate
+
+      - name: Check backend
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci?schema=public
+        run: npm --prefix backend run check
+
+      - name: Verify backend Sharp
+        working-directory: backend
+        run: |
+          node -e "
+          const sharp = require('sharp');
+          console.log('Backend Sharp OK:', sharp.versions.vips);
+          "
+
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci --include=optional
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          CI: 1
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_API_URL: https://api.medicarehospital.az/api/v1
+          NEXT_PUBLIC_SITE_URL: https://medicarehospital.az
+          NEXT_PUBLIC_USE_MOCK_API: false
+          NEXT_PUBLIC_ADMIN_DEMO_MODE: false
+        run: npm run build
+
+      - name: Promote commit to production
+        run: |
+          git config user.name "Medicare CI"
+          git config user.email "ci@medicarehospital.az"
+
+          git push \
+            origin \
+            "${GITHUB_SHA}:refs/heads/production" \
+            --force
+
+          echo "Promoted ${GITHUB_SHA} to production"
