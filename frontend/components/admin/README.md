@@ -26,7 +26,8 @@ Content modules map to backend resources as follows:
 
 | Admin module | Backend resource |
 | --- | --- |
-| Ana səhifə | `home-sections` |
+| Ana səhifə | `cms/pages` (`slug=home`) |
+| Baş direktor | `executive-director` plus media upload |
 | Haqqımızda | `pages` (`slug=about`) |
 | FAQ | `faqs` |
 | Pasiyent rəyləri | `testimonials` |
@@ -37,7 +38,7 @@ Content modules map to backend resources as follows:
 | Sosial media | `social-links` |
 | Əlaqə məlumatları | `settings` (`key=contact`) |
 
-The Home hero and About page are singleton records and therefore cannot be created or deleted from their section editors. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional certificate media uses the same pipeline.
+The Home page, About page, and executive director are singleton records. The dedicated executive-director editor validates the name and role, uploads an optimized portrait through the media API, exposes message/signature/visibility controls, and renders an unsaved live preview. Replacing or removing a portrait updates the singleton relation before obsolete media cleanup is attempted. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional certificate media uses the same pipeline.
 
 Roles load the backend permission catalogue and preserve granular permission codes that are only partially represented by a grouped checkbox. Settings persist public configuration records; auth security policy and server secrets are shown as server-managed because those controls are not mutable through the current API.
 

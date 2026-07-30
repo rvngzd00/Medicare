@@ -166,6 +166,20 @@ async function seedOptionalAdmin() {
 }
 
 async function seedContent() {
+  await prisma.executiveDirectorProfile.upsert({
+    where: { key: 'primary' },
+    update: {},
+    create: {
+      key: 'primary',
+      fullName: 'Dr. Kamran Rzayev',
+      role: 'Baş direktor',
+      message:
+        'İnanırıq ki, keyfiyyətli tibbi xidmət dəqiq qərarla yanaşı, pasiyentə aydın və diqqətli münasibətdən başlayır.',
+      signature: 'Dr. Kamran Rzayev',
+      active: true
+    }
+  });
+
   const branch = await prisma.branch.upsert({
     where: { slug: 'medicare-merkez' },
     update: {

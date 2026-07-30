@@ -25,6 +25,10 @@ import {
   uploadMediaController
 } from '../controllers/media.controller.js';
 import {
+  getExecutiveDirectorController,
+  updateExecutiveDirectorController
+} from '../controllers/executive-director.controller.js';
+import {
   createCmsPageController,
   getCmsPageController,
   listCmsPagesController,
@@ -54,6 +58,7 @@ import {
   cmsPageSaveSchema,
   cmsRevisionParamsSchema
 } from '../validators/cms.validators.js';
+import { executiveDirectorUpdateSchema } from '../validators/executive-director.validators.js';
 
 export const adminRouter = Router();
 
@@ -154,6 +159,18 @@ adminRouter.delete(
   requirePermission('media.delete'),
   validate(idParamsSchema),
   asyncHandler(deleteMediaController)
+);
+
+adminRouter.get(
+  '/executive-director',
+  requirePermission('home_sections.read'),
+  asyncHandler(getExecutiveDirectorController)
+);
+adminRouter.put(
+  '/executive-director',
+  requirePermission('home_sections.write'),
+  validate(executiveDirectorUpdateSchema),
+  asyncHandler(updateExecutiveDirectorController)
 );
 
 adminRouter.get(

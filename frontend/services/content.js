@@ -9,6 +9,7 @@ import { services as mockServices, getService as getMockService } from "@/data/s
 import { articles as mockArticles, getArticle as getMockArticle } from "@/data/articles";
 import {
   branches as mockBranches,
+  executiveDirector as mockExecutiveDirector,
   facilities as mockFacilities,
   testimonials as mockTestimonials
 } from "@/data/site";
@@ -228,6 +229,15 @@ export function getGalleryContent() {
     "/public/content/gallery?limit=100",
     mockFacilities,
     adaptGalleryItem
+  );
+}
+
+export function getExecutiveDirectorContent() {
+  return getDetail(
+    "/public/executive-director",
+    USE_LIVE_CONTENT ? null : mockExecutiveDirector,
+    adaptExecutiveDirector,
+    { fresh: true }
   );
 }
 
@@ -714,6 +724,23 @@ function adaptContentPage(raw) {
       ? raw.sections.map(adaptPageSection).filter(Boolean)
       : [],
     seo: adaptSeo(raw.seo),
+    updatedAt: raw.updatedAt
+  };
+}
+
+function adaptExecutiveDirector(raw) {
+  return {
+    id: raw.id,
+    fullName: raw.fullName || "",
+    role: raw.role || "",
+    message: raw.message || "",
+    signature: raw.signature || "",
+    image: resolveMedia(raw.photo, raw.image || ""),
+    imageAlt:
+      raw.photo?.altText ||
+      raw.imageAlt ||
+      [raw.fullName, raw.role].filter(Boolean).join(" — "),
+    active: raw.active !== false,
     updatedAt: raw.updatedAt
   };
 }

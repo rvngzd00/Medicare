@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HomeHero from "@/components/home/HomeHero";
+import ExecutiveDirectorCard from "@/components/home/ExecutiveDirectorCard";
 import StatsStrip from "@/components/home/StatsStrip";
 import SectionHeading from "@/components/common/SectionHeading";
 import ServiceCard from "@/components/services/ServiceCard";
@@ -22,6 +23,7 @@ import {
   getBranchesContent,
   getDepartmentsContent,
   getDoctorsContent,
+  getExecutiveDirectorContent,
   getFaqsContent,
   getPageContent,
   getPublicConfigurationContent,
@@ -240,6 +242,7 @@ export default async function HomePage() {
   const [
     pageContent,
     configurationContent,
+    executiveDirectorContent,
     serviceContent,
     departmentContent,
     doctorContent,
@@ -250,6 +253,7 @@ export default async function HomePage() {
   ] = await Promise.all([
     getPageContent("home", HOME_PAGE_FALLBACK),
     getPublicConfigurationContent(),
+    getExecutiveDirectorContent(),
     getServicesContent(),
     getDepartmentsContent(),
     getDoctorsContent(),
@@ -264,6 +268,7 @@ export default async function HomePage() {
   const contentResults = [
     pageContent,
     configurationContent,
+    executiveDirectorContent,
     serviceContent,
     departmentContent,
     doctorContent,
@@ -448,6 +453,7 @@ export default async function HomePage() {
               : values;
             return (
               <section
+                id="why-medicare"
                 className="section whySection"
                 key={section.id || section.key}
               >
@@ -458,17 +464,9 @@ export default async function HomePage() {
                       title={section.title}
                       text={section.description}
                     />
-                    <div className="whySection__signature">
-                      <span className="signatureMark">M</span>
-                      <p>
-                        <strong>
-                          {section.content.directorName || "Dr. Kamran Rzayev"}
-                        </strong>
-                        <small>
-                          {section.content.directorRole || "Baş direktor"}
-                        </small>
-                      </p>
-                    </div>
+                    <ExecutiveDirectorCard
+                      director={executiveDirectorContent.item}
+                    />
                   </Reveal>
                   <div className="valueGrid">
                     {valueItems.map((value, index) => (

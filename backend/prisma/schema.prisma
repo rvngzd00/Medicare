@@ -49,24 +49,24 @@ enum WeekDay {
 }
 
 model User {
-  id                  String               @id @default(uuid())
-  email               String               @unique
+  id                  String           @id @default(uuid())
+  email               String           @unique
   passwordHash        String
   firstName           String
   lastName            String
-  status              UserStatus           @default(ACTIVE)
-  failedLoginAttempts Int                  @default(0)
+  status              UserStatus       @default(ACTIVE)
+  failedLoginAttempts Int              @default(0)
   lockedUntil         DateTime?
   lastLoginAt         DateTime?
   roleId              String
-  role                Role                 @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  role                Role             @relation(fields: [roleId], references: [id], onDelete: Restrict)
   refreshTokens       RefreshToken[]
-  articles            Article[]            @relation("ArticleAuthor")
-  assignedMessages    ContactMessage[]      @relation("MessageAssignee")
-  uploadedMedia       MediaFile[]           @relation("MediaUploader")
-  activityLogs        ActivityLog[]         @relation("ActivityActor")
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
+  articles            Article[]        @relation("ArticleAuthor")
+  assignedMessages    ContactMessage[] @relation("MessageAssignee")
+  uploadedMedia       MediaFile[]      @relation("MediaUploader")
+  activityLogs        ActivityLog[]    @relation("ActivityActor")
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
   deletedAt           DateTime?
 
   @@index([roleId, status])
@@ -107,17 +107,17 @@ model RolePermission {
 }
 
 model RefreshToken {
-  id                String    @id @default(uuid())
-  tokenHash         String    @unique
-  familyId          String
-  userId            String
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expiresAt         DateTime
-  revokedAt         DateTime?
+  id                  String    @id @default(uuid())
+  tokenHash           String    @unique
+  familyId            String
+  userId              String
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt           DateTime
+  revokedAt           DateTime?
   replacedByTokenHash String?
-  createdByIp       String?
-  userAgent         String?
-  createdAt         DateTime  @default(now())
+  createdByIp         String?
+  userAgent           String?
+  createdAt           DateTime  @default(now())
 
   @@index([userId, familyId])
   @@index([expiresAt])
@@ -144,60 +144,61 @@ model ActivityLog {
 }
 
 model MediaFile {
-  id               String            @id @default(uuid())
-  provider         MediaProvider     @default(LOCAL)
-  storageKey       String            @unique
-  filename         String
-  originalName     String
-  mimeType         String
-  size             Int
-  width            Int?
-  height           Int?
-  url              String
-  thumbnailUrl     String?
-  altText          String?
-  uploadedById     String?
-  uploadedBy       User?             @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
-  doctorImages     Doctor[]          @relation("DoctorImage")
-  departmentImages Department[]      @relation("DepartmentImage")
-  serviceImages    Service[]         @relation("ServiceImage")
-  branchImages     Branch[]          @relation("BranchImage")
-  articleImages    Article[]         @relation("ArticleCover")
-  testimonialImages Testimonial[]    @relation("TestimonialImage")
-  galleryItems     GalleryItem[]     @relation("GalleryMedia")
-  certificateFiles Certificate[]     @relation("CertificateMedia")
-  leadershipImages LeadershipMember[] @relation("LeadershipImage")
-  seoImages        SeoMetadata[]     @relation("SeoOgImage")
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  deletedAt        DateTime?
+  id                        String                     @id @default(uuid())
+  provider                  MediaProvider              @default(LOCAL)
+  storageKey                String                     @unique
+  filename                  String
+  originalName              String
+  mimeType                  String
+  size                      Int
+  width                     Int?
+  height                    Int?
+  url                       String
+  thumbnailUrl              String?
+  altText                   String?
+  uploadedById              String?
+  uploadedBy                User?                      @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  doctorImages              Doctor[]                   @relation("DoctorImage")
+  departmentImages          Department[]               @relation("DepartmentImage")
+  serviceImages             Service[]                  @relation("ServiceImage")
+  branchImages              Branch[]                   @relation("BranchImage")
+  articleImages             Article[]                  @relation("ArticleCover")
+  testimonialImages         Testimonial[]              @relation("TestimonialImage")
+  galleryItems              GalleryItem[]              @relation("GalleryMedia")
+  certificateFiles          Certificate[]              @relation("CertificateMedia")
+  leadershipImages          LeadershipMember[]         @relation("LeadershipImage")
+  executiveDirectorProfiles ExecutiveDirectorProfile[] @relation("ExecutiveDirectorPhoto")
+  seoImages                 SeoMetadata[]              @relation("SeoOgImage")
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  deletedAt                 DateTime?
 
   @@index([uploadedById])
   @@index([deletedAt])
 }
 
 model SeoMetadata {
-  id               String    @id @default(uuid())
-  pageKey          String?   @unique
-  title            String
-  description      String
-  canonicalUrl     String?
-  keywords         String[]  @default([])
-  robots           String    @default("index,follow")
-  ogTitle          String?
-  ogDescription    String?
-  ogImageId        String?
-  ogImage          MediaFile? @relation("SeoOgImage", fields: [ogImageId], references: [id], onDelete: SetNull)
-  twitterCard      String    @default("summary_large_image")
-  structuredData   Json?
-  doctor           Doctor?
-  department       Department?
-  service          Service?
-  branch           Branch?
-  article          Article?
-  contentPage      ContentPage?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id             String       @id @default(uuid())
+  pageKey        String?      @unique
+  title          String
+  description    String
+  canonicalUrl   String?
+  keywords       String[]     @default([])
+  robots         String       @default("index,follow")
+  ogTitle        String?
+  ogDescription  String?
+  ogImageId      String?
+  ogImage        MediaFile?   @relation("SeoOgImage", fields: [ogImageId], references: [id], onDelete: SetNull)
+  twitterCard    String       @default("summary_large_image")
+  structuredData Json?
+  doctor         Doctor?
+  department     Department?
+  service        Service?
+  branch         Branch?
+  article        Article?
+  contentPage    ContentPage?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 
   @@index([ogImageId])
 }
@@ -214,9 +215,9 @@ model Doctor {
   experienceYears Int                 @default(0)
   phone           String?
   email           String?
-  languages       String[]             @default([])
-  conditions      String[]             @default([])
-  procedures      String[]             @default([])
+  languages       String[]            @default([])
+  conditions      String[]            @default([])
+  procedures      String[]            @default([])
   socialLinks     Json?
   departmentId    String
   department      Department          @relation(fields: [departmentId], references: [id], onDelete: Restrict)
@@ -264,18 +265,18 @@ model DoctorEducation {
 }
 
 model DoctorExperience {
-  id          String   @id @default(uuid())
-  doctorId    String
-  doctor      Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  id           String    @id @default(uuid())
+  doctorId     String
+  doctor       Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
   organization String
-  position    String
-  startDate   DateTime?
-  endDate     DateTime?
-  current     Boolean  @default(false)
-  description String?
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  position     String
+  startDate    DateTime?
+  endDate      DateTime?
+  current      Boolean   @default(false)
+  description  String?
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@index([doctorId, sortOrder])
 }
@@ -297,46 +298,46 @@ model DoctorCertificate {
 }
 
 model DoctorSchedule {
-  id        String   @id @default(uuid())
-  doctorId  String
-  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
-  branchId  String
-  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  dayOfWeek WeekDay
-  startTime String
-  endTime   String
-  slotMinutes Int    @default(30)
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  doctorId    String
+  doctor      Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  branchId    String
+  branch      Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  dayOfWeek   WeekDay
+  startTime   String
+  endTime     String
+  slotMinutes Int      @default(30)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([doctorId, branchId, dayOfWeek, startTime])
   @@index([branchId, dayOfWeek])
 }
 
 model Department {
-  id           String               @id @default(uuid())
-  slug         String               @unique
+  id           String        @id @default(uuid())
+  slug         String        @unique
   name         String
   summary      String
   description  String
-  conditions   String[]             @default([])
-  technologies String[]             @default([])
+  conditions   String[]      @default([])
+  technologies String[]      @default([])
   phone        String?
   imageId      String?
-  image        MediaFile?           @relation("DepartmentImage", fields: [imageId], references: [id], onDelete: SetNull)
-  seoId        String?              @unique
-  seo          SeoMetadata?         @relation(fields: [seoId], references: [id], onDelete: SetNull)
-  active       Boolean              @default(true)
-  featured     Boolean              @default(false)
-  sortOrder    Int                  @default(0)
+  image        MediaFile?    @relation("DepartmentImage", fields: [imageId], references: [id], onDelete: SetNull)
+  seoId        String?       @unique
+  seo          SeoMetadata?  @relation(fields: [seoId], references: [id], onDelete: SetNull)
+  active       Boolean       @default(true)
+  featured     Boolean       @default(false)
+  sortOrder    Int           @default(0)
   doctors      Doctor[]
   services     Service[]
   branches     Branch[]
   faqs         FAQ[]
   testimonials Testimonial[]
-  createdAt    DateTime             @default(now())
-  updatedAt    DateTime             @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
   deletedAt    DateTime?
 
   @@index([active, sortOrder])
@@ -345,27 +346,27 @@ model Department {
 }
 
 model Service {
-  id           String               @id @default(uuid())
-  slug         String               @unique
+  id           String       @id @default(uuid())
+  slug         String       @unique
   name         String
   summary      String
   description  String
-  priceFrom    Decimal?             @db.Decimal(12, 2)
-  currency     String               @default("AZN")
+  priceFrom    Decimal?     @db.Decimal(12, 2)
+  currency     String       @default("AZN")
   icon         String?
   imageId      String?
-  image        MediaFile?           @relation("ServiceImage", fields: [imageId], references: [id], onDelete: SetNull)
+  image        MediaFile?   @relation("ServiceImage", fields: [imageId], references: [id], onDelete: SetNull)
   departmentId String
-  department   Department           @relation(fields: [departmentId], references: [id], onDelete: Restrict)
-  seoId        String?              @unique
-  seo          SeoMetadata?         @relation(fields: [seoId], references: [id], onDelete: SetNull)
-  active       Boolean              @default(true)
-  featured     Boolean              @default(false)
-  sortOrder    Int                  @default(0)
+  department   Department   @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  seoId        String?      @unique
+  seo          SeoMetadata? @relation(fields: [seoId], references: [id], onDelete: SetNull)
+  active       Boolean      @default(true)
+  featured     Boolean      @default(false)
+  sortOrder    Int          @default(0)
   doctors      Doctor[]
   faqs         FAQ[]
-  createdAt    DateTime             @default(now())
-  updatedAt    DateTime             @updatedAt
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
   deletedAt    DateTime?
 
   @@index([departmentId, active, sortOrder])
@@ -374,8 +375,8 @@ model Service {
 }
 
 model Branch {
-  id             String               @id @default(uuid())
-  slug           String               @unique
+  id             String           @id @default(uuid())
+  slug           String           @unique
   name           String
   address        String
   city           String
@@ -383,21 +384,21 @@ model Branch {
   phone          String
   email          String?
   emergencyPhone String?
-  latitude       Decimal?             @db.Decimal(10, 7)
-  longitude      Decimal?             @db.Decimal(10, 7)
+  latitude       Decimal?         @db.Decimal(10, 7)
+  longitude      Decimal?         @db.Decimal(10, 7)
   workingHours   Json?
   mapEmbedUrl    String?
   imageId        String?
-  image          MediaFile?           @relation("BranchImage", fields: [imageId], references: [id], onDelete: SetNull)
-  seoId          String?              @unique
-  seo            SeoMetadata?         @relation(fields: [seoId], references: [id], onDelete: SetNull)
-  active         Boolean              @default(true)
-  sortOrder      Int                  @default(0)
+  image          MediaFile?       @relation("BranchImage", fields: [imageId], references: [id], onDelete: SetNull)
+  seoId          String?          @unique
+  seo            SeoMetadata?     @relation(fields: [seoId], references: [id], onDelete: SetNull)
+  active         Boolean          @default(true)
+  sortOrder      Int              @default(0)
   departments    Department[]
   doctors        Doctor[]
   schedules      DoctorSchedule[]
-  createdAt      DateTime             @default(now())
-  updatedAt      DateTime             @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   deletedAt      DateTime?
 
   @@index([active, sortOrder])
@@ -443,28 +444,28 @@ model ArticleCategory {
 }
 
 model Article {
-  id                String             @id @default(uuid())
-  slug              String             @unique
+  id                String            @id @default(uuid())
+  slug              String            @unique
   title             String
   excerpt           String
   body              Json
-  status            ContentStatus      @default(DRAFT)
-  featured          Boolean            @default(false)
-  readingMinutes    Int                @default(1)
-  viewCount         Int                @default(0)
+  status            ContentStatus     @default(DRAFT)
+  featured          Boolean           @default(false)
+  readingMinutes    Int               @default(1)
+  viewCount         Int               @default(0)
   publishedAt       DateTime?
   scheduledAt       DateTime?
   authorId          String?
-  author            User?              @relation("ArticleAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  author            User?             @relation("ArticleAuthor", fields: [authorId], references: [id], onDelete: SetNull)
   coverImageId      String?
-  coverImage        MediaFile?         @relation("ArticleCover", fields: [coverImageId], references: [id], onDelete: SetNull)
-  seoId             String?            @unique
-  seo               SeoMetadata?       @relation(fields: [seoId], references: [id], onDelete: SetNull)
+  coverImage        MediaFile?        @relation("ArticleCover", fields: [coverImageId], references: [id], onDelete: SetNull)
+  seoId             String?           @unique
+  seo               SeoMetadata?      @relation(fields: [seoId], references: [id], onDelete: SetNull)
   categories        ArticleCategory[]
-  outgoingRelations ArticleRelation[]  @relation("RelatedFrom")
-  incomingRelations ArticleRelation[]  @relation("RelatedTo")
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  outgoingRelations ArticleRelation[] @relation("RelatedFrom")
+  incomingRelations ArticleRelation[] @relation("RelatedTo")
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
   deletedAt         DateTime?
 
   @@index([status, publishedAt])
@@ -547,7 +548,7 @@ model GalleryItem {
 }
 
 model Certificate {
-  id               String    @id @default(uuid())
+  id               String     @id @default(uuid())
   title            String
   issuer           String
   description      String?
@@ -556,10 +557,10 @@ model Certificate {
   expiresAt        DateTime?
   mediaId          String?
   media            MediaFile? @relation("CertificateMedia", fields: [mediaId], references: [id], onDelete: SetNull)
-  active           Boolean   @default(true)
-  sortOrder        Int       @default(0)
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  active           Boolean    @default(true)
+  sortOrder        Int        @default(0)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
   deletedAt        DateTime?
 
   @@index([active, sortOrder])
@@ -567,8 +568,8 @@ model Certificate {
 }
 
 model LeadershipMember {
-  id          String    @id @default(uuid())
-  slug        String    @unique
+  id          String     @id @default(uuid())
+  slug        String     @unique
   firstName   String
   lastName    String
   position    String
@@ -577,42 +578,59 @@ model LeadershipMember {
   socialLinks Json?
   imageId     String?
   image       MediaFile? @relation("LeadershipImage", fields: [imageId], references: [id], onDelete: SetNull)
-  active      Boolean   @default(true)
-  sortOrder   Int       @default(0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  active      Boolean    @default(true)
+  sortOrder   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   deletedAt   DateTime?
 
   @@index([active, sortOrder])
   @@index([deletedAt])
 }
 
+model ExecutiveDirectorProfile {
+  id        String     @id @default(uuid())
+  key       String     @unique @default("primary")
+  fullName  String
+  role      String
+  message   String?
+  signature String?
+  photoId   String?
+  photo     MediaFile? @relation("ExecutiveDirectorPhoto", fields: [photoId], references: [id], onDelete: SetNull)
+  active    Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([photoId])
+  @@index([active])
+}
+
 model SiteSetting {
-  id          String   @id @default(uuid())
-  key         String   @unique
-  value       Json
-  group       String
-  label       String?
-  isPublic    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  group     String
+  label     String?
+  isPublic  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([group, isPublic])
 }
 
 model NavigationItem {
-  id         String               @id @default(uuid())
+  id         String             @id @default(uuid())
   label      String
   url        String
   location   NavigationLocation
   parentId   String?
-  parent     NavigationItem?      @relation("NavigationTree", fields: [parentId], references: [id], onDelete: SetNull)
-  children   NavigationItem[]     @relation("NavigationTree")
-  isExternal Boolean              @default(false)
-  active     Boolean              @default(true)
-  sortOrder  Int                  @default(0)
-  createdAt  DateTime             @default(now())
-  updatedAt  DateTime             @updatedAt
+  parent     NavigationItem?    @relation("NavigationTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children   NavigationItem[]   @relation("NavigationTree")
+  isExternal Boolean            @default(false)
+  active     Boolean            @default(true)
+  sortOrder  Int                @default(0)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
   deletedAt  DateTime?
 
   @@index([location, active, sortOrder])
@@ -677,15 +695,15 @@ model ContentRevision {
 }
 
 model HomeSection {
-  id        String   @id @default(uuid())
-  key       String   @unique
+  id        String    @id @default(uuid())
+  key       String    @unique
   title     String?
   subtitle  String?
   content   Json
-  active    Boolean  @default(true)
-  sortOrder Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  active    Boolean   @default(true)
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
   @@index([active, sortOrder])
@@ -693,14 +711,14 @@ model HomeSection {
 }
 
 model SocialLink {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   platform  String
   label     String?
   url       String
-  active    Boolean  @default(true)
-  sortOrder Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  active    Boolean   @default(true)
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
   @@index([active, sortOrder])
