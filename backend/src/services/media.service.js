@@ -163,7 +163,6 @@ export async function deleteMedia(id) {
             galleryItems: true,
             certificateFiles: true,
             leadershipImages: true,
-            executiveDirectorProfiles: true,
             seoImages: true
           }
         }

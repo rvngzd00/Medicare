@@ -167,7 +167,6 @@ model MediaFile {
   galleryItems              GalleryItem[]              @relation("GalleryMedia")
   certificateFiles          Certificate[]              @relation("CertificateMedia")
   leadershipImages          LeadershipMember[]         @relation("LeadershipImage")
-  executiveDirectorProfiles ExecutiveDirectorProfile[] @relation("ExecutiveDirectorPhoto")
   seoImages                 SeoMetadata[]              @relation("SeoOgImage")
   createdAt                 DateTime                   @default(now())
   updatedAt                 DateTime                   @updatedAt
@@ -365,6 +364,7 @@ model Service {
   sortOrder    Int          @default(0)
   doctors      Doctor[]
   faqs         FAQ[]
+  priceItems   ServicePriceItem[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   deletedAt    DateTime?
@@ -372,6 +372,24 @@ model Service {
   @@index([departmentId, active, sortOrder])
   @@index([featured])
   @@index([deletedAt])
+}
+
+model ServicePriceItem {
+  id        String   @id @default(uuid())
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  code      String?
+  name      String
+  price     Decimal? @db.Decimal(12, 2)
+  currency  String   @default("AZN")
+  note      String?
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([serviceId, active, sortOrder])
+  @@index([name])
 }
 
 model Branch {
@@ -568,41 +586,24 @@ model Certificate {
 }
 
 model LeadershipMember {
-  id          String     @id @default(uuid())
-  slug        String     @unique
-  firstName   String
-  lastName    String
-  position    String
-  bio         String?
-  email       String?
-  socialLinks Json?
-  imageId     String?
-  image       MediaFile? @relation("LeadershipImage", fields: [imageId], references: [id], onDelete: SetNull)
-  active      Boolean    @default(true)
-  sortOrder   Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  deletedAt   DateTime?
+  id         String     @id @default(uuid())
+  slug       String     @unique
+  firstName  String
+  lastName   String
+  position   String
+  bio        String
+  education  String[]   @default([])
+  experience String[]   @default([])
+  imageId    String
+  image      MediaFile  @relation("LeadershipImage", fields: [imageId], references: [id], onDelete: Restrict)
+  active     Boolean    @default(true)
+  sortOrder  Int        @default(0)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  deletedAt  DateTime?
 
   @@index([active, sortOrder])
   @@index([deletedAt])
-}
-
-model ExecutiveDirectorProfile {
-  id        String     @id @default(uuid())
-  key       String     @unique @default("primary")
-  fullName  String
-  role      String
-  message   String?
-  signature String?
-  photoId   String?
-  photo     MediaFile? @relation("ExecutiveDirectorPhoto", fields: [photoId], references: [id], onDelete: SetNull)
-  active    Boolean    @default(true)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
-  @@index([photoId])
-  @@index([active])
 }
 
 model SiteSetting {

@@ -18,7 +18,7 @@ The backend must allow the frontend origin through `CORS_ORIGINS`. The top-level
 
 `adminApi.js` keeps the access token in memory, sends the refresh cookie with `credentials: "include"`, retries one unauthorized request through `/auth/refresh`, and emits `medicare:session-expired` when renewal fails. `AdminShell` verifies `/auth/me` before rendering protected routes.
 
-The resource list/editor screens use the supported individual CRUD endpoints for doctors, departments, services, articles, and users. User edit pages load the dedicated `GET /admin/users/:id` route, so they are not limited by list pagination. Bulk actions are composed from individual supported requests, so there is no undocumented bulk endpoint dependency. Editors expose only fields that can be persisted safely by the current backend contract.
+The resource list/editor screens use the supported individual CRUD endpoints for doctors, departments, services, articles, and users. The service editor includes an ordered, responsive price-row builder with per-row code, amount, currency, note and public visibility controls; empty amounts are presented as enquiry-only prices. User edit pages load the dedicated `GET /admin/users/:id` route, so they are not limited by list pagination. Bulk actions are composed from individual supported requests, so there is no undocumented bulk endpoint dependency. Editors expose only fields that can be persisted safely by the current backend contract.
 
 Messages operate on admin contacts and persist contact status. A reply draft is durably appended to `adminNotes`; it is explicitly labelled as an internal note because the backend has no mail-send endpoint.
 
@@ -27,7 +27,7 @@ Content modules map to backend resources as follows:
 | Admin module | Backend resource |
 | --- | --- |
 | Ana səhifə | `cms/pages` (`slug=home`) |
-| Baş direktor | `executive-director` plus media upload |
+| Rəhbərlik | `leadership` plus media upload and atomic reorder |
 | Haqqımızda | `pages` (`slug=about`) |
 | FAQ | `faqs` |
 | Pasiyent rəyləri | `testimonials` |
@@ -38,7 +38,7 @@ Content modules map to backend resources as follows:
 | Sosial media | `social-links` |
 | Əlaqə məlumatları | `settings` (`key=contact`) |
 
-The Home page, About page, and executive director are singleton records. The dedicated executive-director editor validates the name and role, uploads an optimized portrait through the media API, exposes message/signature/visibility controls, and renders an unsaved live preview. Replacing or removing a portrait updates the singleton relation before obsolete media cleanup is attempted. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional certificate media uses the same pipeline.
+The Home and About pages are singleton records. Leadership is an ordered multi-record module with required portrait, name, position and bio fields, optional education and experience entries, visibility controls, and an unsaved card preview. Replacing a portrait updates the leadership relation before obsolete media cleanup is attempted, and reordering is persisted atomically. Other content modules support creation when their required fields can be represented safely. Gallery creation uploads media first and then persists the returned media ID; optional certificate media uses the same pipeline.
 
 Roles load the backend permission catalogue and preserve granular permission codes that are only partially represented by a grouped checkbox. Settings persist public configuration records; auth security policy and server secrets are shown as server-managed because those controls are not mutable through the current API.
 

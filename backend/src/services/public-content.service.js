@@ -287,7 +287,11 @@ export async function listServices(query) {
       orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }],
       include: {
         image: { select: mediaSelect },
-        department: { select: { id: true, name: true, slug: true } }
+        department: { select: { id: true, name: true, slug: true } },
+        priceItems: {
+          where: { active: true },
+          orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
+        }
       }
     }),
     prisma.service.count({ where })
@@ -323,6 +327,10 @@ export async function getService(slug) {
       faqs: {
         where: { active: true, deletedAt: null },
         orderBy: { sortOrder: 'asc' }
+      },
+      priceItems: {
+        where: { active: true },
+        orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
       }
     }
   });
@@ -428,6 +436,23 @@ export async function getArticle(slug) {
 
 export async function listSimpleContent(type, query = {}) {
   const definitions = {
+    leadership: {
+      delegate: prisma.leadershipMember,
+      where: { active: true, deletedAt: null },
+      orderBy: [{ sortOrder: 'asc' }, { lastName: 'asc' }],
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        position: true,
+        bio: true,
+        education: true,
+        experience: true,
+        sortOrder: true,
+        image: { select: mediaSelect }
+      }
+    },
     branches: {
       delegate: prisma.branch,
       where: { active: true, deletedAt: null },
@@ -524,7 +549,8 @@ export async function listSimpleContent(type, query = {}) {
   return definition.delegate.findMany({
     where: definition.where,
     orderBy: definition.orderBy,
-    ...(definition.include ? { include: definition.include } : {})
+    ...(definition.include ? { include: definition.include } : {}),
+    ...(definition.select ? { select: definition.select } : {})
   });
 }
 

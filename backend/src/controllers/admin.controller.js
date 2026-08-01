@@ -5,6 +5,7 @@ import {
   getAdminDefinition,
   getAdminRecord,
   listAdminRecords,
+  reorderAdminRecords,
   restoreAdminRecord,
   updateAdminRecord
 } from '../services/admin-crud.service.js';
@@ -134,6 +135,15 @@ export async function restoreRecordController(request, response) {
     response,
     await restoreAdminRecord(request.params.entity, request.params.id),
     { message: 'Resource restored successfully.' }
+  );
+}
+
+export async function reorderRecordsController(request, response) {
+  ensureEntityPermission(request, 'write');
+  return success(
+    response,
+    await reorderAdminRecords(request.params.entity, request.body.ids),
+    { message: 'Resources reordered successfully.' }
   );
 }
 

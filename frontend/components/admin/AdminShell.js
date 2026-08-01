@@ -16,7 +16,7 @@ const navigationPermissions = {
   "/admin/articles": ["articles.read"],
   "/admin/messages": ["contacts.read"],
   "/admin/content": ["home_sections.read", "pages.read"],
-  "/admin/content/director": ["home_sections.read"],
+  "/admin/content/leadership": ["leadership.read"],
   "/admin/pages": ["pages.read"],
   "/admin/settings": ["settings.read"],
   "/admin/users": ["users.read"],

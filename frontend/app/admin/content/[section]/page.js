@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ContentSectionEditor } from "../../../../components/admin/ContentManager";
-import DirectorEditor from "../../../../components/admin/DirectorEditor";
+import LeadershipManager from "../../../../components/admin/LeadershipManager";
 import { contentEditorMeta } from "../../../../components/admin/adminData";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +11,6 @@ export async function generateMetadata({ params }) {
 export default async function ContentSectionPage({ params }) {
   const { section } = await params;
   if (!contentEditorMeta[section]) notFound();
-  if (section === "director") return <DirectorEditor />;
+  if (section === "leadership") return <LeadershipManager />;
   return <ContentSectionEditor section={section} />;
 }

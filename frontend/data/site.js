@@ -4,17 +4,41 @@ export const stats = [
   { value: 7, suffix: "+", label: "tibbi istiqamət" }
 ];
 
-export const executiveDirector = {
-  id: "executive-director-demo",
-  fullName: "Dr. Kamran Rzayev",
-  role: "Baş direktor",
-  message:
-    "İnanırıq ki, keyfiyyətli tibbi xidmət dəqiq qərarla yanaşı, pasiyentə aydın və diqqətli münasibətdən başlayır.",
-  signature: "Dr. Kamran Rzayev",
-  image: "",
-  imageAlt: "Dr. Kamran Rzayev — Baş direktor",
-  active: true
-};
+export const leadership = [
+  {
+    id: "leader-kamran",
+    slug: "dr-kamran-rzayev",
+    firstName: "Dr. Kamran",
+    lastName: "Rzayev",
+    position: "Baş direktor",
+    bio: "Medicare Hospital-da klinik keyfiyyət, pasiyent təhlükəsizliyi və komanda əməkdaşlığı üzrə inkişaf proqramlarına rəhbərlik edir.",
+    education: ["Azərbaycan Tibb Universiteti — Müalicə işi"],
+    experience: ["Səhiyyə idarəçiliyi və klinik keyfiyyət üzrə uzunmüddətli rəhbərlik təcrübəsi"],
+    image: "/images/doctors/orxan-huseynli.png"
+  },
+  {
+    id: "leader-nermin",
+    slug: "dr-nermin-memmedova",
+    firstName: "Dr. Nərmin",
+    lastName: "Məmmədova",
+    position: "Tibbi direktor",
+    bio: "Klinik protokolların, multidissiplinar komanda işinin və pasiyent təhlükəsizliyi standartlarının davamlı inkişafına rəhbərlik edir.",
+    education: ["Azərbaycan Tibb Universiteti — Müalicə işi"],
+    experience: ["Klinik xidmətlərin təşkili və keyfiyyət idarəetməsi üzrə 15 ildən artıq təcrübə"],
+    image: "/images/doctors/leyla-quliyeva.png"
+  },
+  {
+    id: "leader-elcin",
+    slug: "elcin-memmedov",
+    firstName: "Elçin",
+    lastName: "Məmmədov",
+    position: "İnzibati işlər üzrə direktor",
+    bio: "Hospitalın əməliyyat proseslərini, xidmət koordinasiyasını və pasiyent təcrübəsinin təşkilati inkişafını idarə edir.",
+    education: ["Azərbaycan Dövlət İqtisad Universiteti — Menecment"],
+    experience: ["Səhiyyə müəssisələrinin əməliyyat idarəçiliyi üzrə 12 ildən artıq təcrübə"],
+    image: "/images/doctors/elcin-memmedov.png"
+  }
+];
 
 export const branches = [
   {

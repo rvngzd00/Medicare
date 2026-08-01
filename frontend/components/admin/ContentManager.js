@@ -67,7 +67,7 @@ const sectionBlocks = {
 
 const contentDefinitions = {
   home: { resource: "home-sections", type: "Ana səhifə bloku", json: true, noCreate: true, noDelete: true },
-  director: { type: "Baş direktor", special: true },
+  leadership: { resource: "leadership", type: "Rəhbər" },
   about: { resource: "pages", type: "Səhifə", filter: (record) => record.slug === "about", json: true, noCreate: true, noDelete: true },
   faq: { resource: "faqs", type: "Sual-cavab" },
   testimonials: { resource: "testimonials", type: "Rəy", supportsFeatured: true },
@@ -108,7 +108,7 @@ function contentRecordToBlock(section, record) {
   };
 
   if (section === "home") return { ...common, title: record.title || record.key, eyebrow: record.subtitle || record.key, description: jsonText(record.content) };
-  if (section === "director") return { ...common, title: record.fullName, eyebrow: record.role, description: record.message || "" };
+  if (section === "leadership") return { ...common, title: `${record.firstName} ${record.lastName}`, eyebrow: record.position, description: record.bio || "" };
   if (section === "about") return { ...common, title: record.title, eyebrow: record.excerpt || record.slug, description: jsonText(record.body) };
   if (section === "faq") return { ...common, title: record.question, eyebrow: record.category || "Ümumi", description: record.answer };
   if (section === "testimonials") return { ...common, title: record.patientName, eyebrow: record.patientTitle || "Pasiyent rəyi", description: record.quote };
@@ -198,9 +198,6 @@ function contentBlockPayload(section, block, index) {
 async function loadSectionRecords(section, signal) {
   const definition = contentDefinitions[section];
   if (!definition) return [];
-  if (definition.special && section === "director") {
-    return [await adminApi.executiveDirector.get({ signal })];
-  }
   const response = definition.resource === "settings"
     ? await adminApi.settings.list({ limit: 100 }, { signal })
     : await adminApi.resources.list(definition.resource, { limit: 100 }, { signal });

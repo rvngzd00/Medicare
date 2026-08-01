@@ -52,6 +52,18 @@ export const adminBodySchema = {
   })
 };
 
+export const adminReorderSchema = {
+  params: adminEntityParamsSchema.params,
+  body: z
+    .object({
+      ids: z.array(z.string().uuid()).min(1).max(100)
+    })
+    .strict()
+    .refine((value) => new Set(value.ids).size === value.ids.length, {
+      message: 'Record IDs must be unique'
+    })
+};
+
 export const userCreateSchema = {
   body: z
     .object({

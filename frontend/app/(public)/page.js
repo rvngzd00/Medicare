@@ -1,6 +1,6 @@
 import Link from "next/link";
 import HomeHero from "@/components/home/HomeHero";
-import ExecutiveDirectorCard from "@/components/home/ExecutiveDirectorCard";
+import LeadershipCard from "@/components/home/LeadershipCard";
 import StatsStrip from "@/components/home/StatsStrip";
 import SectionHeading from "@/components/common/SectionHeading";
 import ServiceCard from "@/components/services/ServiceCard";
@@ -23,7 +23,7 @@ import {
   getBranchesContent,
   getDepartmentsContent,
   getDoctorsContent,
-  getExecutiveDirectorContent,
+  getLeadershipContent,
   getFaqsContent,
   getPageContent,
   getPublicConfigurationContent,
@@ -111,6 +111,16 @@ const HOME_SECTIONS = [
       linkLabel: "Bütün həkimlər",
       linkHref: "/doctors",
     },
+  },
+  {
+    key: "leadership",
+    type: "COLLECTION",
+    label: "Rəhbərlik",
+    eyebrow: "Rəhbərlik",
+    title: "Medicare-i gələcəyə aparan komanda",
+    description:
+      "Klinik keyfiyyət, pasiyent təhlükəsizliyi və davamlı inkişaf üçün çalışan rəhbərlik komandamızla tanış olun.",
+    content: { limit: 6 },
   },
   {
     key: "why-medicare",
@@ -242,7 +252,7 @@ export default async function HomePage() {
   const [
     pageContent,
     configurationContent,
-    executiveDirectorContent,
+    leadershipContent,
     serviceContent,
     departmentContent,
     doctorContent,
@@ -253,7 +263,7 @@ export default async function HomePage() {
   ] = await Promise.all([
     getPageContent("home", HOME_PAGE_FALLBACK),
     getPublicConfigurationContent(),
-    getExecutiveDirectorContent(),
+    getLeadershipContent(),
     getServicesContent(),
     getDepartmentsContent(),
     getDoctorsContent(),
@@ -268,7 +278,7 @@ export default async function HomePage() {
   const contentResults = [
     pageContent,
     configurationContent,
-    executiveDirectorContent,
+    leadershipContent,
     serviceContent,
     departmentContent,
     doctorContent,
@@ -447,6 +457,40 @@ export default async function HomePage() {
             );
           }
 
+          if (section.key === "leadership") {
+            const items = leadershipContent.items.slice(
+              0,
+              positiveSectionLimit(section, 6),
+            );
+            return (
+              <section
+                id="leadership"
+                className="section section--soft leadershipSection"
+                key={section.id || section.key}
+              >
+                <div className="container">
+                  <SectionHeading
+                    eyebrow={section.eyebrow}
+                    title={section.title}
+                    text={section.description}
+                    align="center"
+                  />
+                  {items.length > 0 ? (
+                    <div className="cardGrid cardGrid--three leadershipGrid">
+                      {items.map((leader, index) => (
+                        <Reveal key={leader.id || leader.slug} delay={index * 70}>
+                          <LeadershipCard leader={leader} />
+                        </Reveal>
+                      ))}
+                    </div>
+                  ) : (
+                    <EmptyState title="Aktiv rəhbərlik profili tapılmadı" />
+                  )}
+                </div>
+              </section>
+            );
+          }
+
           if (section.key === "why-medicare") {
             const valueItems = Array.isArray(section.content.items)
               ? section.content.items
@@ -463,9 +507,6 @@ export default async function HomePage() {
                       eyebrow={section.eyebrow}
                       title={section.title}
                       text={section.description}
-                    />
-                    <ExecutiveDirectorCard
-                      director={executiveDirectorContent.item}
                     />
                   </Reveal>
                   <div className="valueGrid">

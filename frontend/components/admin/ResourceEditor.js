@@ -16,6 +16,7 @@ import {
   normalizeAdminError,
 } from "./adminAdapters";
 import { AdminAsyncState, DemoNotice, PageHeader, Toast } from "./AdminPrimitives";
+import ServicePriceEditor from "./ServicePriceEditor";
 import styles from "../../app/admin/admin.module.css";
 
 const unsupportedRealEditorFields = {
@@ -35,7 +36,7 @@ function buildInitialValues(config, id) {
   const initial = {};
   config.groups.flatMap((group) => group.fields).forEach((field) => {
     if (field.type === "toggle") initial[field.name] = field.defaultChecked || false;
-    else if (field.type === "multiselect" || field.type === "tags") initial[field.name] = [];
+    else if (["multiselect", "tags", "price-list"].includes(field.type)) initial[field.name] = [];
     else initial[field.name] = "";
   });
   if (!row) return initial;
@@ -225,6 +226,17 @@ function FileField({ field, value, onChange, invalid }) {
 }
 
 function FormField({ field, value, error, onChange }) {
+  if (field.type === "price-list") {
+    return (
+      <ServicePriceEditor
+        value={value}
+        error={error}
+        help={field.help}
+        onChange={onChange}
+      />
+    );
+  }
+
   const fieldId = `field-${field.name}`;
   const describedBy = error ? `${fieldId}-error` : `${fieldId}-help`;
 
@@ -443,6 +455,13 @@ export default function ResourceEditor({ resource, mode = "new", id }) {
     if (values.seoDescription && !values.seoTitle) nextErrors.seoTitle = "Meta təsvir üçün SEO başlığı da daxil edilməlidir.";
     if (resource === "articles" && values.status === "Planlaşdırılıb" && !values.publishDate) {
       nextErrors.publishDate = "Planlaşdırılmış məqalə üçün dərc tarixi seçilməlidir.";
+    }
+    if (resource === "services" && Array.isArray(values.priceItems)) {
+      if (values.priceItems.some((item) => !String(item.name || "").trim())) {
+        nextErrors.priceItems = "Bütün qiymət sətirlərində xidmət adı yazılmalıdır.";
+      } else if (values.priceItems.some((item) => item.price !== "" && item.price !== null && Number(item.price) < 0)) {
+        nextErrors.priceItems = "Qiymət mənfi ola bilməz.";
+      }
     }
     if (
       resource === "users" &&

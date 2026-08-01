@@ -244,6 +244,7 @@ export const adminApi = {
     get: (resource, id, options = {}) => request(`/admin/${resource}/${encodeURIComponent(id)}`, options),
     create: (resource, data, options = {}) => request(`/admin/${resource}`, { ...options, method: "POST", body: data }),
     update: (resource, id, data, options = {}) => request(`/admin/${resource}/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),
+    reorder: (resource, ids, options = {}) => request(`/admin/${resource}/reorder`, { ...options, method: "POST", body: { ids } }),
     remove: (resource, id, options = {}) => request(`/admin/${resource}/${encodeURIComponent(id)}`, { ...options, method: "DELETE" }),
     restore: (resource, id, options = {}) => request(`/admin/${resource}/${encodeURIComponent(id)}/restore`, { ...options, method: "POST", body: {} }),
   },
@@ -281,15 +282,6 @@ export const adminApi = {
     list: (params = {}, options = {}) => request(`/admin/settings?${new URLSearchParams(params)}`, options),
     create: (data, options = {}) => request("/admin/settings", { ...options, method: "POST", body: data }),
     update: (id, data, options = {}) => request(`/admin/settings/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),
-  },
-
-  executiveDirector: {
-    get: (options = {}) => request("/admin/executive-director", options),
-    update: (data, options = {}) => request("/admin/executive-director", {
-      ...options,
-      method: "PUT",
-      body: data,
-    }),
   },
 
   publicContent: {

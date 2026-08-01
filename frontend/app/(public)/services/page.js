@@ -1,5 +1,6 @@
 import PageHero from "@/components/common/PageHero";
 import ServiceCard from "@/components/services/ServiceCard";
+import ServicePriceCatalog from "@/components/services/ServicePriceCatalog";
 import ContactCta from "@/components/common/ContactCta";
 import { ContentStatusNotice } from "@/components/common/ContentStatus";
 import EmptyState from "@/components/common/EmptyState";
@@ -35,6 +36,8 @@ export default async function ServicesPage() {
     getPageContent("services", PAGE_FALLBACK),
   ]);
   const sections = resolvePageSections(pageContent.item, PAGE_FALLBACK.sections);
+  const pricedServices = content.items.filter((service) => service.priceItems?.length);
+  const overviewServices = content.items.filter((service) => !service.priceItems?.length);
   return (
     <div className="cmsPageFlow">
       {sections.map((section) => {
@@ -44,9 +47,20 @@ export default async function ServicesPage() {
             <div className="container">
               <ContentStatusNotice result={content} />
               {content.items.length > 0 ? (
-                <div className="cardGrid cardGrid--three">
-                  {content.items.map((service, index) => <Reveal key={service.slug} delay={(index % 3) * 60}><ServiceCard service={service} index={index} /></Reveal>)}
-                </div>
+                <>
+                  {pricedServices.length > 0 && <ServicePriceCatalog services={pricedServices} />}
+                  {overviewServices.length > 0 && (
+                    <div className="serviceOverview">
+                      <div className="sectionHeading">
+                        <span className="eyebrow">Ətraflı xidmətlər</span>
+                        <h2>Müayinə və qayğı proqramları</h2>
+                      </div>
+                      <div className="cardGrid cardGrid--three">
+                        {overviewServices.map((service, index) => <Reveal key={service.slug} delay={(index % 3) * 60}><ServiceCard service={service} index={index} /></Reveal>)}
+                      </div>
+                    </div>
+                  )}
+                </>
               ) : <EmptyState title="Aktiv xidmət tapılmadı" text="Xidmət məlumatları yeniləndikdən sonra bu bölmədə görünəcək." />}
             </div>
           </section>

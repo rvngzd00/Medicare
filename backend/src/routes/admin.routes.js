@@ -13,6 +13,7 @@ import {
   listRecordsController,
   listRolesController,
   listUsersController,
+  reorderRecordsController,
   restoreRecordController,
   updateRecordController,
   updateRoleController,
@@ -24,10 +25,6 @@ import {
   replaceMediaController,
   uploadMediaController
 } from '../controllers/media.controller.js';
-import {
-  getExecutiveDirectorController,
-  updateExecutiveDirectorController
-} from '../controllers/executive-director.controller.js';
 import {
   createCmsPageController,
   getCmsPageController,
@@ -45,6 +42,7 @@ import {
   adminBodySchema,
   adminEntityParamsSchema,
   adminListSchema,
+  adminReorderSchema,
   adminRecordParamsSchema,
   idParamsSchema,
   roleCreateSchema,
@@ -58,7 +56,6 @@ import {
   cmsPageSaveSchema,
   cmsRevisionParamsSchema
 } from '../validators/cms.validators.js';
-import { executiveDirectorUpdateSchema } from '../validators/executive-director.validators.js';
 
 export const adminRouter = Router();
 
@@ -162,18 +159,6 @@ adminRouter.delete(
 );
 
 adminRouter.get(
-  '/executive-director',
-  requirePermission('home_sections.read'),
-  asyncHandler(getExecutiveDirectorController)
-);
-adminRouter.put(
-  '/executive-director',
-  requirePermission('home_sections.write'),
-  validate(executiveDirectorUpdateSchema),
-  asyncHandler(updateExecutiveDirectorController)
-);
-
-adminRouter.get(
   '/cms/pages',
   requirePermission('pages.read'),
   asyncHandler(listCmsPagesController)
@@ -213,6 +198,11 @@ adminRouter.post(
   '/:entity/:id/restore',
   validate({ ...adminRecordParamsSchema, ...adminBodySchema }),
   asyncHandler(restoreRecordController)
+);
+adminRouter.post(
+  '/:entity/reorder',
+  validate(adminReorderSchema),
+  asyncHandler(reorderRecordsController)
 );
 adminRouter.get(
   '/:entity',

@@ -23,12 +23,7 @@ test(
     const password = `Qa-${crypto.randomBytes(18).toString('base64url')}Aa1!`;
     const email = `qa-${crypto.randomUUID()}@example.test`;
     const createdIds = {};
-    let originalDirector;
-
     try {
-      originalDirector = await prisma.executiveDirectorProfile.findUnique({
-        where: { key: 'primary' }
-      });
       const role = await prisma.role.findUniqueOrThrow({
         where: { slug: 'super-admin' }
       });
@@ -44,13 +39,15 @@ test(
       createdIds.user = user.id;
 
       await request(app)
-        .get('/api/v1/admin/executive-director')
+        .get('/api/v1/admin/leadership')
         .expect(401);
 
-      const initialDirectorResponse = await request(app)
-        .get('/api/v1/public/executive-director')
+      const initialLeadershipResponse = await request(app)
+        .get('/api/v1/public/content/leadership')
         .expect(200);
-      assert.equal(initialDirectorResponse.body.data.fullName, originalDirector.fullName);
+      assert.ok(initialLeadershipResponse.body.data.length >= 1);
+      assert.ok(initialLeadershipResponse.body.data[0].image);
+      assert.equal('email' in initialLeadershipResponse.body.data[0], false);
 
       const doctorsResponse = await request(app)
         .get('/api/v1/public/doctors?featured=true')
@@ -74,9 +71,20 @@ test(
       assert.ok(departmentsResponse.body.data.length >= 1);
       assert.equal('technologies' in departmentsResponse.body.data[0], false);
 
-      await request(app)
-        .get('/api/v1/public/content/leadership')
-        .expect(422);
+      const servicesResponse = await request(app)
+        .get('/api/v1/public/services?limit=100')
+        .expect(200);
+      assert.equal(
+        servicesResponse.body.data.filter((service) => service.priceItems.length > 0).length,
+        25
+      );
+      assert.equal(
+        servicesResponse.body.data.reduce(
+          (total, service) => total + service.priceItems.length,
+          0
+        ),
+        684
+      );
 
       const configurationResponse = await request(app)
         .get('/api/v1/public/configuration')
@@ -91,96 +99,78 @@ test(
       assert.ok(accessToken);
       assert.ok(refreshToken);
 
-      const directorAdminResponse = await request(app)
-        .get('/api/v1/admin/executive-director')
+      const leadershipAdminResponse = await request(app)
+        .get('/api/v1/admin/leadership?limit=100')
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200);
-      assert.equal(directorAdminResponse.body.data.key, 'primary');
+      assert.ok(leadershipAdminResponse.body.data.length >= 1);
+
+      const serviceSlug = 'qa-price-service-' + crypto.randomUUID();
+      const serviceResponse = await request(app)
+        .post('/api/v1/admin/services')
+        .set('Authorization', 'Bearer ' + accessToken)
+        .send({
+          slug: serviceSlug,
+          name: 'QA qiymət xidməti',
+          summary: 'Çoxsətirli qiymət redaktorunun inteqrasiya yoxlaması.',
+          description: 'Bu xidmət yalnız avtomatlaşdırılmış test üçün yaradılır.',
+          departmentId: departmentsResponse.body.data[0].id,
+          priceItems: [
+            { code: 'QA-1', name: 'Birinci xidmət', price: '30', currency: 'AZN', active: true, sortOrder: 0 },
+            { code: 'QA-2', name: 'İkinci xidmət', price: null, currency: 'AZN', active: false, sortOrder: 1 }
+          ],
+          active: true
+        })
+        .expect(201);
+      createdIds.service = serviceResponse.body.data.id;
+      assert.equal(serviceResponse.body.data.priceItems.length, 2);
+      assert.equal(Number(serviceResponse.body.data.priceFrom), 30);
+
+      const publicServiceResponse = await request(app)
+        .get('/api/v1/public/services/' + serviceSlug)
+        .expect(200);
+      assert.deepEqual(
+        publicServiceResponse.body.data.priceItems.map((item) => item.code),
+        ['QA-1']
+      );
+
+      const updatedServiceResponse = await request(app)
+        .patch('/api/v1/admin/services/' + createdIds.service)
+        .set('Authorization', 'Bearer ' + accessToken)
+        .send({
+          priceItems: [
+            { code: 'QA-2', name: 'İkinci xidmət', price: '45', currency: 'AZN', active: true, sortOrder: 0 },
+            { code: 'QA-1', name: 'Birinci xidmət', price: '30', currency: 'AZN', active: true, sortOrder: 1 }
+          ]
+        })
+        .expect(200);
+      assert.deepEqual(
+        updatedServiceResponse.body.data.priceItems.map((item) => item.code),
+        ['QA-2', 'QA-1']
+      );
+      assert.equal(Number(updatedServiceResponse.body.data.priceFrom), 30);
 
       await request(app)
-        .put('/api/v1/admin/executive-director')
+        .patch('/api/v1/admin/services/' + createdIds.service)
+        .set('Authorization', 'Bearer ' + accessToken)
+        .send({ priceItems: [{ name: 'Yanlış qiymət', price: '-1' }] })
+        .expect(422);
+
+      await request(app)
+        .post('/api/v1/admin/leadership')
         .set('Authorization', `Bearer ${accessToken}`)
         .send({
-          fullName: 'QA Direktor',
-          role: 'Baş direktor',
-          message: 'İnteqrasiya yoxlaması üçün qısa direktor müraciəti.',
-          signature: 'QA Direktor',
-          photoId: null,
+          firstName: 'QA',
+          lastName: 'Rəhbər',
+          position: 'Keyfiyyət üzrə direktor',
+          bio: 'İnteqrasiya yoxlaması üçün müvəqqəti rəhbər profili.',
+          education: [],
+          experience: [],
+          imageId: leadershipAdminResponse.body.data[0].imageId,
           active: true,
           unsupported: true
         })
         .expect(422);
-
-      const concurrentStorageKey = `qa/concurrent-${crypto.randomUUID()}.webp`;
-      const concurrentMedia = await prisma.mediaFile.create({
-        data: {
-          provider: 'S3',
-          storageKey: concurrentStorageKey,
-          filename: 'concurrent.webp',
-          originalName: 'concurrent.webp',
-          mimeType: 'image/webp',
-          size: 1,
-          url: `https://media.example.test/${concurrentStorageKey}`,
-          uploadedById: user.id
-        }
-      });
-      createdIds.concurrentMedia = concurrentMedia.id;
-
-      const [concurrentAssignment, concurrentDeletion] = await Promise.all([
-        request(app)
-          .put('/api/v1/admin/executive-director')
-          .set('Authorization', `Bearer ${accessToken}`)
-          .send({
-            fullName: 'Paralel QA Direktor',
-            role: 'Baş direktor',
-            message: 'Foto əlaqəsi və silinmə yarışı yoxlanılır.',
-            signature: 'Paralel QA Direktor',
-            photoId: concurrentMedia.id,
-            active: true
-          }),
-        request(app)
-          .delete(`/api/v1/admin/media/${concurrentMedia.id}`)
-          .set('Authorization', `Bearer ${accessToken}`)
-      ]);
-
-      assert.ok([200, 422].includes(concurrentAssignment.status));
-      assert.ok([200, 409].includes(concurrentDeletion.status));
-      assert.notEqual(
-        `${concurrentAssignment.status}:${concurrentDeletion.status}`,
-        '200:200'
-      );
-
-      const [profileAfterRace, mediaAfterRace] = await Promise.all([
-        prisma.executiveDirectorProfile.findUnique({ where: { key: 'primary' } }),
-        prisma.mediaFile.findUnique({ where: { id: concurrentMedia.id } })
-      ]);
-      assert.equal(
-        profileAfterRace.photoId === concurrentMedia.id && Boolean(mediaAfterRace?.deletedAt),
-        false
-      );
-
-      if (profileAfterRace.photoId === concurrentMedia.id) {
-        await request(app)
-          .put('/api/v1/admin/executive-director')
-          .set('Authorization', `Bearer ${accessToken}`)
-          .send({
-            fullName: profileAfterRace.fullName,
-            role: profileAfterRace.role,
-            message: profileAfterRace.message,
-            signature: profileAfterRace.signature,
-            photoId: null,
-            active: profileAfterRace.active
-          })
-          .expect(200);
-      }
-      if (mediaAfterRace && !mediaAfterRace.deletedAt) {
-        await request(app)
-          .delete(`/api/v1/admin/media/${concurrentMedia.id}`)
-          .set('Authorization', `Bearer ${accessToken}`)
-          .expect(200);
-      }
-      await prisma.mediaFile.deleteMany({ where: { id: concurrentMedia.id } });
-      delete createdIds.concurrentMedia;
 
       const userResponse = await request(app)
         .get(`/api/v1/admin/users/${user.id}`)
@@ -387,25 +377,38 @@ test(
         .expect(201);
       createdIds.media = mediaResponse.body.data.id;
 
-      const updatedDirectorResponse = await request(app)
-        .put('/api/v1/admin/executive-director')
+      const leadershipResponse = await request(app)
+        .post('/api/v1/admin/leadership')
         .set('Authorization', `Bearer ${accessToken}`)
         .send({
-          fullName: 'QA Direktor',
-          role: 'Baş direktor',
-          message: 'İnteqrasiya yoxlaması üçün qısa direktor müraciəti.',
-          signature: 'QA Direktor',
-          photoId: createdIds.media,
-          active: true
+          firstName: 'QA',
+          lastName: 'Rəhbər',
+          position: 'Keyfiyyət üzrə direktor',
+          bio: 'İnteqrasiya yoxlaması üçün yaradılmış müvəqqəti rəhbər profili.',
+          education: ['Azərbaycan Tibb Universiteti — Müalicə işi'],
+          experience: ['Klinik keyfiyyət üzrə 10 il təcrübə'],
+          imageId: createdIds.media,
+          active: true,
+          sortOrder: 999
         })
-        .expect(200);
-      assert.equal(updatedDirectorResponse.body.data.photo.id, createdIds.media);
+        .expect(201);
+      createdIds.leadership = leadershipResponse.body.data.id;
+      assert.equal(leadershipResponse.body.data.image.id, createdIds.media);
 
-      const publicDirectorResponse = await request(app)
-        .get('/api/v1/public/executive-director')
+      const publicLeadershipResponse = await request(app)
+        .get('/api/v1/public/content/leadership')
         .expect(200);
-      assert.equal(publicDirectorResponse.body.data.fullName, 'QA Direktor');
-      assert.equal(publicDirectorResponse.body.data.photo.id, createdIds.media);
+      assert.ok(
+        publicLeadershipResponse.body.data.some(
+          (item) => item.id === createdIds.leadership && item.education.length === 1
+        )
+      );
+
+      await request(app)
+        .post('/api/v1/admin/leadership/reorder')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({ ids: [createdIds.leadership] })
+        .expect(200);
 
       const referencedMediaResponse = await request(app)
         .delete(`/api/v1/admin/media/${createdIds.media}`)
@@ -414,25 +417,34 @@ test(
       assert.equal(referencedMediaResponse.body.error.code, 'MEDIA_IN_USE');
 
       await request(app)
-        .put('/api/v1/admin/executive-director')
+        .patch(`/api/v1/admin/leadership/${createdIds.leadership}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .send({
-          fullName: 'QA Direktor',
-          role: 'Baş direktor',
-          message: 'Gizli profil yoxlaması.',
-          signature: 'QA Direktor',
-          photoId: null,
           active: false
         })
         .expect(200);
 
-      const hiddenDirectorResponse = await request(app)
-        .get('/api/v1/public/executive-director')
+      const hiddenLeadershipResponse = await request(app)
+        .get('/api/v1/public/content/leadership')
         .expect(200);
-      assert.equal(hiddenDirectorResponse.body.data, null);
+      assert.equal(
+        hiddenLeadershipResponse.body.data.some((item) => item.id === createdIds.leadership),
+        false
+      );
+
+      await request(app)
+        .patch(`/api/v1/admin/leadership/${createdIds.leadership}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({ imageId: leadershipAdminResponse.body.data[0].imageId })
+        .expect(200);
 
       await request(app)
         .delete(`/api/v1/admin/media/${createdIds.media}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(200);
+
+      await request(app)
+        .delete(`/api/v1/admin/leadership/${createdIds.leadership}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200);
 
@@ -446,27 +458,11 @@ test(
         .expect(423);
       assert.equal(lockedLoginResponse.body.error.code, 'ACCOUNT_LOCKED');
     } finally {
-      if (originalDirector) {
-        await prisma.executiveDirectorProfile.upsert({
-          where: { key: 'primary' },
-          update: {
-            fullName: originalDirector.fullName,
-            role: originalDirector.role,
-            message: originalDirector.message,
-            signature: originalDirector.signature,
-            photoId: originalDirector.photoId,
-            active: originalDirector.active
-          },
-          create: {
-            key: 'primary',
-            fullName: originalDirector.fullName,
-            role: originalDirector.role,
-            message: originalDirector.message,
-            signature: originalDirector.signature,
-            photoId: originalDirector.photoId,
-            active: originalDirector.active
-          }
-        });
+      if (createdIds.service) {
+        await prisma.service.deleteMany({ where: { id: createdIds.service } });
+      }
+      if (createdIds.leadership) {
+        await prisma.leadershipMember.deleteMany({ where: { id: createdIds.leadership } });
       }
       if (createdIds.contact) {
         await prisma.contactMessage.deleteMany({ where: { id: createdIds.contact } });
@@ -476,9 +472,6 @@ test(
       }
       if (createdIds.media) {
         await prisma.mediaFile.deleteMany({ where: { id: createdIds.media } });
-      }
-      if (createdIds.concurrentMedia) {
-        await prisma.mediaFile.deleteMany({ where: { id: createdIds.concurrentMedia } });
       }
       if (createdIds.page) {
         await prisma.contentPage.deleteMany({ where: { id: createdIds.page } });

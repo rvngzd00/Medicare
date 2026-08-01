@@ -51,6 +51,20 @@ function validateScalarTypes(definition, data) {
       );
     }
   }
+  for (const [field, maxLength] of Object.entries(definition.maxLengths || {})) {
+    if (typeof data[field] === 'string' && data[field].trim().length > maxLength) {
+      throw new ApiError(422, 'VALIDATION_FAILED', `${field} is too long.`);
+    }
+  }
+  for (const [field, limits] of Object.entries(definition.arrayLimits || {})) {
+    if (data[field] === undefined) continue;
+    if (data[field].length > limits.maxItems) {
+      throw new ApiError(422, 'VALIDATION_FAILED', `${field} has too many items.`);
+    }
+    if (data[field].some((value) => value.trim().length > limits.maxLength)) {
+      throw new ApiError(422, 'VALIDATION_FAILED', `${field} contains an item that is too long.`);
+    }
+  }
   for (const field of definition.idArrays || []) {
     if (
       data[field] !== undefined &&
@@ -104,7 +118,8 @@ function validateScalarTypes(definition, data) {
     'educations',
     'experiences',
     'certificates',
-    'schedules'
+    'schedules',
+    'priceItems'
   ]);
   for (const field of definition.writable) {
     const value = data[field];
@@ -298,10 +313,20 @@ function normalizeNestedCollection(value, name) {
         'active'
       ],
       required: ['branchId', 'dayOfWeek', 'startTime', 'endTime']
+    },
+    priceItems: {
+      allowed: ['code', 'name', 'price', 'currency', 'note', 'active', 'sortOrder'],
+      required: ['name']
     }
   };
+  if (name === 'priceItems' && value.length > 200) {
+    throw new ApiError(422, 'VALIDATION_FAILED', 'A service can contain at most 200 price items.');
+  }
   const rule = rules[name];
-  return value.map(({ id: _id, doctorId: _doctorId, createdAt: _createdAt, updatedAt: _updatedAt, ...item }) => {
+  return value.map(({ id: _id, doctorId: _doctorId, serviceId: _serviceId, createdAt: _createdAt, updatedAt: _updatedAt, ...item }) => {
+    for (const [field, fieldValue] of Object.entries(item)) {
+      if (typeof fieldValue === 'string') item[field] = fieldValue.trim();
+    }
     const unsupported = Object.keys(item).filter(
       (field) => !rule.allowed.includes(field)
     );
@@ -376,6 +401,23 @@ function normalizeNestedCollection(value, name) {
         );
       }
     }
+    if (name === 'priceItems') {
+      if (item.name.length > 500 || item.code?.length > 80 || item.note?.length > 1000) {
+        throw new ApiError(422, 'VALIDATION_FAILED', 'A price item field is too long.');
+      }
+      if (item.currency !== undefined && !['AZN', 'USD', 'EUR'].includes(item.currency)) {
+        throw new ApiError(422, 'VALIDATION_FAILED', 'Price item currency is invalid.');
+      }
+      if (item.price === '' || item.price === null) item.price = null;
+      else if (item.price !== undefined) {
+        if (!Number.isFinite(Number(item.price)) || Number(item.price) < 0) {
+          throw new ApiError(422, 'VALIDATION_FAILED', 'Price item price must be non-negative.');
+        }
+        item.price = Number(item.price).toFixed(2);
+      }
+      item.currency ||= 'AZN';
+      item.active ??= true;
+    }
     for (const key of ['startDate', 'endDate', 'issuedAt', 'expiresAt']) {
       if (item[key]) {
         const parsed = new Date(item[key]);
@@ -426,6 +468,15 @@ function normalizeData(definition, input, action) {
   validateScalarTypes(definition, input);
   const data = { ...input };
 
+  for (const [field, value] of Object.entries(data)) {
+    if (typeof value === 'string') data[field] = value.trim();
+  }
+  for (const field of definition.stringArrays || []) {
+    if (data[field] !== undefined) {
+      data[field] = data[field].map((value) => value.trim()).filter(Boolean);
+    }
+  }
+
   for (const dateField of definition.dateFields || []) {
     if (data[dateField] === null || data[dateField] === '') {
       data[dateField] = null;
@@ -475,10 +526,18 @@ function normalizeData(definition, input, action) {
     'educations',
     'experiences',
     'certificates',
-    'schedules'
+    'schedules',
+    'priceItems'
   ]) {
     if (!(collection in data)) continue;
     const items = normalizeNestedCollection(data[collection], collection);
+    if (collection === 'priceItems') {
+      const prices = items
+        .filter((item) => item.active !== false && item.price !== null && item.price !== undefined)
+        .map((item) => Number(item.price));
+      data.priceFrom = prices.length ? Math.min(...prices).toFixed(2) : null;
+      data.currency = items.find((item) => item.currency)?.currency || data.currency || 'AZN';
+    }
     data[collection] =
       action === 'create'
         ? { create: items }
@@ -486,6 +545,23 @@ function normalizeData(definition, input, action) {
   }
 
   return data;
+}
+
+async function lockMediaReferences(transaction, definition, data) {
+  const mediaIds = (definition.mediaFields || [])
+    .map((field) => data[field])
+    .filter(Boolean);
+  for (const mediaId of new Set(mediaIds)) {
+    const records = await transaction.$queryRaw`
+      SELECT "id"
+      FROM "MediaFile"
+      WHERE "id" = ${mediaId} AND "deletedAt" IS NULL
+      FOR UPDATE
+    `;
+    if (records.length === 0) {
+      throw new ApiError(422, 'VALIDATION_FAILED', 'The selected image was not found.');
+    }
+  }
 }
 
 export async function listAdminRecords(entity, query) {
@@ -543,18 +619,72 @@ export async function createAdminRecord(entity, input) {
   if (definition.allowCreate === false) {
     throw new ApiError(405, 'METHOD_NOT_ALLOWED', 'This resource cannot be created here.');
   }
-  return prisma[definition.delegate].create({
-    data: normalizeData(definition, input, 'create'),
-    ...(definition.include ? { include: definition.include } : {})
+  const data = normalizeData(definition, input, 'create');
+  if (!definition.mediaFields?.length) {
+    return prisma[definition.delegate].create({
+      data,
+      ...(definition.include ? { include: definition.include } : {})
+    });
+  }
+  return prisma.$transaction(async (transaction) => {
+    await lockMediaReferences(transaction, definition, data);
+    return transaction[definition.delegate].create({
+      data,
+      ...(definition.include ? { include: definition.include } : {})
+    });
   });
 }
 
 export async function updateAdminRecord(entity, id, input) {
   const definition = getDefinition(entity);
   await getAdminRecord(entity, id);
-  return prisma[definition.delegate].update({
-    where: { id },
-    data: normalizeData(definition, input, 'update'),
+  const data = normalizeData(definition, input, 'update');
+  if (!definition.mediaFields?.length) {
+    return prisma[definition.delegate].update({
+      where: { id },
+      data,
+      ...(definition.include ? { include: definition.include } : {})
+    });
+  }
+  return prisma.$transaction(async (transaction) => {
+    await lockMediaReferences(transaction, definition, data);
+    return transaction[definition.delegate].update({
+      where: { id },
+      data,
+      ...(definition.include ? { include: definition.include } : {})
+    });
+  });
+}
+
+export async function reorderAdminRecords(entity, ids) {
+  const definition = getDefinition(entity);
+  if (!definition.integers?.includes('sortOrder')) {
+    throw new ApiError(405, 'METHOD_NOT_ALLOWED', 'This resource cannot be reordered.');
+  }
+  const existing = await prisma[definition.delegate].findMany({
+    where: {
+      id: { in: ids },
+      ...(definition.softDelete ? { deletedAt: null } : {})
+    },
+    select: { id: true }
+  });
+  if (existing.length !== ids.length) {
+    throw new ApiError(422, 'VALIDATION_FAILED', 'One or more records were not found.');
+  }
+  await prisma.$transaction(
+    ids.map((id, index) =>
+      prisma[definition.delegate].update({
+        where: { id },
+        data: { sortOrder: index + 1 }
+      })
+    )
+  );
+  return prisma[definition.delegate].findMany({
+    where: {
+      id: { in: ids },
+      ...(definition.softDelete ? { deletedAt: null } : {})
+    },
+    orderBy: definition.orderBy,
     ...(definition.include ? { include: definition.include } : {})
   });
 }

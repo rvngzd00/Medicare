@@ -462,6 +462,14 @@
   background: linear-gradient(transparent, var(--line), transparent);
 }
 
+.leadershipSection .sectionHeading {
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.leadershipGrid {
+  align-items: stretch;
+}
+
 .whySection {
   overflow: hidden;
   background:

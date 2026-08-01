@@ -9,7 +9,7 @@ import { services as mockServices, getService as getMockService } from "@/data/s
 import { articles as mockArticles, getArticle as getMockArticle } from "@/data/articles";
 import {
   branches as mockBranches,
-  executiveDirector as mockExecutiveDirector,
+  leadership as mockLeadership,
   facilities as mockFacilities,
   testimonials as mockTestimonials
 } from "@/data/site";
@@ -87,7 +87,7 @@ async function requestContent(path, { fresh = false } = {}) {
   return { data: payload.data, meta: payload.meta || null };
 }
 
-async function getCollection(path, mockItems, adapter) {
+async function getCollection(path, mockItems, adapter, options = {}) {
   const adaptedMockItems = mockItems.map((item) => adapter(item));
 
   if (!USE_LIVE_CONTENT) {
@@ -100,7 +100,7 @@ async function getCollection(path, mockItems, adapter) {
   }
 
   try {
-    const result = await requestContent(path);
+    const result = await requestContent(path, options);
     const rawItems = Array.isArray(result.data) ? result.data : [];
     return {
       items: rawItems.map((item) => adapter(item)),
@@ -177,14 +177,20 @@ export function getDepartmentContent(slug) {
 }
 
 export function getServicesContent() {
-  return getCollection("/public/services?limit=100", mockServices, adaptService);
+  return getCollection(
+    "/public/services?limit=100",
+    mockServices,
+    adaptService,
+    { fresh: true }
+  );
 }
 
 export function getServiceContent(slug) {
   return getDetail(
     `/public/services/${encodeURIComponent(slug)}`,
     getMockService(slug),
-    adaptService
+    adaptService,
+    { fresh: true }
   );
 }
 
@@ -232,11 +238,11 @@ export function getGalleryContent() {
   );
 }
 
-export function getExecutiveDirectorContent() {
-  return getDetail(
-    "/public/executive-director",
-    USE_LIVE_CONTENT ? null : mockExecutiveDirector,
-    adaptExecutiveDirector,
+export function getLeadershipContent() {
+  return getCollection(
+    "/public/content/leadership?limit=100",
+    mockLeadership,
+    adaptLeadership,
     { fresh: true }
   );
 }
@@ -602,6 +608,14 @@ function adaptService(raw, context = {}) {
     imageAlt: raw.image?.altText,
     priceFrom: raw.priceFrom,
     currency: raw.currency || "AZN",
+    priceItems: (raw.priceItems || []).map((item, index) => ({
+      id: item.id || raw.slug + "-price-" + index,
+      code: item.code || "",
+      name: item.name,
+      price: item.price,
+      currency: item.currency || raw.currency || "AZN",
+      note: item.note || "",
+    })),
     featured: Boolean(raw.featured),
     doctors: Array.isArray(raw.doctors)
       ? raw.doctors.map((doctor) => adaptDoctor(doctor, doctorContext))
@@ -728,19 +742,26 @@ function adaptContentPage(raw) {
   };
 }
 
-function adaptExecutiveDirector(raw) {
+function adaptLeadership(raw) {
+  const firstName = raw.firstName || "";
+  const lastName = raw.lastName || "";
+  const name = raw.name || `${firstName} ${lastName}`.replace(/\s+/g, " ").trim();
   return {
     id: raw.id,
-    fullName: raw.fullName || "",
-    role: raw.role || "",
-    message: raw.message || "",
-    signature: raw.signature || "",
-    image: resolveMedia(raw.photo, raw.image || ""),
+    slug: raw.slug,
+    name,
+    firstName,
+    lastName,
+    position: raw.position || "",
+    bio: raw.bio || "",
+    education: Array.isArray(raw.education) ? raw.education.filter(Boolean) : [],
+    experience: Array.isArray(raw.experience) ? raw.experience.filter(Boolean) : [],
+    image: resolveMedia(raw.image && typeof raw.image === "object" ? raw.image : null, typeof raw.image === "string" ? raw.image : ""),
     imageAlt:
-      raw.photo?.altText ||
+      raw.image?.altText ||
       raw.imageAlt ||
-      [raw.fullName, raw.role].filter(Boolean).join(" — "),
-    active: raw.active !== false,
+      [name, raw.position].filter(Boolean).join(" — "),
+    sortOrder: Number(raw.sortOrder) || 0,
     updatedAt: raw.updatedAt
   };
 }
@@ -956,6 +977,7 @@ function resolveMedia(media, fallback) {
   const value = media?.url || media?.thumbnailUrl;
   if (!value) return fallback;
   if (/^https?:\/\//i.test(value)) return value;
+  if (/^\/(?!\/)/.test(value) && !/^\/uploads\//i.test(value)) return value;
   try {
     return new URL(value, `${API_ORIGIN}/`).toString();
   } catch {

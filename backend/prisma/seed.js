@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 const permissionGroups = {
   dashboard: ['dashboard.read'],
   doctors: ['doctors.read', 'doctors.write', 'doctors.delete'],
+  leadership: ['leadership.read', 'leadership.write', 'leadership.delete'],
   departments: ['departments.read', 'departments.write', 'departments.delete'],
   services: ['services.read', 'services.write', 'services.delete'],
   articles: ['articles.read', 'articles.write', 'articles.publish', 'articles.delete'],
@@ -45,6 +46,7 @@ const roleDefinitions = [
       ...permissionGroups.departments,
       ...permissionGroups.services,
       ...permissionGroups.articles,
+      ...permissionGroups.leadership,
       ...permissionGroups.faqs,
       ...permissionGroups.testimonials,
       ...permissionGroups.gallery,
@@ -166,19 +168,77 @@ async function seedOptionalAdmin() {
 }
 
 async function seedContent() {
-  await prisma.executiveDirectorProfile.upsert({
-    where: { key: 'primary' },
-    update: {},
-    create: {
-      key: 'primary',
-      fullName: 'Dr. Kamran Rzayev',
-      role: 'Baş direktor',
-      message:
-        'İnanırıq ki, keyfiyyətli tibbi xidmət dəqiq qərarla yanaşı, pasiyentə aydın və diqqətli münasibətdən başlayır.',
-      signature: 'Dr. Kamran Rzayev',
-      active: true
+  const mediaDefinitions = [
+    ['doctor-aydan', 'leyla-memmedova.png', 1744153, 864, 1821, 'Dr. Aydan Məmmədova'],
+    ['doctor-elvin', 'orxan-aliyev.png', 2209323, 1024, 1536, 'Dr. Elvin Əliyev'],
+    ['doctor-nigar', 'nigar-aliyeva.png', 1723074, 1023, 1537, 'Dr. Nigar Hüseynli'],
+    ['leader-kamran', 'orxan-huseynli.png', 1985890, 1024, 1536, 'Dr. Kamran Rzayev'],
+    ['leader-nermin', 'leyla-quliyeva.png', 1973834, 1024, 1536, 'Dr. Nərmin Məmmədova'],
+    ['leader-elcin', 'elcin-memmedov.png', 2051005, 1024, 1536, 'Elçin Məmmədov']
+  ];
+  const media = new Map();
+  for (const [key, filename, size, width, height, altText] of mediaDefinitions) {
+    const item = await prisma.mediaFile.upsert({
+      where: { storageKey: `static/doctors/${filename}` },
+      update: {},
+      create: {
+        provider: 'S3',
+        storageKey: `static/doctors/${filename}`,
+        filename,
+        originalName: filename,
+        mimeType: 'image/png',
+        size,
+        width,
+        height,
+        url: `/images/doctors/${filename}`,
+        altText
+      }
+    });
+    media.set(key, item);
+  }
+
+  const leadershipDefinitions = [
+    {
+      slug: 'dr-kamran-rzayev',
+      firstName: 'Dr. Kamran',
+      lastName: 'Rzayev',
+      position: 'Baş direktor',
+      bio: 'Medicare Hospital-da klinik keyfiyyət, pasiyent təhlükəsizliyi və komanda əməkdaşlığı üzrə inkişaf proqramlarına rəhbərlik edir.',
+      education: ['Azərbaycan Tibb Universiteti — Müalicə işi'],
+      experience: ['Səhiyyə idarəçiliyi və klinik keyfiyyət üzrə uzunmüddətli rəhbərlik təcrübəsi'],
+      imageId: media.get('leader-kamran').id,
+      sortOrder: 1
+    },
+    {
+      slug: 'dr-nermin-memmedova',
+      firstName: 'Dr. Nərmin',
+      lastName: 'Məmmədova',
+      position: 'Tibbi direktor',
+      bio: 'Klinik protokolların, multidissiplinar komanda işinin və pasiyent təhlükəsizliyi standartlarının davamlı inkişafına rəhbərlik edir.',
+      education: ['Azərbaycan Tibb Universiteti — Müalicə işi', 'Klinik idarəetmə üzrə ixtisasartırma proqramı'],
+      experience: ['Klinik xidmətlərin təşkili və keyfiyyət idarəetməsi üzrə 15 ildən artıq təcrübə'],
+      imageId: media.get('leader-nermin').id,
+      sortOrder: 2
+    },
+    {
+      slug: 'elcin-memmedov',
+      firstName: 'Elçin',
+      lastName: 'Məmmədov',
+      position: 'İnzibati işlər üzrə direktor',
+      bio: 'Hospitalın əməliyyat proseslərini, xidmət koordinasiyasını və pasiyent təcrübəsinin təşkilati inkişafını idarə edir.',
+      education: ['Azərbaycan Dövlət İqtisad Universiteti — Menecment'],
+      experience: ['Səhiyyə müəssisələrinin əməliyyat idarəçiliyi üzrə 12 ildən artıq təcrübə'],
+      imageId: media.get('leader-elcin').id,
+      sortOrder: 3
     }
-  });
+  ];
+  for (const leader of leadershipDefinitions) {
+    await prisma.leadershipMember.upsert({
+      where: { slug: leader.slug },
+      update: {},
+      create: leader
+    });
+  }
 
   const branch = await prisma.branch.upsert({
     where: { slug: 'medicare-merkez' },
@@ -243,6 +303,46 @@ async function seedContent() {
       technologies: [],
       featured: true,
       sortOrder: 3
+    },
+    {
+      slug: 'psixiatriya',
+      name: 'Psixiatriya',
+      summary: 'Psixi sağlamlıq üzrə konsultasiya və müayinə xidmətləri.',
+      description: 'Psixi sağlamlığın qiymətləndirilməsi və fərdi konsultasiya xidmətləri.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 10
+    },
+    {
+      slug: 'diaqnostika',
+      name: 'Diaqnostika',
+      summary: 'Instrumental müayinələr və həkim qəbulu xidmətləri.',
+      description: 'Rentgen, ultrasəs və digər diaqnostik xidmətlərin vahid koordinasiyası.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 11
+    },
+    {
+      slug: 'laboratoriya',
+      name: 'Laboratoriya',
+      summary: 'Klinik və instrumental laborator müayinələrin geniş spektri.',
+      description: 'Müasir laborator diaqnostika, skrininq və monitorinq xidmətləri.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 12
+    },
+    {
+      slug: 'poliklinika-ve-reabilitasiya',
+      name: 'Poliklinika və reabilitasiya',
+      summary: 'Fizioterapiya və ambulator manipulyasiya xidmətləri.',
+      description: 'Bərpa, fizioterapiya və gündəlik ambulator prosedurlar üçün koordinasiyalı xidmət.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 13
     }
   ];
 
@@ -250,7 +350,12 @@ async function seedContent() {
   for (const data of departmentData) {
     const department = await prisma.department.upsert({
       where: { slug: data.slug },
-      update: { ...data, active: true, deletedAt: null },
+      update: {
+        ...data,
+        active: true,
+        deletedAt: null,
+        branches: { connect: { id: branch.id } }
+      },
       create: { ...data, branches: { connect: { id: branch.id } } }
     });
     departments.set(data.slug, department);
@@ -322,6 +427,7 @@ async function seedContent() {
       procedures: ['EKQ şərhi', 'Exokardioqrafiya', 'Holter nəticələrinin analizi'],
       departmentSlug: 'kardiologiya',
       serviceSlugs: ['kardioloji-check-up'],
+      profileImageId: media.get('doctor-aydan').id,
       featured: true,
       sortOrder: 1
     },
@@ -339,6 +445,7 @@ async function seedContent() {
       procedures: ['Nevroloji müayinə', 'EEQ nəticələrinin şərhi'],
       departmentSlug: 'nevrologiya',
       serviceSlugs: ['nevroloji-konsultasiya'],
+      profileImageId: media.get('doctor-elvin').id,
       featured: true,
       sortOrder: 2
     },
@@ -356,13 +463,14 @@ async function seedContent() {
       procedures: ['Profilaktik baxış', 'Peyvənd planlaması', 'İnkişaf skrininqi'],
       departmentSlug: 'pediatriya',
       serviceSlugs: ['usaq-saglamliq-izlenmesi'],
+      profileImageId: media.get('doctor-nigar').id,
       featured: true,
       sortOrder: 3
     }
   ];
 
   const doctors = new Map();
-  for (const { departmentSlug, serviceSlugs, ...data } of doctorData) {
+  for (const { departmentSlug, serviceSlugs, profileImageId, ...data } of doctorData) {
     const doctor = await prisma.doctor.upsert({
       where: { slug: data.slug },
       update: {
@@ -377,6 +485,7 @@ async function seedContent() {
       },
       create: {
         ...data,
+        profileImageId,
         departmentId: departments.get(departmentSlug).id,
         branchId: branch.id,
         services: {
@@ -522,6 +631,7 @@ async function seedContent() {
         ['services', 'COLLECTION', 'Əsas xidmətlər', 'Ehtiyacınıza uyğun tibbi həllər', 'Əsas xidmətlər', 'Profilaktik müayinədən mürəkkəb diaqnostikaya qədər hər xidmət vahid klinik standartla planlanır.', { collection: 'services', limit: 4, linkLabel: 'Bütün xidmətlər', linkHref: '/services' }],
         ['departments', 'COLLECTION', 'Tibbi şöbələr', 'Bir-birini tamamlayan ixtisaslar', 'Tibbi şöbələr', 'Komandalarımız mürəkkəb halları birlikdə dəyərləndirir, siz isə bütün prosesi bir mərkəzdə tamamlayırsınız.', { collection: 'departments', limit: 6, linkLabel: 'Bütün şöbələr', linkHref: '/departments' }],
         ['doctors', 'COLLECTION', 'Həkim komandamız', 'Bilik qədər ünsiyyətə də önəm verən mütəxəssislər', 'Həkim komandamız', 'Sizin sualınızı dinləyən, seçimlərinizi aydın izah edən və müalicə yolunu birlikdə quran həkimlər.', { collection: 'doctors', limit: 4, linkLabel: 'Bütün həkimlər', linkHref: '/doctors' }],
+        ['leadership', 'COLLECTION', 'Rəhbərlik', 'Medicare-i gələcəyə aparan komanda', 'Rəhbərlik', 'Klinik keyfiyyət, pasiyent təhlükəsizliyi və davamlı inkişaf üçün çalışan rəhbərlik komandamızla tanış olun.', { collection: 'leadership', limit: 6 }],
         ['why-medicare', 'FEATURE_GRID', 'Niyə Medicare?', 'Tibbi dəqiqlik, insani diqqətlə birlikdə', 'Niyə Medicare?', 'Sistemimizi pasiyentin özünü məlumatlı, təhlükəsiz və rahat hiss etməsi üçün qurmuşuq.', {}],
         ['contact-cta', 'CTA', 'Telefon əlaqə çağırışı', 'Sağlamlığınızı təxirə salmayın', 'Əlaqə', 'Sizə uyğun şöbə və həkim haqqında məlumat üçün komandamıza zəng edin.', { primaryLabel: 'Bizimlə əlaqə saxla', primaryHref: 'tel:+994124503291' }],
         ['testimonials', 'COLLECTION', 'Pasiyent rəyləri', 'Etibar, hər görüşdə yenidən qazanılır', 'Pasiyent təcrübəsi', 'Pasiyentlərin paylaşdığı təcrübələr xidmətimizi daha yaxşı qurmağımıza kömək edir.', { collection: 'testimonials' }],

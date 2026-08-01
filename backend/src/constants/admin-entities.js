@@ -62,6 +62,41 @@ export const adminEntities = Object.freeze({
       schedules: true
     }
   },
+  leadership: {
+    delegate: 'leadershipMember',
+    permission: 'leadership',
+    softDelete: true,
+    searchFields: ['firstName', 'lastName', 'position', 'bio'],
+    orderBy: [{ sortOrder: 'asc' }, { lastName: 'asc' }],
+    slugSource: (data) => `${data.firstName || ''}-${data.lastName || ''}`,
+    required: ['firstName', 'lastName', 'position', 'bio', 'imageId'],
+    writable: [
+      'slug',
+      'firstName',
+      'lastName',
+      'position',
+      'bio',
+      'education',
+      'experience',
+      'imageId',
+      ...commonContentFields
+    ],
+    integers: ['sortOrder'],
+    booleans: ['active'],
+    stringArrays: ['education', 'experience'],
+    mediaFields: ['imageId'],
+    maxLengths: {
+      firstName: 80,
+      lastName: 80,
+      position: 160,
+      bio: 2000
+    },
+    arrayLimits: {
+      education: { maxItems: 12, maxLength: 500 },
+      experience: { maxItems: 12, maxLength: 500 }
+    },
+    include: { image: true }
+  },
   departments: {
     delegate: 'department',
     permission: 'departments',
@@ -105,6 +140,7 @@ export const adminEntities = Object.freeze({
       'currency',
       'icon',
       'departmentId',
+      'priceItems',
       ...commonMediaSeoFields,
       'featured',
       ...commonContentFields,
@@ -117,7 +153,8 @@ export const adminEntities = Object.freeze({
       image: true,
       seo: true,
       department: { select: { id: true, name: true, slug: true } },
-      doctors: { select: { id: true, firstName: true, lastName: true } }
+      doctors: { select: { id: true, firstName: true, lastName: true } },
+      priceItems: { orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }] }
     }
   },
   articles: {

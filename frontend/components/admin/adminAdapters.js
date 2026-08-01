@@ -124,13 +124,16 @@ export function adaptResourceRecord(resource, record) {
   }
 
   if (resource === "services") {
+    const priceCount = record.priceItems?.length || 0;
     return {
       ...common,
       name: record.name,
       detail: record.summary,
       initials: initials(...String(record.name || "").split(" ")),
       department: record.department?.name || "Təyin edilməyib",
-      price: record.priceFrom ? `${record.priceFrom} ${record.currency || "AZN"}-dən` : "Sorğu ilə",
+      price: priceCount
+        ? `${priceCount} qiymət · ${record.priceFrom ? `${record.priceFrom} ${record.currency || "AZN"}-dən` : "sorğu ilə"}`
+        : record.priceFrom ? `${record.priceFrom} ${record.currency || "AZN"}-dən` : "Sorğu ilə",
     };
   }
 
@@ -317,6 +320,12 @@ export function backendRecordToEditorValues(resource, record) {
       image: record.image?.originalName || "",
       price: record.priceFrom ? String(record.priceFrom) : "",
       currency: record.currency || "AZN",
+      priceItems: (record.priceItems || []).map((item) => ({
+        ...item,
+        price: item.price === null || item.price === undefined ? "" : String(item.price),
+        currency: item.currency || "AZN",
+        active: item.active !== false,
+      })),
       slug: record.slug || "",
       featured: Boolean(record.featured),
       active: Boolean(record.active),
@@ -457,6 +466,15 @@ export function editorValuesToBackend(resource, values, { mode = "new", intent =
       description: cleanText(values.description),
       priceFrom: cleanText(values.price),
       currency: cleanText(values.currency) || "AZN",
+      priceItems: (values.priceItems || []).map((item, index) => ({
+        name: cleanText(item.name),
+        code: cleanText(item.code),
+        price: cleanText(item.price) || null,
+        currency: cleanText(item.currency) || "AZN",
+        note: cleanText(item.note),
+        active: item.active !== false,
+        sortOrder: index,
+      })),
       icon: cleanText(values.icon),
       departmentId: cleanText(values.department),
       featured: Boolean(values.featured),

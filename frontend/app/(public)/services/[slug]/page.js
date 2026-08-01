@@ -110,6 +110,24 @@ export default async function ServiceDetailPage({ params }) {
               <article><Icon name="clock" size={22} /><p><small>Təxmini müddət</small><strong>{service.duration}</strong></p></article>
               <article><Icon name="location" size={22} /><p><small>Şöbə</small><strong>{department?.name}</strong></p></article>
             </div>
+            {service.priceItems?.length > 0 && (
+              <section className="servicePricing">
+                <div className="servicePricing__heading">
+                  <div><span className="eyebrow">Qiymət siyahısı</span><h2>{service.name}</h2></div>
+                  <span>{service.priceItems.length} xidmət</span>
+                </div>
+                <div className="servicePricing__list">
+                  {service.priceItems.map((item) => (
+                    <article key={item.id}>
+                      <span className="servicePricing__code">{item.code || "—"}</span>
+                      <p><strong>{item.name}</strong>{item.note && <small>{item.note}</small>}</p>
+                      <strong className="servicePricing__price">{formatServicePrice(item.price, item.currency)}</strong>
+                    </article>
+                  ))}
+                </div>
+                <small className="servicePricing__notice">Yekun məbləği xidmət planına uyğun olaraq əlaqə mərkəzindən dəqiqləşdirə bilərsiniz.</small>
+              </section>
+            )}
             <section className="includedSection">
               <h2>Proqrama daxildir</h2>
               <ul>{service.includes.map((item) => <li key={item}><Icon name="check" size={18} /><span>{item}</span></li>)}</ul>
@@ -149,4 +167,13 @@ export default async function ServiceDetailPage({ params }) {
 
 function SectionTitle() {
   return <div className="sectionHeading"><span className="eyebrow">Əlaqəli xidmətlər</span><h2>Sizin üçün faydalı ola bilər</h2></div>;
+}
+
+function formatServicePrice(value, currency = "AZN") {
+  if (value === null || value === undefined || value === "" || Number(value) <= 0) return "Sorğu ilə";
+  const amount = new Intl.NumberFormat("az-AZ", {
+    minimumFractionDigits: Number(value) % 1 ? 2 : 0,
+    maximumFractionDigits: 2
+  }).format(Number(value));
+  return currency === "AZN" ? amount + " ₼" : amount + " " + currency;
 }

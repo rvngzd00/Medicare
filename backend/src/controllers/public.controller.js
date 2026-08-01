@@ -15,7 +15,6 @@ import {
   searchPublicContent
 } from '../services/public-content.service.js';
 import { success } from '../utils/api-response.js';
-export { publicExecutiveDirectorController } from './executive-director.controller.js';
 
 export async function configurationController(_request, response) {
   return success(response, await getPublicConfiguration());

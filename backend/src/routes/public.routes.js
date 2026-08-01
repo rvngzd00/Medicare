@@ -11,7 +11,6 @@ import {
   departmentsController,
   doctorController,
   doctorsController,
-  publicExecutiveDirectorController,
   searchController,
   serviceController,
   servicesController,
@@ -25,10 +24,6 @@ import { contactSchema, listQuerySchema, slugParamsSchema } from '../validators/
 export const publicRouter = Router();
 
 publicRouter.get('/configuration', asyncHandler(configurationController));
-publicRouter.get(
-  '/executive-director',
-  asyncHandler(publicExecutiveDirectorController)
-);
 publicRouter.get('/doctors', validate(listQuerySchema), asyncHandler(doctorsController));
 publicRouter.get('/doctors/:slug', validate(slugParamsSchema), asyncHandler(doctorController));
 publicRouter.get(
@@ -51,6 +46,7 @@ publicRouter.get(
     params: z
       .object({
         type: z.enum([
+          'leadership',
           'branches',
           'faqs',
           'testimonials',
