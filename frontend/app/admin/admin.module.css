@@ -1906,6 +1906,169 @@
 }
 
 /* Resource tables */
+.servicePricingControl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(280px, .7fr);
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #fff 0%, #f7faff 100%);
+  border: 1px solid #dce6f1;
+  border-radius: 13px;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.servicePricingControlIcon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  color: var(--admin-blue);
+  background: var(--admin-blue-soft);
+  border-radius: 12px;
+}
+
+.servicePricingControlCopy {
+  min-width: 0;
+}
+
+.servicePricingControlHeading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.servicePricingControlHeading > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.servicePricingControlHeading span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--admin-blue);
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.servicePricingControlHeading h2 {
+  margin: 0;
+  color: var(--admin-navy);
+  font-size: 14px;
+  letter-spacing: -.015em;
+}
+
+.servicePricingControlHeading > strong {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  font-size: 8px;
+  border-radius: 999px;
+}
+
+.pricingStatusVisible {
+  color: var(--admin-success);
+  background: #eaf8f2;
+}
+
+.pricingStatusHidden {
+  color: var(--admin-red);
+  background: var(--admin-red-soft);
+}
+
+.servicePricingControlCopy > p {
+  max-width: 680px;
+  margin: 5px 0 4px;
+  color: var(--admin-muted);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.servicePricingControlCopy > small {
+  color: var(--admin-subtle);
+  font-size: 7.5px;
+}
+
+.servicePricingRetry {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  margin: 5px 0;
+  color: #9b5e07;
+  font-size: 8px;
+  text-align: left;
+  background: #fff7e8;
+  border: 1px solid #f2d69e;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.servicePricingChoices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  padding: 4px;
+  background: #edf2f7;
+  border-radius: 10px;
+}
+
+.servicePricingChoices button {
+  display: flex;
+  min-width: 0;
+  min-height: 52px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px;
+  color: #6d7b8d;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.servicePricingChoices button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+
+.servicePricingChoices button > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.servicePricingChoices button strong {
+  color: inherit;
+  font-size: 9px;
+}
+
+.servicePricingChoices button small {
+  overflow: hidden;
+  color: #8c98a6;
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.servicePricingChoices .servicePricingChoiceActive {
+  color: var(--admin-success);
+  background: #fff;
+  border-color: #caeadc;
+  box-shadow: 0 3px 9px rgba(20, 50, 75, .07);
+}
+
+.servicePricingChoices .servicePricingChoiceHidden {
+  color: var(--admin-red);
+  background: #fff;
+  border-color: #f0cfd3;
+  box-shadow: 0 3px 9px rgba(20, 50, 75, .07);
+}
+
 .resourceSummary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4211,6 +4374,11 @@
   border: 1px solid var(--admin-border);
   border-radius: 7px;
   cursor: pointer;
+}
+
+.readerActions .readerDeleteAction {
+  color: var(--admin-red);
+  border-color: #f0cfd3;
 }
 
 .readerMobileBack {
@@ -7267,6 +7435,14 @@
 }
 
 @media (max-width: 1023px) {
+  .servicePricingControl {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .servicePricingChoices {
+    grid-column: 1 / -1;
+  }
+
   .directorEditorLayout {
     grid-template-columns: 1fr;
   }
@@ -7467,6 +7643,25 @@
 }
 
 @media (max-width: 767px) {
+  .servicePricingControl {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    padding: 14px;
+  }
+
+  .servicePricingControlIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .servicePricingControlHeading {
+    align-items: flex-start;
+  }
+
+  .servicePricingChoices {
+    grid-column: auto;
+  }
+
   .directorFormGrid {
     grid-template-columns: 1fr;
     padding: 14px;
@@ -7715,6 +7910,10 @@
 }
 
 @media (max-width: 479px) {
+  .servicePricingChoices {
+    grid-template-columns: 1fr;
+  }
+
   .headerActions {
     gap: 5px;
   }

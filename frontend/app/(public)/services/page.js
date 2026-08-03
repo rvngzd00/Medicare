@@ -36,8 +36,12 @@ export default async function ServicesPage() {
     getPageContent("services", PAGE_FALLBACK),
   ]);
   const sections = resolvePageSections(pageContent.item, PAGE_FALLBACK.sections);
-  const pricedServices = content.items.filter((service) => service.priceItems?.length);
-  const overviewServices = content.items.filter((service) => !service.priceItems?.length);
+  const pricedServices = content.items.filter(
+    (service) => service.pricingVisible !== false && service.priceItems?.length
+  );
+  const overviewServices = content.items.filter(
+    (service) => service.pricingVisible === false || !service.priceItems?.length
+  );
   return (
     <div className="cmsPageFlow">
       {sections.map((section) => {

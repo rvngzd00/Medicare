@@ -252,6 +252,16 @@ export const adminApi = {
   messages: {
     list: (params = {}, options = {}) => request(`/admin/contacts?${new URLSearchParams(params)}`, options),
     update: (id, data, options = {}) => request(`/admin/contacts/${encodeURIComponent(id)}`, { ...options, method: "PATCH", body: data }),
+    remove: (id, options = {}) => request(`/admin/contacts/${encodeURIComponent(id)}`, { ...options, method: "DELETE" }),
+  },
+
+  servicePricing: {
+    getVisibility: (options = {}) => request("/admin/services/pricing-visibility", options),
+    updateVisibility: (visible, options = {}) => request("/admin/services/pricing-visibility", {
+      ...options,
+      method: "PUT",
+      body: { visible },
+    }),
   },
 
   users: {

@@ -8,7 +8,8 @@ import { createMetadata } from "@/utils/seo";
 export const metadata = createMetadata({
   title: "Saytda axtarış",
   description: "Medicare saytında həkim, şöbə, tibbi xidmət və sağlamlıq məqalələrini axtarın.",
-  path: "/search"
+  path: "/search",
+  robots: { index: false, follow: true }
 });
 
 export default async function SearchPage({ searchParams }) {

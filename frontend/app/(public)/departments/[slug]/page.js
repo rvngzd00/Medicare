@@ -73,8 +73,9 @@ export default async function DepartmentDetailPage({ params }) {
     url: absoluteUrl(`/departments/${department.slug}`),
     image: absoluteUrl(department.image),
     description: department.summary,
-    parentOrganization: { "@type": "Hospital", name: "Medicare Hospital" },
-    telephone: contact.phone
+    parentOrganization: { "@id": absoluteUrl("/#hospital") },
+    telephone: contact.phone,
+    inLanguage: "az-AZ"
   };
   const faqSchema = {
     "@context": "https://schema.org",

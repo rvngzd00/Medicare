@@ -40,7 +40,10 @@ export async function generateMetadata({ params }) {
     robots: seo.robots,
     ogTitle: seo.ogTitle,
     ogDescription: seo.ogDescription,
-    twitterCard: seo.twitterCard
+    twitterCard: seo.twitterCard,
+    publishedTime: article.date,
+    modifiedTime: article.updatedAt || article.date,
+    authors: [article.author]
   });
 }
 
@@ -76,14 +79,15 @@ export default async function ArticleDetailPage({ params }) {
     description: article.excerpt,
     image: [absoluteUrl(article.image)],
     datePublished: article.date,
-    dateModified: article.date,
+    dateModified: article.updatedAt || article.date,
     author: { "@type": "Person", name: article.author },
-    publisher: {
-      "@type": "Organization",
-      name: "Medicare Hospital",
-      logo: { "@type": "ImageObject", url: absoluteUrl("/images/medicare-logo.png") }
+    publisher: { "@id": absoluteUrl("/#hospital") },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`/news/${article.slug}`)
     },
-    mainEntityOfPage: absoluteUrl(`/news/${article.slug}`)
+    isAccessibleForFree: true,
+    inLanguage: "az-AZ"
   };
 
   return (

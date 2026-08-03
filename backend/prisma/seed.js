@@ -782,6 +782,13 @@ async function seedContent() {
         annualPatients: 24000,
         experienceYears: 15
       }
+    },
+    {
+      key: 'services.pricing',
+      group: 'services',
+      label: 'Public xidmət qiymətlərinin görünürlüğü',
+      isPublic: true,
+      value: { visible: true }
     }
   ];
   for (const setting of settings) {

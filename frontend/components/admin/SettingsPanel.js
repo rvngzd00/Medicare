@@ -79,7 +79,7 @@ export default function SettingsPanel() {
     email: "official@medicarehospital.az",
     address: "Sabunçu qəsəbəsi, Əslidar Məmmədəliyev küçəsi 5, Bakı",
     seoTitle: "Medicare Hospital — Müasir tibbi xidmət",
-    seoDescription: "Medicare Hospital-da peşəkar həkimlər, müasir diaqnostika və pasiyent yönümlü tibbi xidmət.",
+    seoDescription: "Medicare Hospital-da ixtisaslaşmış həkimlər, müasir diaqnostika, laboratoriya və fərdi tibbi xidmətlərlə sağlamlığınız üçün etibarlı qayğı alın.",
     canonical: "https://medicarehospital.az",
     analyticsId: "",
     mapsKey: "",

@@ -12,7 +12,7 @@ export default function Breadcrumbs({ items }) {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      item: absoluteUrl(item.href || "/")
+      ...(item.href ? { item: absoluteUrl(item.href) } : {})
     }))
   };
 

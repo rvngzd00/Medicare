@@ -64,6 +64,14 @@ export const adminReorderSchema = {
     })
 };
 
+export const servicePricingVisibilitySchema = {
+  body: z
+    .object({
+      visible: z.boolean()
+    })
+    .strict()
+};
+
 export const userCreateSchema = {
   body: z
     .object({

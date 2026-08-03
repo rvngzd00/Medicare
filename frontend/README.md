@@ -53,6 +53,8 @@ Backend `CORS_ORIGINS` siyahısında frontend origin-i, lokal mühitdə adətən
 | `NEXT_PUBLIC_MAP_EMBED_URL` | Xarici xəritə inteqrasiyası üçün rezerv edilmiş optional dəyər; hazırkı `MapBlock` daxili vizualdan istifadə edir | boş |
 | `NEXT_PUBLIC_USE_MOCK_API` | Public məzmunu və formaları lokal (`true`) və ya real API (`false`) rejimində işlədir | `false` |
 | `NEXT_PUBLIC_ADMIN_DEMO_MODE` | Admin auth/data rejimini ayrıca idarə edir; verilmədikdə yalnız public mock flag açıqdırsa demo olur | `false` |
+| `GOOGLE_SITE_VERIFICATION` | Google Search Console üçün optional verification token-i | boş |
+| `YANDEX_SITE_VERIFICATION` | Yandex Webmaster üçün optional verification token-i | boş |
 
 İki rejim müstəqil seçilə bilər:
 
@@ -135,7 +137,7 @@ npm run start
 
 Real rejimdə giriş `POST /auth/login` ilə aparılır. Access token yalnız JavaScript yaddaşında saxlanır; refresh token backend tərəfindən `HttpOnly` cookie kimi idarə edilir. API sorğusu `401` aldıqda frontend `POST /auth/refresh` çağırışını tək prosesdə birləşdirir, yeni access tokenlə sorğunu bir dəfə təkrarlayır və refresh uğursuz olarsa session-expired hadisəsi ilə login səhifəsinə yönləndirir. Logout `POST /auth/logout` vasitəsilə server sessiyasını bağlayır.
 
-Real admin rejimində dashboard və audit axını API-dən oxunur; əsas resurslar və məzmun modulları create/update/delete əməliyyatlarını backend-ə yazır; əlaqə mesajları, istifadəçilər, rollar/icazələr, media və sayt parametrləri ayrıca endpoint-lərlə idarə olunur. Admin naviqasiyası sessiyanın permission siyahısına görə süzülür. Mesaj ekranındakı cavab qaralaması backend-də daxili qeyd kimi saxlanılır, lakin mail göndərmə endpoint-i olmadığı üçün UI uğurlu e-mail göndərişi iddia etmir. Daha detallı contract xəritəsi [admin komponent sənədində](./components/admin/README.md) verilib.
+Real admin rejimində dashboard və audit axını API-dən oxunur; əsas resurslar və məzmun modulları create/update/delete əməliyyatlarını backend-ə yazır; əlaqə mesajları, istifadəçilər, rollar/icazələr, media və sayt parametrləri ayrıca endpoint-lərlə idarə olunur. Mesajlar təsdiqdən sonra soft-delete edilir və audit jurnalında qeydə alınır. Xidmətlər ekranındakı qlobal “Göstər / Gizlət” nəzarəti bütün qiymətləri eyni anda idarə edir; gizli rejimdə backend public cavabdan `priceFrom`, `currency` və bütün `priceItems` məlumatını çıxarır. Admin naviqasiyası sessiyanın permission siyahısına görə süzülür. Mesaj ekranındakı cavab qaralaması backend-də daxili qeyd kimi saxlanılır, lakin mail göndərmə endpoint-i olmadığı üçün UI uğurlu e-mail göndərişi iddia etmir. Daha detallı contract xəritəsi [admin komponent sənədində](./components/admin/README.md) verilib.
 
 Kod bazasında hardcoded admin e-maili, şifrə, access token və ya refresh token yoxdur. Real secret-lər yalnız backend mühitində saxlanmalıdır.
 
@@ -172,7 +174,7 @@ frontend/
 
 ## SEO və media
 
-`utils/seo.js` canonical, robots, keywords, Open Graph və Twitter metadata-nı mərkəzləşdirir. Həkim, şöbə, xidmət və məqalələrin CMS-dəki fərdi SEO sahələri dinamik metadata-ya tətbiq olunur; qlobal SEO parametrləri ana səhifənin fallback metadata-sını idarə edir. `app/sitemap.js` aktiv content mənbəyindən bütün detail URL-lərini yaradır. `app/robots.js` normal halda admin və API route-larını indeksləmədən çıxarır; real konfiqurasiyada indeksləmə söndürülərsə bütün sayt üçün `Disallow: /` qaytarır.
+`utils/seo.js` canonical, robots/Googlebot preview direktivləri, keywords, Open Graph və Twitter metadata-nı mərkəzləşdirir. Həkim, şöbə, xidmət və məqalələrin CMS-dəki fərdi SEO sahələri dinamik metadata-ya tətbiq olunur; qlobal SEO parametrləri ana səhifənin fallback metadata-sını idarə edir. `app/sitemap.js` yalnız indekslənə bilən public URL-ləri və mənbədə real yenilənmə tarixi olduqda `lastmod` yaradır; daxili axtarış səhifəsi sitemap-dən çıxarılıb və `noindex,follow` istifadə edir. `app/robots.js` normal halda admin və API route-larını indeksləmədən çıxarır; real konfiqurasiyada indeksləmə söndürülərsə bütün sayt üçün `Disallow: /` qaytarır. Organization, WebSite, Breadcrumb, Physician, MedicalClinic, MedicalProcedure, Article və FAQ JSON-LD məlumatları görünən səhifə məzmunu ilə birlikdə render olunur.
 
 Orijinal PNG vizuallar `public/images` altında saxlanılır. `next/image` brauzer dəstəyinə uyğun AVIF və WebP təqdim edir, responsive `sizes` və lazy loading istifadə olunur. Real API origin-i avtomatik olaraq remote image qaydalarına əlavə edilir; CMS-dən şəkil gəlmədikdə `SmartImage` əlçatan lokal fallback göstərir.
 

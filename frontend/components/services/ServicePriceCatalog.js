@@ -21,7 +21,9 @@ function formatPrice(value, currency) {
 
 export default function ServicePriceCatalog({ services }) {
   const pricedServices = useMemo(
-    () => services.filter((service) => service.priceItems?.length),
+    () => services.filter(
+      (service) => service.pricingVisible !== false && service.priceItems?.length
+    ),
     [services],
   );
   const [query, setQuery] = useState("");

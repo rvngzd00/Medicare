@@ -72,7 +72,8 @@ export default async function ContactPage() {
       addressLocality: "Bakı",
       addressCountry: "AZ"
     },
-    openingHours: branch.hours
+    openingHours: branch.hours,
+    parentOrganization: { "@id": absoluteUrl("/#hospital") }
   }));
 
   return (

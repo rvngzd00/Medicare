@@ -23,7 +23,11 @@ test(
     const password = `Qa-${crypto.randomBytes(18).toString('base64url')}Aa1!`;
     const email = `qa-${crypto.randomUUID()}@example.test`;
     const createdIds = {};
+    let originalPricingSetting = null;
     try {
+      originalPricingSetting = await prisma.siteSetting.findUnique({
+        where: { key: 'services.pricing' }
+      });
       const role = await prisma.role.findUniqueOrThrow({
         where: { slug: 'super-admin' }
       });
@@ -155,6 +159,60 @@ test(
         .set('Authorization', 'Bearer ' + accessToken)
         .send({ priceItems: [{ name: 'Yanlış qiymət', price: '-1' }] })
         .expect(422);
+
+      const pricingVisibilityResponse = await request(app)
+        .get('/api/v1/admin/services/pricing-visibility')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(200);
+      assert.equal(typeof pricingVisibilityResponse.body.data.visible, 'boolean');
+
+      await request(app)
+        .put('/api/v1/admin/services/pricing-visibility')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({ visible: false })
+        .expect(200);
+
+      const hiddenPricesResponse = await request(app)
+        .get('/api/v1/public/services?limit=100')
+        .expect(200);
+      assert.ok(hiddenPricesResponse.body.data.length >= 1);
+      assert.ok(
+        hiddenPricesResponse.body.data.every(
+          (service) =>
+            service.pricingVisible === false &&
+            service.priceFrom === null &&
+            service.priceItems.length === 0 &&
+            !Object.hasOwn(service, 'currency')
+        )
+      );
+
+      const hiddenServiceResponse = await request(app)
+        .get('/api/v1/public/services/' + serviceSlug)
+        .expect(200);
+      assert.equal(hiddenServiceResponse.body.data.pricingVisible, false);
+      assert.equal(hiddenServiceResponse.body.data.priceFrom, null);
+      assert.deepEqual(hiddenServiceResponse.body.data.priceItems, []);
+
+      await request(app)
+        .put('/api/v1/admin/services/pricing-visibility')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({ visible: 'false' })
+        .expect(422);
+
+      await request(app)
+        .put('/api/v1/admin/services/pricing-visibility')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({ visible: true })
+        .expect(200);
+
+      const restoredPriceResponse = await request(app)
+        .get('/api/v1/public/services/' + serviceSlug)
+        .expect(200);
+      assert.equal(restoredPriceResponse.body.data.pricingVisible, true);
+      assert.deepEqual(
+        restoredPriceResponse.body.data.priceItems.map((item) => item.code),
+        ['QA-2', 'QA-1']
+      );
 
       await request(app)
         .post('/api/v1/admin/leadership')
@@ -356,6 +414,32 @@ test(
         .expect(201);
       createdIds.contact = contactResponse.body.data.id;
 
+      const contactAdminResponse = await request(app)
+        .get('/api/v1/admin/contacts?limit=100')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(200);
+      assert.ok(
+        contactAdminResponse.body.data.some(
+          (message) => message.id === createdIds.contact
+        )
+      );
+
+      await request(app)
+        .delete(`/api/v1/admin/contacts/${createdIds.contact}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(200);
+
+      const deletedContactResponse = await request(app)
+        .get('/api/v1/admin/contacts?limit=100')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(200);
+      assert.equal(
+        deletedContactResponse.body.data.some(
+          (message) => message.id === createdIds.contact
+        ),
+        false
+      );
+
       const image = await sharp({
         create: {
           width: 640,
@@ -458,6 +542,21 @@ test(
         .expect(423);
       assert.equal(lockedLoginResponse.body.error.code, 'ACCOUNT_LOCKED');
     } finally {
+      if (originalPricingSetting) {
+        await prisma.siteSetting.update({
+          where: { key: 'services.pricing' },
+          data: {
+            value: originalPricingSetting.value,
+            group: originalPricingSetting.group,
+            label: originalPricingSetting.label,
+            isPublic: originalPricingSetting.isPublic
+          }
+        });
+      } else {
+        await prisma.siteSetting.deleteMany({
+          where: { key: 'services.pricing' }
+        });
+      }
       if (createdIds.service) {
         await prisma.service.deleteMany({ where: { id: createdIds.service } });
       }

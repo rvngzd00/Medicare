@@ -302,9 +302,10 @@ export async function getPublicConfigurationContent() {
     tagline: "Sağlamlığınız bizim dəyərimizdir",
     seoTitle: "Medicare Hospital — Dəqiq tibbi qayğı",
     seoDescription:
-      "Müasir diaqnostika, ixtisaslaşmış həkimlər və pasiyent yönümlü tibbi xidmət.",
+      "Medicare Hospital-da ixtisaslaşmış həkimlər, müasir diaqnostika, laboratoriya və fərdi tibbi xidmətlərlə sağlamlığınız üçün etibarlı qayğı alın.",
     canonical: "https://medicarehospital.az",
-    analyticsId: ""
+    analyticsId: "",
+    servicePricesVisible: true
   };
 
   if (!USE_LIVE_CONTENT) {
@@ -322,6 +323,7 @@ export async function getPublicConfigurationContent() {
     const contactSettings = settings.contact || {};
     const seoSettings = settings["seo.default"] || {};
     const integrationSettings = settings["integrations.public"] || {};
+    const servicePricingSettings = settings["services.pricing"] || {};
     const rawNavigation = Array.isArray(data?.navigation) ? data.navigation : [];
     const navigation = rawNavigation
       .filter((item) => item.location === "HEADER")
@@ -404,7 +406,8 @@ export async function getPublicConfigurationContent() {
         ),
         analyticsId: /^G-[A-Z0-9]+$/i.test(integrationSettings.analyticsId || "")
           ? integrationSettings.analyticsId
-          : ""
+          : "",
+        servicePricesVisible: servicePricingSettings.visible !== false
       },
       source: "live",
       unavailable: false
@@ -518,7 +521,8 @@ function adaptDoctor(raw, context = {}) {
       ? raw.schedules.map(formatSchedule)
       : raw.schedule || [],
     seo: adaptSeo(raw.seo),
-    relatedDoctors
+    relatedDoctors,
+    updatedAt: raw.updatedAt
   };
 }
 
@@ -564,7 +568,8 @@ function adaptDepartment(raw) {
     branches: raw.branches || [],
     counts: raw._count || {},
     featured: Boolean(raw.featured),
-    seo: adaptSeo(raw.seo)
+    seo: adaptSeo(raw.seo),
+    updatedAt: raw.updatedAt
   };
 }
 
@@ -581,6 +586,7 @@ function adaptService(raw, context = {}) {
         }
       : raw.department || context.department || {};
   const doctorContext = { department };
+  const pricingVisible = raw.pricingVisible !== false;
 
   return {
     id: raw.id,
@@ -606,9 +612,10 @@ function adaptService(raw, context = {}) {
       ],
     image: resolveMedia(raw.image, "/images/department-placeholder.svg"),
     imageAlt: raw.image?.altText,
-    priceFrom: raw.priceFrom,
-    currency: raw.currency || "AZN",
-    priceItems: (raw.priceItems || []).map((item, index) => ({
+    priceFrom: pricingVisible ? raw.priceFrom : null,
+    currency: pricingVisible ? raw.currency || "AZN" : "",
+    pricingVisible,
+    priceItems: (pricingVisible ? raw.priceItems || [] : []).map((item, index) => ({
       id: item.id || raw.slug + "-price-" + index,
       code: item.code || "",
       name: item.name,
@@ -621,7 +628,8 @@ function adaptService(raw, context = {}) {
       ? raw.doctors.map((doctor) => adaptDoctor(doctor, doctorContext))
       : [],
     faq: (raw.faqs || raw.faq || []).map(adaptFaq),
-    seo: adaptSeo(raw.seo)
+    seo: adaptSeo(raw.seo),
+    updatedAt: raw.updatedAt
   };
 }
 
@@ -658,7 +666,8 @@ function adaptArticle(raw) {
     relatedArticles: Array.isArray(raw.relatedArticles)
       ? raw.relatedArticles.map(adaptArticle)
       : [],
-    seo: adaptSeo(raw.seo)
+    seo: adaptSeo(raw.seo),
+    updatedAt: raw.updatedAt
   };
 }
 

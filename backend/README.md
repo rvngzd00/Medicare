@@ -117,6 +117,12 @@ Admin:
 collection (`name`, optional `code`, nullable `price`, `currency`, optional
 `note`, `active`, `sortOrder`). Public service responses expose only active
 price rows; `priceFrom` is recalculated from the active priced rows.
+- `GET/PUT /api/v1/admin/services/pricing-visibility` — `services.read/write`
+  icazələri ilə bütün public qiymətlərin qlobal görünürlüğünü idarə edir.
+  `visible=false` olduqda public service cavablarında `priceFrom` null olur,
+  `priceItems` boş qaytarılır və `currency` ümumiyyətlə ötürülmür.
+- `DELETE /api/v1/admin/contacts/:id` — əlaqə mesajını soft-delete edir və
+  əməliyyatı audit jurnalına yazır.
 - `GET/POST /api/v1/admin/users`, `GET/PATCH/DELETE /api/v1/admin/users/:id`
 - `GET/POST/PATCH /api/v1/admin/roles`, `GET /permissions`
 - `GET /api/v1/admin/activity-logs`
@@ -194,7 +200,8 @@ RUN_DB_TESTS=true DATABASE_URL="postgresql://.../medicare_test" npm test
 
 Bu axın seed olunmuş public endpoint-ləri, login, refresh rotation/reuse
 detection, RBAC dashboard, admin CRUD/soft-delete/restore, form yazıları,
-media upload/delete, CMS səhifə yaratma, atomik bölmə sıralama və revision
+media upload/delete, mesaj soft-delete, qlobal qiymət görünürlüğü və public
+qiymət redaksiyası, CMS səhifə yaratma, atomik bölmə sıralama və revision
 restore əməliyyatlarını yoxlayır. Production database URL-i ilə
 `RUN_DB_TESTS=true` istifadə etməyin.
 

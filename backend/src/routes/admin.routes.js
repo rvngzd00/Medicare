@@ -7,6 +7,7 @@ import {
   dashboardController,
   deleteRecordController,
   deleteUserController,
+  getServicePricingVisibilityController,
   getUserController,
   getRecordController,
   listPermissionsController,
@@ -17,6 +18,7 @@ import {
   restoreRecordController,
   updateRecordController,
   updateRoleController,
+  updateServicePricingVisibilityController,
   updateUserController
 } from '../controllers/admin.controller.js';
 import {
@@ -47,6 +49,7 @@ import {
   idParamsSchema,
   roleCreateSchema,
   roleUpdateSchema,
+  servicePricingVisibilitySchema,
   userCreateSchema,
   userUpdateSchema
 } from '../validators/admin.validators.js';
@@ -192,6 +195,18 @@ adminRouter.post(
   requirePermission('pages.write'),
   validate(cmsRevisionParamsSchema),
   asyncHandler(restoreCmsRevisionController)
+);
+
+adminRouter.get(
+  '/services/pricing-visibility',
+  requirePermission('services.read'),
+  asyncHandler(getServicePricingVisibilityController)
+);
+adminRouter.put(
+  '/services/pricing-visibility',
+  requirePermission('services.write'),
+  validate(servicePricingVisibilitySchema),
+  asyncHandler(updateServicePricingVisibilityController)
 );
 
 adminRouter.post(

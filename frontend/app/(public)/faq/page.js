@@ -87,7 +87,7 @@ export default async function FaqPage() {
           return <CmsPageSection key={section.id || section.key} section={section} />;
         })}
       </div>
-      <JsonLd data={schema} />
+      {faqs.length > 0 && <JsonLd data={schema} />}
     </>
   );
 }

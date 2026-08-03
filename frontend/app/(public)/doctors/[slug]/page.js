@@ -75,12 +75,9 @@ export default async function DoctorDetailPage({ params }) {
     url: absoluteUrl(`/doctors/${doctor.slug}`),
     description: doctor.bio,
     medicalSpecialty: doctor.specialty,
-    worksFor: {
-      "@type": "Hospital",
-      name: "Medicare Hospital",
-      url: absoluteUrl("/")
-    },
+    worksFor: { "@id": absoluteUrl("/#hospital") },
     knowsLanguage: doctor.languages,
+    inLanguage: "az-AZ",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Bakı",

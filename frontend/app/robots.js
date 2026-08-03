@@ -6,7 +6,11 @@ export default async function robots() {
   return {
     rules: [
       configuration.indexing
-        ? { userAgent: "*", allow: "/", disallow: ["/admin/", "/api/"] }
+        ? {
+            userAgent: "*",
+            allow: "/",
+            disallow: ["/admin", "/api/"]
+          }
         : { userAgent: "*", disallow: "/" }
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

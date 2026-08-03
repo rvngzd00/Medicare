@@ -18,11 +18,7 @@ import {
 import { createMetadata, absoluteUrl } from "@/utils/seo";
 
 export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const result = await getServicesContent();
-  return result.items.map((service) => ({ slug: service.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -81,7 +77,8 @@ export default async function ServiceDetailPage({ params }) {
     image: absoluteUrl(service.image),
     procedureType: "NoninvasiveProcedure",
     bodyLocation: department?.name,
-    provider: { "@type": "Hospital", name: "Medicare Hospital" }
+    provider: { "@id": absoluteUrl("/#hospital") },
+    inLanguage: "az-AZ"
   };
 
   return (
@@ -110,7 +107,7 @@ export default async function ServiceDetailPage({ params }) {
               <article><Icon name="clock" size={22} /><p><small>Təxmini müddət</small><strong>{service.duration}</strong></p></article>
               <article><Icon name="location" size={22} /><p><small>Şöbə</small><strong>{department?.name}</strong></p></article>
             </div>
-            {service.priceItems?.length > 0 && (
+            {service.pricingVisible !== false && service.priceItems?.length > 0 && (
               <section className="servicePricing">
                 <div className="servicePricing__heading">
                   <div><span className="eyebrow">Qiymət siyahısı</span><h2>{service.name}</h2></div>

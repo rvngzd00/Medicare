@@ -15,6 +15,7 @@ import {
   resourceStatusMutation,
 } from "./adminAdapters";
 import { AdminAsyncState, ConfirmDialog, DemoNotice, EmptyState, PageHeader, StatusBadge, Toast } from "./AdminPrimitives";
+import ServicePricingVisibility from "./ServicePricingVisibility";
 import styles from "../../app/admin/admin.module.css";
 
 function normalize(value) {
@@ -221,6 +222,10 @@ export default function ResourceManager({ resource }) {
           </>
         )}
       />
+
+      {resource === "services" && (
+        <ServicePricingVisibility onNotify={setToast} />
+      )}
 
       <div className={styles.resourceSummary}>
         <div><strong>{paginationMeta?.total ?? rows.length}</strong><span>Ümumi</span></div>

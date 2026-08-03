@@ -1,4 +1,8 @@
 import { prisma } from '../config/prisma.js';
+import {
+  applyPublicPricingVisibility,
+  getServicePricingVisibility
+} from './service-pricing.service.js';
 import { ApiError } from '../utils/api-error.js';
 import { getPagination, paginationMeta } from '../utils/pagination.js';
 
@@ -112,6 +116,7 @@ export async function listDoctors(query) {
         experienceYears: true,
         languages: true,
         featured: true,
+        updatedAt: true,
         profileImage: { select: mediaSelect },
         department: { select: { id: true, name: true, slug: true } },
         branch: { select: { id: true, name: true, slug: true } }
@@ -221,6 +226,7 @@ export async function listDepartments(query) {
 }
 
 export async function getDepartment(slug) {
+  const { visible: pricingVisible } = await getServicePricingVisibility();
   const department = await prisma.department.findFirst({
     where: softDeleteWhere({ slug, active: true }),
     include: {
@@ -257,10 +263,17 @@ export async function getDepartment(slug) {
   if (!department) {
     throw new ApiError(404, 'DEPARTMENT_NOT_FOUND', 'Department was not found.');
   }
-  return { ...department, technologies: undefined };
+  return {
+    ...department,
+    technologies: undefined,
+    services: department.services.map((service) =>
+      applyPublicPricingVisibility(service, pricingVisible)
+    )
+  };
 }
 
 export async function listServices(query) {
+  const { visible: pricingVisible } = await getServicePricingVisibility();
   const { page, limit, skip, take } = getPagination(query);
   const where = softDeleteWhere({
     active: true,
@@ -288,18 +301,28 @@ export async function listServices(query) {
       include: {
         image: { select: mediaSelect },
         department: { select: { id: true, name: true, slug: true } },
-        priceItems: {
-          where: { active: true },
-          orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
-        }
+        ...(pricingVisible
+          ? {
+              priceItems: {
+                where: { active: true },
+                orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
+              }
+            }
+          : {})
       }
     }),
     prisma.service.count({ where })
   ]);
-  return { items, meta: paginationMeta(total, page, limit) };
+  return {
+    items: items.map((service) =>
+      applyPublicPricingVisibility(service, pricingVisible)
+    ),
+    meta: paginationMeta(total, page, limit)
+  };
 }
 
 export async function getService(slug) {
+  const { visible: pricingVisible } = await getServicePricingVisibility();
   const service = await prisma.service.findFirst({
     where: softDeleteWhere({
       slug,
@@ -328,14 +351,18 @@ export async function getService(slug) {
         where: { active: true, deletedAt: null },
         orderBy: { sortOrder: 'asc' }
       },
-      priceItems: {
-        where: { active: true },
-        orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
-      }
+      ...(pricingVisible
+        ? {
+            priceItems: {
+              where: { active: true },
+              orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }]
+            }
+          }
+        : {})
     }
   });
   if (!service) throw new ApiError(404, 'SERVICE_NOT_FOUND', 'Service was not found.');
-  return service;
+  return applyPublicPricingVisibility(service, pricingVisible);
 }
 
 export async function listArticles(query) {
@@ -366,6 +393,7 @@ export async function listArticles(query) {
         featured: true,
         readingMinutes: true,
         publishedAt: true,
+        updatedAt: true,
         coverImage: { select: mediaSelect },
         categories: { select: { id: true, slug: true, name: true } },
         author: { select: { firstName: true, lastName: true } }

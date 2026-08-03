@@ -5,7 +5,7 @@ import { messageRows } from "./adminData";
 import { ADMIN_DEMO_MODE, adminApi } from "./adminApi";
 import { adaptMessage, toBackendStatus } from "./adminAdapters";
 import { Icon } from "./AdminIcons";
-import { EmptyState, PageHeader, Toast } from "./AdminPrimitives";
+import { ConfirmDialog, EmptyState, PageHeader, Toast } from "./AdminPrimitives";
 import styles from "../../app/admin/admin.module.css";
 
 const demoFilters = [
@@ -42,6 +42,7 @@ export default function MessagesManager() {
   const [loadError, setLoadError] = useState(null);
   const [reloadKey, setReloadKey] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(null);
 
   useEffect(() => {
     if (ADMIN_DEMO_MODE) return undefined;
@@ -155,14 +156,28 @@ export default function MessagesManager() {
     persistMessage(selected, "Yeni", "Mesaj yeni kimi işarələndi.");
   }
 
-  function removeOrSpam() {
-    if (ADMIN_DEMO_MODE) {
-      setMessages((current) => current.filter((item) => item.id !== selected.id));
-      setSelectedId(messages.find((item) => item.id !== selected.id)?.id || null);
-      setToast({ tone: "success", message: "Mesaj gələnlər qutusundan silindi." });
-      return;
+  async function confirmDeleteMessage() {
+    const messageId = pendingDelete;
+    if (!messageId) return;
+    setSaving(true);
+    try {
+      if (!ADMIN_DEMO_MODE) await adminApi.messages.remove(messageId);
+      const remaining = messages.filter((message) => message.id !== messageId);
+      setMessages(remaining);
+      setSelectedId(remaining[0]?.id || null);
+      setReplying(false);
+      setPendingDelete(null);
+      setToast({ tone: "success", message: "Mesaj uğurla silindi." });
+    } catch (error) {
+      if (error.name === "SessionExpiredError") return;
+      setPendingDelete(null);
+      setToast({
+        tone: "warning",
+        message: error.message || "Mesajı silmək mümkün olmadı."
+      });
+    } finally {
+      setSaving(false);
     }
-    persistMessage(selected, "Spam", "Mesaj spam kimi işarələndi.");
   }
 
   function refreshMessages() {
@@ -320,12 +335,9 @@ export default function MessagesManager() {
                 </div>
                 <div className={styles.readerActions}>
                   <button disabled={saving} type="button" aria-label="Oxunmamış kimi işarələ" onClick={markUnread}><Icon name="mail" size={17} /></button>
-                  <button disabled={saving} type="button" aria-label={ADMIN_DEMO_MODE ? "Mesajı sil" : "Spam kimi işarələ"} onClick={removeOrSpam}><Icon name="trash" size={17} /></button>
-                  {ADMIN_DEMO_MODE ? (
-                    <button type="button" aria-label="Daha çox seçim"><Icon name="more" size={17} /></button>
-                  ) : (
-                    <button disabled={saving} type="button" aria-label="Həll edilmiş kimi işarələ" onClick={() => persistMessage(selected, "Həll olunub", "Mesaj həll edilmiş kimi işarələndi.")}><Icon name="check" size={17} /></button>
-                  )}
+                  {!ADMIN_DEMO_MODE && <button disabled={saving} type="button" aria-label="Spam kimi işarələ" onClick={() => persistMessage(selected, "Spam", "Mesaj spam kimi işarələndi.")}><Icon name="warning" size={17} /></button>}
+                  <button className={styles.readerDeleteAction} disabled={saving} type="button" aria-label="Mesajı sil" onClick={() => setPendingDelete(selected.id)}><Icon name="trash" size={17} /></button>
+                  {!ADMIN_DEMO_MODE && <button disabled={saving} type="button" aria-label="Həll edilmiş kimi işarələ" onClick={() => persistMessage(selected, "Həll olunub", "Mesaj həll edilmiş kimi işarələndi.")}><Icon name="check" size={17} /></button>}
                 </div>
               </header>
               <div className={styles.senderCard}>
@@ -373,6 +385,13 @@ export default function MessagesManager() {
           )}
         </article>
       </section>
+      <ConfirmDialog
+        open={Boolean(pendingDelete)}
+        title="Mesaj silinsin?"
+        description="Mesaj gələnlər qutusundan silinəcək. Bu əməl audit jurnalında qeydə alınacaq."
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={confirmDeleteMessage}
+      />
       {toast && <Toast {...toast} onClose={() => setToast(null)} />}
     </div>
   );

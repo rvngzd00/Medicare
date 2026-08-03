@@ -33,10 +33,8 @@ export default async function sitemap() {
     "/faq",
     "/privacy-policy",
     "/terms",
-    "/cookie-policy",
-    "/search"
+    "/cookie-policy"
   ];
-  const now = new Date();
   const staticSlugs = new Set(
     staticRoutes.map((route) => route.replace(/^\//, "") || "home")
   );
@@ -46,24 +44,43 @@ export default async function sitemap() {
   return [
     ...staticRoutes.map((route) => ({
       url: `${SITE_URL}${route}`,
-      lastModified: now,
       changeFrequency: route === "" ? "weekly" : "monthly",
       priority: route === "" ? 1 : 0.7
     })),
-    ...doctorResult.items.map((item) => ({ url: `${SITE_URL}/doctors/${item.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.8 })),
-    ...departmentResult.items.map((item) => ({ url: `${SITE_URL}/departments/${item.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.8 })),
-    ...serviceResult.items.map((item) => ({ url: `${SITE_URL}/services/${item.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.75 })),
-    ...articleResult.items.map((item) => ({ url: `${SITE_URL}/news/${item.slug}`, lastModified: validDate(item.date, now), changeFrequency: "yearly", priority: 0.65 })),
+    ...doctorResult.items.map((item) => ({
+      url: `${SITE_URL}/doctors/${item.slug}`,
+      ...lastModified(item.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.8
+    })),
+    ...departmentResult.items.map((item) => ({
+      url: `${SITE_URL}/departments/${item.slug}`,
+      ...lastModified(item.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.8
+    })),
+    ...serviceResult.items.map((item) => ({
+      url: `${SITE_URL}/services/${item.slug}`,
+      ...lastModified(item.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.75
+    })),
+    ...articleResult.items.map((item) => ({
+      url: `${SITE_URL}/news/${item.slug}`,
+      ...lastModified(item.updatedAt || item.date),
+      changeFrequency: "yearly",
+      priority: 0.65
+    })),
     ...customPages.map((page) => ({
       url: `${SITE_URL}/${page.slug}`,
-      lastModified: validDate(page.updatedAt, now),
+      ...lastModified(page.updatedAt),
       changeFrequency: "monthly",
       priority: 0.65
     }))
   ];
 }
 
-function validDate(value, fallback) {
+function lastModified(value) {
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? fallback : date;
+  return Number.isNaN(date.getTime()) ? {} : { lastModified: date };
 }

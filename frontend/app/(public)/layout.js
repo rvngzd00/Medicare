@@ -24,7 +24,13 @@ export default async function PublicLayout({ children }) {
     "@id": `${SITE_URL}/#hospital`,
     name: configuration.siteName,
     url: SITE_URL,
-    logo: `${SITE_URL}/images/medicare-logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/medicare-logo.png`,
+      width: 512,
+      height: 512
+    },
+    image: `${SITE_URL}/images/medicare-og-cover.jpg`,
     telephone: contact.phone,
     email: contact.email,
     address: {
@@ -33,13 +39,20 @@ export default async function PublicLayout({ children }) {
       addressLocality: "Bakı",
       addressCountry: "AZ"
     },
-    medicalSpecialty: [
-      "Cardiovascular",
-      "Neurologic",
-      "Pediatric",
-      "Surgical",
-      "Gynecologic"
-    ]
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: contact.phone,
+      email: contact.email,
+      contactType: "customer support",
+      availableLanguage: ["az"]
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Azərbaycan"
+    },
+    sameAs: configuration.socialLinks
+      .map((social) => social.href)
+      .filter(Boolean)
   };
 
   if (configuration.maintenance) {

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Icon from "@/components/common/Icon";
 
+export const metadata = {
+  title: "Səhifə tapılmadı",
+  robots: { index: false, follow: false }
+};
+
 export default function PublicNotFound() {
   return (
     <section className="statusPage">

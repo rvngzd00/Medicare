@@ -38,7 +38,7 @@ import { values } from "@/data/site";
 import { SITE_URL } from "@/constants/site";
 
 const HOME_DESCRIPTION =
-  "Medicare Hospital — müasir diaqnostika, ixtisaslaşmış həkimlər, 24/7 tibbi yardım və pasiyent yönümlü xidmət.";
+  "Medicare Hospital-da ixtisaslaşmış həkimlər, müasir diaqnostika, laboratoriya və fərdi tibbi xidmətlərlə sağlamlığınız üçün etibarlı qayğı alın.";
 
 const HOME_SECTIONS = [
   {
@@ -222,11 +222,11 @@ export async function generateMetadata() {
   ]);
   const configuration = configurationContent.configuration;
   const page = pageContent.item || HOME_PAGE_FALLBACK;
+  const cmsDescription = page.seo?.description || page.excerpt || "";
   const metadata = createMetadata({
     title: page.seo?.title,
     description:
-      page.seo?.description ||
-      page.excerpt ||
+      (cmsDescription.trim().length >= 80 ? cmsDescription : "") ||
       configuration.seoDescription ||
       HOME_DESCRIPTION,
     path: "/",
@@ -298,8 +298,11 @@ export default async function HomePage() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: configuration.siteName,
     url: SITE_URL,
+    inLanguage: "az-AZ",
+    publisher: { "@id": `${SITE_URL}/#hospital` },
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE_URL.replace(/\/+$/, "")}/search?q={search_term_string}`,

@@ -20,6 +20,10 @@ import {
   updateRole,
   updateUser
 } from '../services/admin-users.service.js';
+import {
+  getServicePricingVisibility,
+  updateServicePricingVisibility
+} from '../services/service-pricing.service.js';
 import { ApiError } from '../utils/api-error.js';
 import { success } from '../utils/api-response.js';
 import { getPagination, paginationMeta } from '../utils/pagination.js';
@@ -85,6 +89,22 @@ export async function dashboardController(_request, response) {
     },
     recentActivity
   });
+}
+
+export async function getServicePricingVisibilityController(_request, response) {
+  return success(response, await getServicePricingVisibility());
+}
+
+export async function updateServicePricingVisibilityController(request, response) {
+  return success(
+    response,
+    await updateServicePricingVisibility(request.body.visible),
+    {
+      message: request.body.visible
+        ? 'Public service prices are now visible.'
+        : 'Public service prices are now hidden.'
+    }
+  );
 }
 
 export async function listRecordsController(request, response) {
