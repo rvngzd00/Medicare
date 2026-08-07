@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -144,33 +144,33 @@ model ActivityLog {
 }
 
 model MediaFile {
-  id                        String                     @id @default(uuid())
-  provider                  MediaProvider              @default(LOCAL)
-  storageKey                String                     @unique
-  filename                  String
-  originalName              String
-  mimeType                  String
-  size                      Int
-  width                     Int?
-  height                    Int?
-  url                       String
-  thumbnailUrl              String?
-  altText                   String?
-  uploadedById              String?
-  uploadedBy                User?                      @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
-  doctorImages              Doctor[]                   @relation("DoctorImage")
-  departmentImages          Department[]               @relation("DepartmentImage")
-  serviceImages             Service[]                  @relation("ServiceImage")
-  branchImages              Branch[]                   @relation("BranchImage")
-  articleImages             Article[]                  @relation("ArticleCover")
-  testimonialImages         Testimonial[]              @relation("TestimonialImage")
-  galleryItems              GalleryItem[]              @relation("GalleryMedia")
-  certificateFiles          Certificate[]              @relation("CertificateMedia")
-  leadershipImages          LeadershipMember[]         @relation("LeadershipImage")
-  seoImages                 SeoMetadata[]              @relation("SeoOgImage")
-  createdAt                 DateTime                   @default(now())
-  updatedAt                 DateTime                   @updatedAt
-  deletedAt                 DateTime?
+  id                String             @id @default(uuid())
+  provider          MediaProvider      @default(LOCAL)
+  storageKey        String             @unique
+  filename          String
+  originalName      String
+  mimeType          String
+  size              Int
+  width             Int?
+  height            Int?
+  url               String
+  thumbnailUrl      String?
+  altText           String?
+  uploadedById      String?
+  uploadedBy        User?              @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  doctorImages      Doctor[]           @relation("DoctorImage")
+  departmentImages  Department[]       @relation("DepartmentImage")
+  serviceImages     Service[]          @relation("ServiceImage")
+  branchImages      Branch[]           @relation("BranchImage")
+  articleImages     Article[]          @relation("ArticleCover")
+  testimonialImages Testimonial[]      @relation("TestimonialImage")
+  galleryItems      GalleryItem[]      @relation("GalleryMedia")
+  certificateFiles  Certificate[]      @relation("CertificateMedia")
+  leadershipImages  LeadershipMember[] @relation("LeadershipImage")
+  seoImages         SeoMetadata[]      @relation("SeoOgImage")
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  deletedAt         DateTime?
 
   @@index([uploadedById])
   @@index([deletedAt])
@@ -182,7 +182,7 @@ model SeoMetadata {
   title          String
   description    String
   canonicalUrl   String?
-  keywords       String[]     @default([])
+  keywords       Json         @default("[]")
   robots         String       @default("index,follow")
   ogTitle        String?
   ogDescription  String?
@@ -214,9 +214,9 @@ model Doctor {
   experienceYears Int                 @default(0)
   phone           String?
   email           String?
-  languages       String[]            @default([])
-  conditions      String[]            @default([])
-  procedures      String[]            @default([])
+  languages       Json                @default("[]")
+  conditions      Json                @default("[]")
+  procedures      Json                @default("[]")
   socialLinks     Json?
   departmentId    String
   department      Department          @relation(fields: [departmentId], references: [id], onDelete: Restrict)
@@ -320,8 +320,8 @@ model Department {
   name         String
   summary      String
   description  String
-  conditions   String[]      @default([])
-  technologies String[]      @default([])
+  conditions   Json          @default("[]")
+  technologies Json          @default("[]")
   phone        String?
   imageId      String?
   image        MediaFile?    @relation("DepartmentImage", fields: [imageId], references: [id], onDelete: SetNull)
@@ -345,28 +345,28 @@ model Department {
 }
 
 model Service {
-  id           String       @id @default(uuid())
-  slug         String       @unique
+  id           String             @id @default(uuid())
+  slug         String             @unique
   name         String
   summary      String
   description  String
-  priceFrom    Decimal?     @db.Decimal(12, 2)
-  currency     String       @default("AZN")
+  priceFrom    Decimal?           @db.Decimal(12, 2)
+  currency     String             @default("AZN")
   icon         String?
   imageId      String?
-  image        MediaFile?   @relation("ServiceImage", fields: [imageId], references: [id], onDelete: SetNull)
+  image        MediaFile?         @relation("ServiceImage", fields: [imageId], references: [id], onDelete: SetNull)
   departmentId String
-  department   Department   @relation(fields: [departmentId], references: [id], onDelete: Restrict)
-  seoId        String?      @unique
-  seo          SeoMetadata? @relation(fields: [seoId], references: [id], onDelete: SetNull)
-  active       Boolean      @default(true)
-  featured     Boolean      @default(false)
-  sortOrder    Int          @default(0)
+  department   Department         @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  seoId        String?            @unique
+  seo          SeoMetadata?       @relation(fields: [seoId], references: [id], onDelete: SetNull)
+  active       Boolean            @default(true)
+  featured     Boolean            @default(false)
+  sortOrder    Int                @default(0)
   doctors      Doctor[]
   faqs         FAQ[]
   priceItems   ServicePriceItem[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
   deletedAt    DateTime?
 
   @@index([departmentId, active, sortOrder])
@@ -586,20 +586,20 @@ model Certificate {
 }
 
 model LeadershipMember {
-  id         String     @id @default(uuid())
-  slug       String     @unique
+  id         String    @id @default(uuid())
+  slug       String    @unique
   firstName  String
   lastName   String
   position   String
   bio        String
-  education  String[]   @default([])
-  experience String[]   @default([])
+  education  Json      @default("[]")
+  experience Json      @default("[]")
   imageId    String
-  image      MediaFile  @relation("LeadershipImage", fields: [imageId], references: [id], onDelete: Restrict)
-  active     Boolean    @default(true)
-  sortOrder  Int        @default(0)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  image      MediaFile @relation("LeadershipImage", fields: [imageId], references: [id], onDelete: Restrict)
+  active     Boolean   @default(true)
+  sortOrder  Int       @default(0)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
 
   @@index([active, sortOrder])
