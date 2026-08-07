@@ -29,3 +29,9 @@ backend/*.backup-*
 frontend/*.backup-*
 backend/*.before-*
 frontend/*.before-*
+
+.DS_Store
+env
+.env
+.env.*
+!.env.example
