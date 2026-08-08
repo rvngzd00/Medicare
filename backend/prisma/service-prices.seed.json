@@ -1,0 +1,5680 @@
+{
+  "source": "xidmətlərin adı, qiyməti.xls",
+  "currency": "AZN",
+  "categoryCount": 25,
+  "itemCount": 684,
+  "categories": [
+    {
+      "sourceTitle": "Psixiatr",
+      "slug": "psixiatr",
+      "name": "Psixiatr",
+      "departmentSlug": "psixiatriya",
+      "items": [
+        {
+          "code": null,
+          "name": "Psixiatr",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Kardioloji müayinələr",
+      "slug": "kardioloji-muayineler",
+      "name": "Kardioloji müayinələr",
+      "departmentSlug": "kardiologiya",
+      "items": [
+        {
+          "code": "FUN",
+          "name": "EKQ",
+          "price": 15,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "FUN",
+          "name": "EXOKARDİOQRAMMA",
+          "price": 45,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Rentgenoloji müayinələr",
+      "slug": "rentgenoloji-muayineler",
+      "name": "Rentgenoloji müayinələr",
+      "departmentSlug": "diaqnostika",
+      "items": [
+        {
+          "code": "FUN",
+          "name": "Ağ ciyərlərin R-skopiyası və düz proyeksiyada R-qrafiyası",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "FUN",
+          "name": "Aşağı ətraf R-qrafiyası (uzunluq ölçülməsi)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "FUN",
+          "name": "Aşıq - baldır oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "FUN",
+          "name": "Aşıq - baldır oynağının düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "FUN",
+          "name": "Aşıq - baldır oynağının yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "FUN",
+          "name": "Ayaq barmaqlarının 2 proyeksiyada rentgenoqramması",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "FUN",
+          "name": "Baldır sümüklərinin düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "FUN",
+          "name": "Baldır sümüklərinin yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "FUN",
+          "name": "Baldırın 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "FUN",
+          "name": "Bazu sümüyünün 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "FUN",
+          "name": "Bazu sümüyünün düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "FUN",
+          "name": "Bazu sümüyünün yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "FUN",
+          "name": "Bud - çanaq oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "FUN",
+          "name": "Bud - çanaq oynağının budu yana çəkməklə rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "FUN",
+          "name": "Bud - çanaq oynağının düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "FUN",
+          "name": "Bud sümüyünün 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "FUN",
+          "name": "Bud sümüyünün düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "FUN",
+          "name": "Bud sümüyünün yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "FUN",
+          "name": "Burun əlavə ciblərinin rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "FUN",
+          "name": "Burun ətrafı ciblərinin rentgenoqramması (2 Proyeksiya )",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "FUN",
+          "name": "Burun sümüklərinin yan proyeksiyasının rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "FUN",
+          "name": "Burun udlağının yan proyeksiyasının rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "FUN",
+          "name": "Çanağın düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "FUN",
+          "name": "Çanağın sağ yarısının ön proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "FUN",
+          "name": "Çanağın sol yarısının ön proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "FUN",
+          "name": "Çənə sümüyünün rentgeni",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "FUN",
+          "name": "Çiyin oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "FUN",
+          "name": "Çiyin oynağının bazu sümüyünü yana çəkməklə rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "FUN",
+          "name": "Çiyin oynağının düz proyeksiyasının rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "FUN",
+          "name": "Daban sümüyünün rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "FUN",
+          "name": "Dirsək oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "FUN",
+          "name": "Dirsək oynağının aksial proyeksiyada rentgenoqramması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "FUN",
+          "name": "Dirsək oynağının düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "FUN",
+          "name": "Dirsək oynağının yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "FUN",
+          "name": "Diz oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "FUN",
+          "name": "Diz oynağının düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "FUN",
+          "name": "Diz oynağının yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "FUN",
+          "name": "Diz qapağının aksial proyeksiyada rentgenoqramması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "FUN",
+          "name": "Döş qəfəsinin (ağ ciyərlərin) 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "FUN",
+          "name": "Döş qəfəsinin R-skopiyası",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "FUN",
+          "name": "Döş qəfəsinin R-skopiyası Doğuş sonrası",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "FUN",
+          "name": "Döş sümüyünün 2 proyeksiyasinin rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "FUN",
+          "name": "Döş sümüyünün yan proyeksiyalarda rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "FUN",
+          "name": "Ekskretor uroqrafiya (kontrast) 3-4 rentgen şəkli ilə",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "FUN",
+          "name": "Evdə rentgen xidməti",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        },
+        {
+          "code": "FUN",
+          "name": "Əl barmaqlarının 2 proyeksiyada rentgenoqramması",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 45
+        },
+        {
+          "code": "FUN",
+          "name": "Əl darağı sümüklərinin 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 46
+        },
+        {
+          "code": "FUN",
+          "name": "Əl darağı sümüklərinin gap proyeksiyada rentgenoqramması",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 47
+        },
+        {
+          "code": "FUN",
+          "name": "Əl darağı sümüklərinin yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 48
+        },
+        {
+          "code": "FUN",
+          "name": "Fistuloqrafiya (rentgenoqrafiya, rentgenoskopiya kontrast ilə)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 49
+        },
+        {
+          "code": "FUN",
+          "name": "FLÜOROQRAFİYA",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 50
+        },
+        {
+          "code": "FUN",
+          "name": "HSG(histerosalpinqoqrafiya)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 51
+        },
+        {
+          "code": "FUN",
+          "name": "İrriqoqrafiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 52
+        },
+        {
+          "code": "FUN",
+          "name": "Kəllənin 2 proyeksiyada R - qrafiyası",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 53
+        },
+        {
+          "code": "FUN",
+          "name": "Kəllənin düz proyeksiyada R-qrafiyası",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 54
+        },
+        {
+          "code": "FUN",
+          "name": "Kəllənin yan proyeksiyada R - qrafiyası",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 55
+        },
+        {
+          "code": "FUN",
+          "name": "Körpücük sümüyünün düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 56
+        },
+        {
+          "code": "FUN",
+          "name": "Kürək sümüyünün 2 proyeksiyasının rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 57
+        },
+        {
+          "code": "FUN",
+          "name": "Kürək sümüyünün düz proyeksiyasının rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 58
+        },
+        {
+          "code": "FUN",
+          "name": "MAMMOQRAFiYA",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 59
+        },
+        {
+          "code": "FUN",
+          "name": "Mammoqrafiya (bir orqan)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 60
+        },
+        {
+          "code": "FUN",
+          "name": "Mədə - bağırsaq sisteminin kontrastlı rentgen müayinəsi (1 gün)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 61
+        },
+        {
+          "code": "FUN",
+          "name": "Mədə - bağırsaq sisteminin kontrastlı rentgen müayinəsi (2 gün)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 62
+        },
+        {
+          "code": "FUN",
+          "name": "Mil - bilək oynağının 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 63
+        },
+        {
+          "code": "FUN",
+          "name": "Mil - bilək oynağının düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 64
+        },
+        {
+          "code": "FUN",
+          "name": "Mil - bilək oynağının yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 65
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın bel - oma hissəsinin 2 proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 66
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın bel - oma hissəsinin ön proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 67
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın bel - oma hissəsinin yan proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 68
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın boyun hissəsinin 2- proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 69
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın boyun hissəsinin ön proyeksiyada rentgenoqramması",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 70
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın boyun hissəsinin yan proyeksiyada rentgenoqramması",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 71
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın büzdum hissəsinin 2 proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 72
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın büzdum hissəsinin ön proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 73
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın büzdum hissəsinin yan proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 74
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın döş hissəsinin 2 proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 75
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın döş hissəsinin ön proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 76
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın döş hissəsinin yan proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 77
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın oma hissəsinin 2 proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 78
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın oma hissəsinin ön proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 79
+        },
+        {
+          "code": "FUN",
+          "name": "Onurğanın oma hissəsinin yan proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 80
+        },
+        {
+          "code": "FUN",
+          "name": "Oynağın R-qrafiyası",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 81
+        },
+        {
+          "code": "FUN",
+          "name": "PARONAZAL 2 PROYEKSİYA",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 82
+        },
+        {
+          "code": "FUN",
+          "name": "Pəncənin 2 proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 83
+        },
+        {
+          "code": "FUN",
+          "name": "Pəncənin düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 84
+        },
+        {
+          "code": "FUN",
+          "name": "Pəncənin yan proyeksiyada rentgenoqrammasıA",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 85
+        },
+        {
+          "code": "FUN",
+          "name": "Pnevmoirriqoskopiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 86
+        },
+        {
+          "code": "FUN",
+          "name": "Qabırğaların rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 87
+        },
+        {
+          "code": "FUN",
+          "name": "Qarın boşluğunun R-qrafiyası",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 88
+        },
+        {
+          "code": "FUN",
+          "name": "Qarın boşluğunun rentgenoskopiyası",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 89
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgen - Qeyri iş saatı",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 90
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgen - Qeyri iş saatı ( Həkim çağırışı )",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 91
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgen təkrar (ağ-ciyərlərin düz R-Qrafiyası)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 92
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgenoloqun məsləhəti (rentgen şəkilinə cavab verilməsi)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 93
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgenoqrammanın nəticəsinin yazılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 94
+        },
+        {
+          "code": "FUN",
+          "name": "Rentgenoqrammanın təkrar verilməsi",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 95
+        },
+        {
+          "code": "FUN",
+          "name": "Sağ yuxarı - çiyin qurşağının (körpücük, kürək, bazu oynağı) düz proyeksiyada rentgenoqramması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 96
+        },
+        {
+          "code": "FUN",
+          "name": "Saidin 2 proyeksiyada rentgenoqramması",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 97
+        },
+        {
+          "code": "FUN",
+          "name": "Saidin düz proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 98
+        },
+        {
+          "code": "FUN",
+          "name": "Saidin yan proyeksiyada rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 99
+        },
+        {
+          "code": "FUN",
+          "name": "Tam onurğa R-qrafiyası ( 2 proyeksiya )",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 100
+        },
+        {
+          "code": "FUN",
+          "name": "Tam onurğa R-qrafiyasl ( 1 proyeksiya )",
+          "price": 45,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 101
+        },
+        {
+          "code": "FUN",
+          "name": "Topuq sümüyünün rentgenoqramması",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 102
+        },
+        {
+          "code": "FUN",
+          "name": "Travmatoloji manipulyasiya zamanı R-skopiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 103
+        },
+        {
+          "code": "FUN",
+          "name": "Türk yəhərinin R - qrafiyası",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 104
+        },
+        {
+          "code": "FUN",
+          "name": "Uretroqrafiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 105
+        },
+        {
+          "code": "FUN",
+          "name": "Voiding Sistouretroqrafiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 106
+        },
+        {
+          "code": "FUN",
+          "name": "Xolangioqrafiya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 107
+        },
+        {
+          "code": "FUN",
+          "name": "Yemək borusunun rentgenoqrafiyası",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 108
+        },
+        {
+          "code": "FUN",
+          "name": "Yoğun bağırsağın rentgenoqrafiyası",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 109
+        },
+        {
+          "code": "FUN",
+          "name": "Э1 darağı sümüklərinin düz proyeksiyada rentgenoqramması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 110
+        }
+      ]
+    },
+    {
+      "sourceTitle": "USM (Ultrasəs müayinələri)",
+      "slug": "usm-ultrases-muayineleri",
+      "name": "USM (Ultrasəs müayinələri)",
+      "departmentSlug": "diaqnostika",
+      "items": [
+        {
+          "code": "FUN",
+          "name": "SUBMANDİBULYAR (ÇƏNƏALTI VƏZ USM)",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "FUN",
+          "name": "AŞAĞI ƏTRAF ARTERİALAR 1 AYAQ",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "FUN",
+          "name": "BEYİN NEYROSENOQRAFİYA USM",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "FUN",
+          "name": "BOYUN LİMFA DAMARI USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "FUN",
+          "name": "BUD ÇANAQ USM",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "FUN",
+          "name": "BÜZDÜM NAHİYYƏSİ",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "FUN",
+          "name": "DƏRİALTI SƏTHİ TOXUMALAR",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "FUN",
+          "name": "FOLLİKULOMETRİYA",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "FUN",
+          "name": "GİNEKOLOJİ USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "FUN",
+          "name": "HAMİLƏLİK KONTROL MÜAYİNƏSİ",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "FUN",
+          "name": "HAMİLƏLİK TƏYİN",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "FUN",
+          "name": "LİMFA DÜYÜNLƏRİ USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "FUN",
+          "name": "MƏDƏALTI VƏZ",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "FUN",
+          "name": "OBSTETRİK USM 22-24 HƏFTƏ DOPPLER",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "FUN",
+          "name": "OBSTETRİK USM 25-29 HƏFTƏ DOPPLER",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "FUN",
+          "name": "OBSTETRİK USM 11-14 HƏFTƏ",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "FUN",
+          "name": "OBSTETRİK USM 19-HƏFTƏ DOPPLER",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "FUN",
+          "name": "ÖD USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "FUN",
+          "name": "PERİFERİK LİMFA DÜYÜNLƏRİ",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "FUN",
+          "name": "PROSTAT VƏZ",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "FUN",
+          "name": "QARACİYƏR USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "FUN",
+          "name": "ŞAĞI ƏTRAF ARTERİALAR 2 AYAQ",
+          "price": 80,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "FUN",
+          "name": "ŞAĞI ƏTRAF VENA 1 AYAQ",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "FUN",
+          "name": "ŞAĞI ƏTRAF VENA 2 AYAQ",
+          "price": 80,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "FUN",
+          "name": "SPİRALIN TƏYİNİ",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "FUN",
+          "name": "SÜD VƏZİ USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "FUN",
+          "name": "TAM ABDOMENAL",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "FUN",
+          "name": "TİROİD USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "FUN",
+          "name": "UROLOJİ (RENAL BÖYRƏK )",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "FUN",
+          "name": "UŞAQLARDA XƏYALARIN DOPPLERİ",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "FUN",
+          "name": "ÜST ABDOMENAL",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "FUN",
+          "name": "YUMUŞAQ TOXUMALARIN USM",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "FUN",
+          "name": "YUXARI ƏTRAF ARTERİA",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "FUN",
+          "name": "YUXARI ƏTRAF VENA",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "FUN",
+          "name": "YUXU DAMARLARI (KAROTİD VƏ VERTEBRAL)",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Həkim qəbulu",
+      "slug": "hekim-qebulu",
+      "name": "Həkim qəbulu",
+      "departmentSlug": "diaqnostika",
+      "items": [
+        {
+          "code": null,
+          "name": "Pediatr qəbulu ( 21 gün keçərlidir )",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": null,
+          "name": "Travmatoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": null,
+          "name": "Cərrah qəbulu ( 21 gün keçərlidir )",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": null,
+          "name": "Dermatoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": null,
+          "name": "Endokrinoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": null,
+          "name": "Ginekoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": null,
+          "name": "Kardioloq qəbulu ( 21 gün keçərlidir )",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": null,
+          "name": "Nevropatoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": null,
+          "name": "Oftalmoloq qəbulu ( 21 gün keçərlidir )",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": null,
+          "name": "Otorinolarinqoloq (LOR) ( 21 gün keçərlidir )",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": null,
+          "name": "Psixiatr qəbulu",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": null,
+          "name": "Stomatoloq qəbulu",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": null,
+          "name": "Terapevt qəbulu ( 21 gün keçərlidir )",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": null,
+          "name": "Uroloq qəbulu ( 21 gün keçərlidir )",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": null,
+          "name": "Xəstə yaxınının qalışı 1 gecə",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Allergik analizlər",
+      "slug": "allergik-analizler",
+      "name": "Allergik analizlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ANTİBİOTİK PANEL",
+          "price": 225,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "EOZİNOFİL KATİON ZÜLALI (ECP)",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "QARIŞIQ ALLERGİK PANEL",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "QİDA ALLERGİK PANEL",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "SPESİFİK ALERGENLƏR İGE",
+          "price": 56,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "TƏNƏFÜS ALLERGİK PANEL",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "TROMBOFİLİYA GENİŞ PANELİ",
+          "price": 318,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "xxxx",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Bakterioloji testlər",
+      "slug": "bakterioloji-testler",
+      "name": "Bakterioloji testlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ABSESDEN GÖTÜRÜLMÜŞ ASPİRAT MAT GÖTÜRÜLM",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANA SÜDÜNÜN BAK MÜAYİNƏSİ (sağ)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ANA SÜDÜNÜN BAK MÜAYİNƏSİ(SOL)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ASSİT MAYENİN ƏKİLMƏSİ VƏ ANTİBİOTİKƏ QARŞI HƏSSASLIĞI",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "AYAĞIN PƏNCƏSİNİN DƏRİSİNDƏ GÖBƏLƏYİN TƏYİNİ",
+          "price": 93,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "Bağırsaq infeksiyalarının bakteriya daşıyıcılığına görə müayinə",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "Bağırsaq infeksiyalarının bakteriyalarının yoxlanılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "BƏLĞƏMİN BAKTERİOLOJİ MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "BƏLĞƏMİN ÜMUMİ MÜAY",
+          "price": 17,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "BİOPSİYA MATERİALININB BAKTERİOLOJİVƏ ANTİBİOTİKƏ QARŞI HƏSSASLIĞI",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "BOĞAZDAN GÖTÜR MATERİALIN BAKTERİOLOJİ MÜAYİNƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "BURUNDAN GÖTÜRÜLMÜŞ MAT BAK MÜAYİNƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "DƏRİDƏN GĞTÜRÜLMÜŞ MAT BAK MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "DIRNAĞIN GÖBƏLƏKLƏRƏ GÖRƏ ƏKİLMƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "DİSBAKTERİOZ",
+          "price": 47,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "ƏL VƏ AYAQDA GÖBƏLƏYİN TƏYİNİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "ƏSNƏKDƏN GÖTÜRÜLMÜŞMATERİALIN BAK",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "Helmintə görə müayinə",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSİN BAKTERİOLOJİ MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSİN ƏKİLMƏSİ SALMONELLA SİGELLA",
+          "price": 47,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "PROSTAT VƏZİ ŞİRƏSİNİN MİKROSKOPİYASI",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "QANIN STERİLLİYİ",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "Qarın yatalağına görə seroloji müayinə",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "QASIĞIN DƏRİSİNDƏ GÖBƏLƏYİN TƏYİNİ",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "QULAQDAN GÖTÜRÜL MATERİALIN BAK MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "SAÇ DİBLƏRİNDƏ GÖBƏLƏYİN TƏYİNİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "SERVİKAL KANALDAN GÖTÜRÜLMÜŞ MAT ƏKİL",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİYİN BAKTERİOLOJİ MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "Staphylococcus aureus",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "URETRAL YAXMANIN BAK MÜAYİNƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "ÜZ DƏRİSİNDƏN GÖTÜRÜLMÜŞ BAK MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "VAGİNAL YAXMANIN BAK MÜAYİNƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "Vərəm çöplərinin müayinəsi",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "YARADAN GÖTÜRÜLMÜŞ MAT BAK MÜAY",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Biokimya",
+      "slug": "biokimya",
+      "name": "Biokimya",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "2 MİKROQLOBULİN ( 2MG)",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ALAT",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ALBUMIN(ALB)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ALFA AMILAZA",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "APOLPROTEİN A (APO AT)",
+          "price": 38,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "APOLPROTEİN B (APO BT)",
+          "price": 38,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ASAT",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ASO ANTISTREPTOZILIN-O",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "AUTOİMMONE HEPATETS PANEL",
+          "price": 184,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "BİRLƏŞMİŞ BİLİRUBIN",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "BMP",
+          "price": 118,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "BNP B-TIP NA-URETIK PEPTID",
+          "price": 89,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "CALPROTECTİN",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "CRP C-REAKTIV ZULAL",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "DİASTAZA SİDİKDƏ",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "FERRITIN",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "GGT",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "HAPTOQLOBULIN (HAPT)",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "HDL-XOLESTEROL",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "HOMA-İR (İNSULİNƏ QARŞI REZISTENTLIK EMSALI)",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "HOMOCYSTEIN(HCYS)",
+          "price": 93,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "KARBAMAZENPİN",
+          "price": 59,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "KREATININ (CREA)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "KREATININ KLIRENSI REBERQ SINAGI",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "KREATININ NİSBƏTİ",
+          "price": 20,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "KREATININ SIDIKDE(SUTKALIQ)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "KREATINKINAZA MB FRAKSIYASI",
+          "price": 23,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "KREATINKINAZA(CK)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "LDH",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "LDL-XOLESTEROL",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "LİPAZA",
+          "price": 16,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "LİPİD SPEKTRİ (HDL,LDL-XOLESTROL,TRIQLESERID,XOLESTERIN,VLDL)",
+          "price": 47,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "LİPOPROTEIN A",
+          "price": 93,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "MİOQLOBIN (MYO)",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "NH3(AMONIAK)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "PANKREATIK AMILAZA",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "PREALBUMIN",
+          "price": 64,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "PRO BNP",
+          "price": 106,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "PROTEİN C AKTİVLİYİ",
+          "price": 150,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "LAB",
+          "name": "PROTEİN S 100",
+          "price": 125,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "LAB",
+          "name": "PROTEİN S AKTİVLİYİ",
+          "price": 113,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "LAB",
+          "name": "PROTEİN S ANTİGENİ",
+          "price": 113,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "LAB",
+          "name": "QALIQ AZOT",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "LAB",
+          "name": "QAN ZERDABININ LATENT DEMIRBIRLESDIRME XUSUSIYYETI(UIBC)",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "LAB",
+          "name": "QAN ZERDABININ TOTAL DEMIRBIRLESDIRME XUSUSIYYETI(TIBC)",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        },
+        {
+          "code": "LAB",
+          "name": "QƏLƏVİ FOSFATAZA(ALP)",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 45
+        },
+        {
+          "code": "LAB",
+          "name": "QLOBULIN",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 46
+        },
+        {
+          "code": "LAB",
+          "name": "QLUKOHEMOGLOBIN (HBA1C) (3AYLIQ SEKER)(GIZLI SEKER)",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 47
+        },
+        {
+          "code": "LAB",
+          "name": "QLUKOZA",
+          "price": 5,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 48
+        },
+        {
+          "code": "LAB",
+          "name": "QLUKOZA 6 FOSFAT DEHIDROGENAZA(G-6 PD)",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 49
+        },
+        {
+          "code": "LAB",
+          "name": "QLUKOZA SİDİKDƏ",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 50
+        },
+        {
+          "code": "LAB",
+          "name": "QUANTİFERON",
+          "price": 352,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 51
+        },
+        {
+          "code": "LAB",
+          "name": "REVMAPROBA (RF,SRZ,ASO)",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 52
+        },
+        {
+          "code": "LAB",
+          "name": "RF REVMATOID FAKTOR",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 53
+        },
+        {
+          "code": "LAB",
+          "name": "SAA (AMİLOİD A)",
+          "price": 87,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 54
+        },
+        {
+          "code": "LAB",
+          "name": "SERUPLAZMİN",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 55
+        },
+        {
+          "code": "LAB",
+          "name": "ŞƏKƏR YÜKLƏNMƏSİ",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 56
+        },
+        {
+          "code": "LAB",
+          "name": "SƏRBƏST BİLİRUBIN",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 57
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİK CÖVHƏRİ (UREA)(QANDA)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 58
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİK TURŞUSU(URIC)(QANDA)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 59
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİKDƏ ALBUMİN KREATİN NİSBƏTİ",
+          "price": 15,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 60
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİKDƏ ZÜLAL",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 61
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİKDƏ ZÜLAL/ KREATİNİN NİSBƏTİ",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 62
+        },
+        {
+          "code": "LAB",
+          "name": "TACROMİLUS",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 63
+        },
+        {
+          "code": "LAB",
+          "name": "TRANSFERRIN (TRSF)",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 64
+        },
+        {
+          "code": "LAB",
+          "name": "TRANSFERRIN DOYMA EMSALI",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 65
+        },
+        {
+          "code": "LAB",
+          "name": "TRIQLISERID (TRIG)",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 66
+        },
+        {
+          "code": "LAB",
+          "name": "TROPANIN -I",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 67
+        },
+        {
+          "code": "LAB",
+          "name": "TROPONIN-T",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 68
+        },
+        {
+          "code": "LAB",
+          "name": "TURS FOSFATAZA (ACP)",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 69
+        },
+        {
+          "code": "LAB",
+          "name": "ÜMUMİ BİLİRUBIN",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 70
+        },
+        {
+          "code": "LAB",
+          "name": "ÜMUMİ XOLESTROL",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 71
+        },
+        {
+          "code": "LAB",
+          "name": "ÜMUMİ ZÜLAL",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 72
+        },
+        {
+          "code": "LAB",
+          "name": "VALPROAT TURŞUSU",
+          "price": 75,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 73
+        },
+        {
+          "code": "LAB",
+          "name": "VLDL",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 74
+        },
+        {
+          "code": "LAB",
+          "name": "Y-QQT",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 75
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Hepatitlər",
+      "slug": "hepatitler",
+      "name": "Hepatitlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ANTİ-HAV İgM",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HAV TOTAL",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBC -İgM (TOTAL COR)",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBC İgG",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBC TOTAL COR",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBe",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBs VAKSİN SONRASI",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HBV TOTAL (İFA)",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HCV İgM",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HCV TOTAL İFA",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-HDV",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "HAV -Ag",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "HBe Ag VAKSİN ÖNCƏSİ",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "HBs Ag(İFA) VAKSİN ÖNCƏ",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "HİV SPİD İFA",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Histologiya və sitologiya",
+      "slug": "histologiya-ve-sitologiya",
+      "name": "Histologiya və sitologiya",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ANTİSPERMA-ANTİCİSM QANDA ASA SERUM",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİSPERMA-ANTİCİSM SPERMADA ASA SERUM",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ASPİRASİON SİTOLOGİYA",
+          "price": 74,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "AZF-LOKUSUN DELESİYASI",
+          "price": 213,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "BİOPSİYA",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "CƏRRAHİ MATERİALİN HİST MÜAYİNƏSİ",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "HLA 2( DRB 1 DQA 1) SİNİFGENLƏRİNİN TİBLƏNMƏSİ",
+          "price": 413,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "HLA- B 27",
+          "price": 212,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "HLA- B 27 ANTİGEN",
+          "price": 162,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "LE HÜCEYRELƏRİ",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "MATERİALIN GÖTÜRÜRLMƏSİ",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "PAP TEST",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "QARIN BOŞLUĞUNDAN GÖTÜRÜLMÜŞ MAYENİN HİST MÜAYİNƏSİ",
+          "price": 74,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "TOXUMADAN GÖTÜRÜLMÜŞ MATERİALIN HİSTOLOGİYASI",
+          "price": 75,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "UŞAQLIQ YOLUNDAN GÖTÜRÜLMÜŞ MATERİALIN HİST (KÜRETEJ)",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Hormonlar",
+      "slug": "hormonlar",
+      "name": "Hormonlar",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "17-OH-PROGESTERON",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ADH (ANTİDİÜRETİK HORMON ) TÜRKİYƏ",
+          "price": 125,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ADRENALİN QANDA",
+          "price": 73,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ADRENALİN SİDİKDƏ",
+          "price": 57,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "ADRENALİN STEROİD PANEL",
+          "price": 187,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "AKTH ADENOKORTIKOTROP HORMON",
+          "price": 57,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ALDOSTERON",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ALDOSTERON/RENIN NISBETI",
+          "price": 186,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "ANTI-MÜLLER HORMON",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TG",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ANTI-TPO",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "ANTI-TSHR",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "C-PEPTID (QANDA)",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "DHEA-S",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "ERİTROPROTEİN",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "ESTRADIOL(E2)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "FREE ESTRIOL-E3 (SERBEST ESTRIOL)",
+          "price": 37,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "FREE T3",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "FREE T4",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "FREE TESTESTERON(Sərbəst)",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "FSH",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "GH",
+          "price": 60,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "HGH-SOMATOTROPIN HORMON (BOY FAKTORU)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "İKİLİ TEST (PRISKA I)",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "İNSULİN (ACLIQ)",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "İNSULİN (TOXLUQ)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "İNSULİN BOY FAKTORU (IGF)",
+          "price": 69,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "KALSITONIN",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "KORTIZOL",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "LEPTİN",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "LH",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "NORADRENALİN",
+          "price": 88,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "PAPP-A (10-13 HEFTE)",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "PARAT HORMON (PTH)",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "PRISCA 4LÜ",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "PROGESTERON",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "PROKALSITONIN",
+          "price": 17,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "PROLAKTIN",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "QASTRIN",
+          "price": 51,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "LAB",
+          "name": "RENIN",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "LAB",
+          "name": "SERBEST B-XORIONIK QONADOTROPIN",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "LAB",
+          "name": "SHBG(CINSI HORMONLARI BIRLESDIREN QLOBULIN)",
+          "price": 61,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "LAB",
+          "name": "TESTOSTERON( TOTAL)",
+          "price": 23,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "LAB",
+          "name": "TOTAL T3",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "LAB",
+          "name": "TOTAL T4",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        },
+        {
+          "code": "LAB",
+          "name": "TRIEOQLOBULIN (TG)",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 45
+        },
+        {
+          "code": "LAB",
+          "name": "TSH",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 46
+        },
+        {
+          "code": "LAB",
+          "name": "TSH TRAP",
+          "price": 84,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 47
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Xorionik qonadotropin",
+      "slug": "xorionik-qonadotropin",
+      "name": "Xorionik qonadotropin",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "B_XORIONIK QONADOTROPIN (XQ)",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "sourceTitle": "IFAlar",
+      "slug": "ifa-analizleri",
+      "name": "İFA analizləri",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": null,
+          "name": "Askarida Ig G",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": null,
+          "name": "H.PYLORİ İgA (QANDA)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": null,
+          "name": "H.PYLORİ İgG (QANDA)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": null,
+          "name": "Lyambliya IgA",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": null,
+          "name": "Lyambliya IgG",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": null,
+          "name": "Lyambliya IgM",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        }
+      ]
+    },
+    {
+      "sourceTitle": "İmmunologiya",
+      "slug": "immunologiya",
+      "name": "İmmunologiya",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ACE ANGİOTENZİN ÇEVİRİCİ FERMENT",
+          "price": 74,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "AMA M2 (ANTİ-MİTOCHONDRİAL ANTİBODİES)",
+          "price": 88,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ANA (TİTR PATTERN)",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ANA SCREEN İgG",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "ANCA TARAMA ( CANCA, PANCA)",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ -SCL",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ -SS DNT (TƏKSPİRALLI SNT DNT QARŞI ANTİCİSİM)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ CCP",
+          "price": 61,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ FOSFOLİPİD AFS İgG",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ FOSFOLİPİD AFS İgM",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ GLİADİN İgM",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ LAKTOFERRİN",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ PR3 (cANCA) ANTİ PROTEİNAZA -3",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ PR3 (cANCA) ANTİ PROTEİNAZA-3+ANTİ LAKTOFERRİN",
+          "price": 61,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ SPERMAL ANTİ (SERUMDA)",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ SPERMAL ANTİ (SPERMADA)",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ- ENDOMİSİON İgG",
+          "price": 43,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-BETA 2 GLİKOPROTEİN 1 İgG",
+          "price": 56,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-BETA 2 GLİKOPROTEİN 1 İgM",
+          "price": 56,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-GLİADİN İgA",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-GLİADİN İgG",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-KARDİOLİPİN İgG",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-KARDİOLİPİN İgM",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-LKM1 (LİVER KİDNEY MİKROZOMAL ANTİKOR)",
+          "price": 106,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TROMBİN III AKTİVLİYİ",
+          "price": 73,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİDS DNA İFA",
+          "price": 77,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİDS-DNT (İKİSPİRALLI DNT QARŞI ANTİCİSİM)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "ASCA İgG",
+          "price": 99,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "ASMA (ANTİ-SMOOTH MUSCLE ANTİBODY)",
+          "price": 79,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "BORDOTELA Ig G",
+          "price": 52,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "BORDOTELA Ig M",
+          "price": 52,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "COMPLEMENT C3",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "COMPLEMENT C4",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "ENA GENİŞ PANEL (18 PARAMETR)",
+          "price": 188,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "ENA PANEL",
+          "price": 123,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "İMMUNOGLOBULİN A (ÜMUMİ İgA)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "İMMUNOGLOBULİN E (ÜMUMİ İgE)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "İMMUNOGLOBULİN ELEKTROFAREZİ (TALASSEMİYA)",
+          "price": 64,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "İMMUNOGLOBULİN G (ÜMUMİ İgG)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "LAB",
+          "name": "İMMUNOGLOBULİN M (ÜMUMİ İgM)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-1",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-10",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-18",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-2",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-4",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-6",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 45
+        },
+        {
+          "code": "LAB",
+          "name": "İNTERLEYKİN-8",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 46
+        },
+        {
+          "code": "LAB",
+          "name": "MİOZİT PANELİ 16 PARAMETR",
+          "price": 342,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 47
+        },
+        {
+          "code": "LAB",
+          "name": "PANCA (ANTİ MPO İgG)",
+          "price": 82,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 48
+        },
+        {
+          "code": "LAB",
+          "name": "PARANEOPLASTİK PANEL",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 49
+        },
+        {
+          "code": "LAB",
+          "name": "PEPSİNOGEN 1",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 50
+        },
+        {
+          "code": "LAB",
+          "name": "PEPSİNOGEN 2",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 51
+        },
+        {
+          "code": "LAB",
+          "name": "TRANSGLUTAMİNAZA İgA",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 52
+        },
+        {
+          "code": "LAB",
+          "name": "TRANSGLUTAMİNAZA İgG",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 53
+        },
+        {
+          "code": "LAB",
+          "name": "TROMBOFİLİYA PANELİ 12-Lİ",
+          "price": 250,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 54
+        },
+        {
+          "code": "LAB",
+          "name": "TROMBOFİLİYA PANELİ 6-LI",
+          "price": 160,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 55
+        }
+      ]
+    },
+    {
+      "sourceTitle": "İnfeksiyalar",
+      "slug": "infeksiyalar",
+      "name": "İnfeksiyalar",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "AMİP ANTİGEN (ENTAMOEBA HİSTOLYTİCA NƏCİS)",
+          "price": 102,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ -TAENİA SOLİUM IgG",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ- H PYLORİ IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ- H PYLORİ IgA",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ- H PYLORİ IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-ASCARİS-LUMBRICOIDES IgG",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-EXİNOKOK-IgG",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-OPİSTORCHİS IgG",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-SCHİSTOSOMA MANSONİ IgG",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-ss DNT",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TOXOCARE CANİS IgG",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TREPONEMA PALLİDİUM A (SİFLİS)",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TREPONEMA TOTAL IgG",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TREPONEMA TOTAL IgM",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TREPONEMA TOTAL( IgA+IgM+IgG)",
+          "price": 129,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TRİCHİNELLA SPRİRALİS İgG",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "BRUCELLA IgG",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "BRUCELLA IgM",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "BRUCELLA RAYT XEDELSON",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "BRUCELLA-ROSE BENGAL",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "CLOSTRİUM AB",
+          "price": 103,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "CYRPTOL GİARDİAL ENTAMOEPA (EKSPRES TESR NƏCİS)",
+          "price": 143,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "EPSTEYN BAR İgG",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "EPSTEYN BAR İgM",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "GİARDİA LYAMBYA ANTİGENİ",
+          "price": 56,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "GİARDİA LYAMBYA IgA",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "GİARDİA LYAMBYA IgG",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "GİARDİA LYAMBYA IgM",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "GİARRDİA LYAMBLİA AG (EKSPRES TEST NƏCİS)",
+          "price": 75,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "Gonorrhoe",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "HIV TOTAL (HIV -AG+ANTİ-HIV1/2)",
+          "price": 40,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "KOKSAKİ IgG",
+          "price": 143,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "KOKSAKİ IgM",
+          "price": 143,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "LİXARATKA LgG",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "LİXARATKA LgM",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "TETANOZ İMMUNİTE KONTROL",
+          "price": 225,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "TREPONEMA PALLİDİUM-a QARIŞIQ ANTİCİSİMLƏRİN PASSİV HEMAQQLÜTİNASİYA REAKSİYA",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "VARİCELLA ZOSTER IgG (VZV IgG)",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "VARİCELLA ZOSTER IgM (VZV IgM)",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Kart testlər",
+      "slug": "kart-testler",
+      "name": "Kart testlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ADENOVİRUS KART TEST",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "COVİD 19 YAXMA ŞƏXSİ",
+          "price": 63,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "COVİD 19UÇUŞ",
+          "price": 68,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "COVİD BURUN BOĞAZ YAXMASI",
+          "price": 143,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "H.PYLORİ NƏCİSDƏ KART TEST",
+          "price": 37,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "H.PYLORİ QANDA KART TEST",
+          "price": 18,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "HBV KART TEST",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "HCV KART TEST",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "MALYARİYA KART TEST",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSDƏ GİZLİ QANIN TƏYİNİ KART TEST",
+          "price": 23,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ROTAVİRUS KART TEST",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "SİFLİS (RW)",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "SPİD HIV KART TEST",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "TROPANİN KART TEST",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "TUBERCLOSİS TEST",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Kliniki analizlər",
+      "slug": "kliniki-analizler",
+      "name": "Kliniki analizlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "11-Lİ KART TEST",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "12-Lİ KART TEST",
+          "price": 35,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "6-LI KART TEST",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "DEMODEKS",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "DƏRİ QAŞINTISINDA GÖBƏLƏYİN TƏYİNİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "DƏRİNİN MİKROSKOPİK MÜAYİNƏSİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "DƏRİNİN TÜKLÜ YERİNDƏ GÖBƏLƏYİN TƏYİNİ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "EÇS",
+          "price": 8,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "EOZİNOFEL",
+          "price": 8,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ƏL VƏ AYAQDA GÖBƏLƏYİN TƏYİNİ",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ƏSNƏKDƏN YAXMA",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "GÖVDƏ DƏRİİSNDƏ GÖBƏLƏYİN TƏYİNİ",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "HB ELEKTROFAREZİ",
+          "price": 75,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "HEMOQLABİN (HB)",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "HEMOQLABİN ELEKTROFAREZİ (HPLC)",
+          "price": 59,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "LAKTOFERRİN",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "LAXTALANMA",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "LEYKOFORMULA",
+          "price": 5,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "LEYKOSİT",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "MALYARİYA (QALIN DAMLA)",
+          "price": 16,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSDƏ ANTİGEN",
+          "price": 47,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSDƏ QURD YUMURTALARININ TƏYİNİ",
+          "price": 28,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "NƏCİSİN ÜMUMİ ANALİZİ",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "PERİFERİK YAXMA",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "QAN QAZI",
+          "price": 80,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "QAN QRUPLARI + REZUS AMİLİ",
+          "price": 16,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "QANIN ÜMUMİ ANALİZİ +EÇS(25 GÖSTƏRİCİ)",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "QANIN ÜMUMİ ANALİZİ+EÇS",
+          "price": 14,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "QEYRİ-DÜZ KUMBS REAKSİYASI (ANTİ-TELL)",
+          "price": 57,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "ROMA İNDEKSİ",
+          "price": 155,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "SİDİYİN NEÇİPERENKO ÜSULU İLƏ TƏYİNİ",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "Sidiyin ümumi analizi",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "sil",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "sil",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "sil",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "SOSKOB",
+          "price": 16,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "SPERMOQRAMMA",
+          "price": 22,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "ŞUVARSKİ SINAĞI",
+          "price": 16,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "TƏKLİ TEST",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "LAB",
+          "name": "THC (Kannabinoidlər)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "LAB",
+          "name": "TROMBOSİTLƏR",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "LAB",
+          "name": "Ümumi İgE",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "LAB",
+          "name": "URETRAL YAXMANIN MİKROSKOPİYASI",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "LAB",
+          "name": "VAGİNAL FLORA (PH)",
+          "price": 17,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "LAB",
+          "name": "VAGİNAL YAXMANIN MİKROSKOPİYASI",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Koaquloqramma",
+      "slug": "koaquloqramma",
+      "name": "Koaquloqramma",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "APTT",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "D-DİMER",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "FİBRİNOGEN",
+          "price": 15,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "LYUPS-ANTİKOAQULYANT",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "PROTRAMBİN İNDEKSİ PROTROMBİN ZAMANI İNR",
+          "price": 15,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "TROMBİN MÜDDƏTİ",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Mikroelementler",
+      "slug": "mikroelementler",
+      "name": "Mikroelementlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "DƏMİR (Fe)",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "HG (CİVƏ)",
+          "price": 87,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "İNGİBİN ( B) TÜRKİYƏ",
+          "price": 192,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "İONLAŞMIŞ KALSİUM",
+          "price": 24,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "KALİUM (K)",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "LİTİUM ( Lİ ) TÜRKİYƏ",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "MAGNEZİUM (MG)",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "MİS ( CU)",
+          "price": 66,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "NATRİUM ( NA)",
+          "price": 12,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "QEYRİ ORQANİK FOSFOR (P)",
+          "price": 10,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "SELEN ( SE )",
+          "price": 93,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "SİNK (ZN)",
+          "price": 54,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "ÜMUMİ CALSİUM",
+          "price": 9,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "XLOR ( CL)",
+          "price": 11,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "YOD QANDA",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "YOD SİDİKDƏ",
+          "price": 38,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Onkomarkerlər",
+      "slug": "onkomarkerler",
+      "name": "Onkomarkerlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ALFA FETOPROTEİN (AFP)",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "B2-mikroqlobulin(B2MG)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "CA -72-4 MƏDƏ BAĞIRSAQ",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "CA 15-3 SÜD VƏZİ",
+          "price": 37,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "CA-125 YUMURTALIQ",
+          "price": 37,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "CA-19-9 QARACİYƏR",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "CEA ÜMUMİ",
+          "price": 33,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "CYFRA 21-1 SİDİK KİSƏSİ",
+          "price": 86,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "HE 4 (HELİUBAKTERİUM )",
+          "price": 223,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "NEYRO-SPESİFİK ENOLOZA ( NSE)",
+          "price": 61,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "PSA SƏRBƏST (FREE)",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "PSA TOTAL ÜMUMİ",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        }
+      ]
+    },
+    {
+      "sourceTitle": "PZR müayinələri",
+      "slug": "pzr-muayineleri",
+      "name": "PZR müayinələri",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "AF GENİTAL",
+          "price": 66,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANGİOTENSİN CONFERTİNG ENZİM (ACE SERUM )",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "BRUCELLA SPECİES",
+          "price": 61,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "CHLAMYDAİ TRACHOMATİS PZR",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "CHLAMYDAİ TRACHOMATİS SİDİKDƏ",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "CMV PZR",
+          "price": 105,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "EBV PZR",
+          "price": 105,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "GARDENELLA VAGİNALİS PZR",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "GARDENELLA VAGİNALİS SİDİKDƏ",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "HBV DNA PZR",
+          "price": 154,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT B KEYFİYYƏT",
+          "price": 59,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT B KƏMİYYƏT",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT C GENOTİP",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT C KEYFİYYƏT",
+          "price": 69,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT C KƏMİYYƏT",
+          "price": 143,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT D KEYFİYYƏT",
+          "price": 123,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "HEPATİT D KƏMİYYƏT",
+          "price": 160,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "HERPERVİRUS III VZV PZR",
+          "price": 53,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "HERPESVİRUS I+II TİP PZR",
+          "price": 27,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "HLA- B 27 PZR",
+          "price": 220,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "HPV (16 VƏ18 TİP)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "HPV (16.31.33.35.18.45.39.59.5256.58.66)",
+          "price": 110,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "HPV (6 VƏ11 TİP)",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "HPV (6.11.16.18.26.31.33.35.39.44.45.51.52.53.59.56.58.66.68.)",
+          "price": 162,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "HPV SKRİNİNG (16.18.31.33.35.39.45.52.53.56.58.59.66.70)",
+          "price": 110,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "KANDİDA PZR",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "LİSTERİA MONOCYTOGENES",
+          "price": 90,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "MƏXMƏRƏK VİRUSU RUBELLA PZR",
+          "price": 103,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOBACTERİUM TUBERCULOSİS PZR",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOBACTERİUM TUBERCULOSİS SİDİKDƏ",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA GENİTALİUM PZR",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA GENİTALİUM SİDİKDƏ",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA HOMİNİS PZR",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA HOMİNİS SİDİKDƏ",
+          "price": 34,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "NEİSSERİA QONOKOKK",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "PAPVOVİRUS B19",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        },
+        {
+          "code": "LAB",
+          "name": "PREPONEMA PALLİDİUM PZR (SİFLİS)",
+          "price": 37,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 36
+        },
+        {
+          "code": "LAB",
+          "name": "SİTOMEQALOVİRUS (CMV PZR)",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 37
+        },
+        {
+          "code": "LAB",
+          "name": "TOXOPLAZMA PZR",
+          "price": 57,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 38
+        },
+        {
+          "code": "LAB",
+          "name": "TRİCHOMONAS VAGİNALİS PZR",
+          "price": 31,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 39
+        },
+        {
+          "code": "LAB",
+          "name": "U.UREALYTİCUM VƏ U.PAVRUM SİDİKDƏ",
+          "price": 43,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 40
+        },
+        {
+          "code": "LAB",
+          "name": "U.UREALYTİCUM VƏ U.PAVRUM PZR",
+          "price": 43,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 41
+        },
+        {
+          "code": "LAB",
+          "name": "URETRAL CİNSİ YAXMA 14LÜ",
+          "price": 206,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 42
+        },
+        {
+          "code": "LAB",
+          "name": "URETRAL CİNSİ YAXMA 8Lİ",
+          "price": 177,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 43
+        },
+        {
+          "code": "LAB",
+          "name": "URETRAL CİNSİ YAXMA5Lİ",
+          "price": 88,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 44
+        },
+        {
+          "code": "LAB",
+          "name": "VARİCELLA ZOSTER PZR ( virusu )",
+          "price": 190,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 45
+        },
+        {
+          "code": "LAB",
+          "name": "VARİCELLA ZOSTER VİRUSU (VZV)",
+          "price": 36,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 46
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Torch infeksiyalar",
+      "slug": "torch-infeksiyalari",
+      "name": "TORCH infeksiyaları",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "ANA (İFA )",
+          "price": 73,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ - PAROTİT İgG",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ - PAROTİT İgM",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ CMV-İgM ( KƏSKİN)",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ HSV I-İgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ HSV I-İgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ HSV II-İgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ HSV II-İgG AVİDLİK",
+          "price": 102,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ HSV II-İgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-CMV İgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-CMV İgG AVİDLİK İNDEKSİ",
+          "price": 102,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-DSDNA",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-FOSFOLİPAZ A2 RESEPTOR ANTİKORU ( PLA 2-R)",
+          "price": 236,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-MEASLES VİRUS İgM QIZILCA",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-RUBELLA IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-RUBELLA IgG AVİDLİK İNDEKSİ",
+          "price": 102,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-RUBELLA IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TOXO IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TOXO IgG AVİDLİK İNDEKSİ",
+          "price": 102,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİ-TOXO IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "LAB",
+          "name": "ANTİFOSFOLİPİT İgG",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "LAB",
+          "name": "CHLAMYDİA TRACHOMATİS IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "LAB",
+          "name": "CHLAMYDİA TRACHOMATİS IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "LAB",
+          "name": "EBV (VCA ) İgG KAPSİT",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "LAB",
+          "name": "EBV (VCA ) İgM KAPSİT",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "LAB",
+          "name": "EBV EBNA İgG",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "LAB",
+          "name": "EBV EBNA İgM",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "LAB",
+          "name": "ENA GENİŞ PANEL",
+          "price": 165,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "LAB",
+          "name": "LİSTERİA MONOCYTOGENSE IgG",
+          "price": 62,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "LAB",
+          "name": "MYCOPLAZMA IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "LAB",
+          "name": "NTİ-MEASLES VİRUS İgG QIZILCA",
+          "price": 41,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        },
+        {
+          "code": "LAB",
+          "name": "NTİFOSFOLİPİT İgM",
+          "price": 49,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 32
+        },
+        {
+          "code": "LAB",
+          "name": "PANCACANCA",
+          "price": 88,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 33
+        },
+        {
+          "code": "LAB",
+          "name": "UREAPLASMA IgG",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 34
+        },
+        {
+          "code": "LAB",
+          "name": "UREAPLASMA IgM",
+          "price": 29,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 35
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Vitaminlər",
+      "slug": "vitaminler",
+      "name": "Vitaminlər",
+      "departmentSlug": "laboratoriya",
+      "items": [
+        {
+          "code": "LAB",
+          "name": "B1 VİTAMİN",
+          "price": 87,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "LAB",
+          "name": "B12 VİTAMİN",
+          "price": 21,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "LAB",
+          "name": "B2 VİTAMİN",
+          "price": 103,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "LAB",
+          "name": "B5 VİTAMİN",
+          "price": 299,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "LAB",
+          "name": "B6 VİTAMİN",
+          "price": 96,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "LAB",
+          "name": "BİOTİN",
+          "price": 87,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "LAB",
+          "name": "FOL TURŞUSU B9",
+          "price": 25,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "LAB",
+          "name": "VİTAMİN A",
+          "price": 123,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "LAB",
+          "name": "VİTAMİN C (TÜRKİYƏ)",
+          "price": 135,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "LAB",
+          "name": "VİTAMİN D TOTAL",
+          "price": 47,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "LAB",
+          "name": "VİTAMİN E A TOKOFEROL",
+          "price": 119,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "LAB",
+          "name": "VİTAMİN PANEL D2+D3",
+          "price": 89,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Fizioterapiya",
+      "slug": "fizioterapiya",
+      "name": "Fizioterapiya",
+      "departmentSlug": "poliklinika-ve-reabilitasiya",
+      "items": [
+        {
+          "code": "TRT",
+          "name": "Fizioterapevt müayinəsi",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "sourceTitle": "Manipulyasiya",
+      "slug": "manipulyasiya",
+      "name": "Manipulyasiya",
+      "departmentSlug": "poliklinika-ve-reabilitasiya",
+      "items": [
+        {
+          "code": "TRT",
+          "name": "AC (anotaksin) Antipas",
+          "price": 30,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 0
+        },
+        {
+          "code": "TRT",
+          "name": "Ambulans xidməti",
+          "price": 150,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 1
+        },
+        {
+          "code": "TRT",
+          "name": "Ayaq barmaq əməliyyatı",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 2
+        },
+        {
+          "code": "TRT",
+          "name": "Dırnaq çıxarma",
+          "price": 80,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 3
+        },
+        {
+          "code": "TRT",
+          "name": "Erroziya",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 4
+        },
+        {
+          "code": "TRT",
+          "name": "Əl barmaq əməliyyatı",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 5
+        },
+        {
+          "code": "TRT",
+          "name": "Əzələdaxili iynə vurulması",
+          "price": 5,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 6
+        },
+        {
+          "code": "TRT",
+          "name": "Gecə yatışı",
+          "price": 70,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 7
+        },
+        {
+          "code": "TRT",
+          "name": "Gəzdiriciliyinə görə müayinə",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 8
+        },
+        {
+          "code": "TRT",
+          "name": "Gips açılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 9
+        },
+        {
+          "code": "TRT",
+          "name": "Gips qoyulması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 10
+        },
+        {
+          "code": "TRT",
+          "name": "Katetr çıxarılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 11
+        },
+        {
+          "code": "TRT",
+          "name": "Katetr qoyulması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 12
+        },
+        {
+          "code": "TRT",
+          "name": "Klizma (imalə)",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 13
+        },
+        {
+          "code": "TRT",
+          "name": "Papilomanın götürülməsi",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 14
+        },
+        {
+          "code": "TRT",
+          "name": "Papilomanın yandırılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 15
+        },
+        {
+          "code": "TRT",
+          "name": "PEYVƏND VURULMASI",
+          "price": 100,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 16
+        },
+        {
+          "code": "TRT",
+          "name": "Qulaq yuma",
+          "price": 50,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 17
+        },
+        {
+          "code": "TRT",
+          "name": "Sarğı",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 18
+        },
+        {
+          "code": "TRT",
+          "name": "Sarğı Travmatoloq",
+          "price": 15,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 19
+        },
+        {
+          "code": "TRT",
+          "name": "Spiralın çıxarılması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 20
+        },
+        {
+          "code": "TRT",
+          "name": "Spiralın qoyulması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 21
+        },
+        {
+          "code": "TRT",
+          "name": "Spirometr",
+          "price": 20,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 22
+        },
+        {
+          "code": "TRT",
+          "name": "Stasionar xidmət",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 23
+        },
+        {
+          "code": "TRT",
+          "name": "Tampon qoyulması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 24
+        },
+        {
+          "code": "TRT",
+          "name": "Təzyiq ölçmə",
+          "price": 5,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 25
+        },
+        {
+          "code": "TRT",
+          "name": "Tikiş qoyulması",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 26
+        },
+        {
+          "code": "TRT",
+          "name": "Tikiş sökülməsi",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 27
+        },
+        {
+          "code": "TRT",
+          "name": "Vazafiks",
+          "price": 5,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 28
+        },
+        {
+          "code": "TRT",
+          "name": "Venadaxili sistemlərin qoşulması",
+          "price": 20,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 29
+        },
+        {
+          "code": "TRT",
+          "name": "Xidmət haqqı",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 30
+        },
+        {
+          "code": "TRT",
+          "name": "Yaranın işlənməsi",
+          "price": 0,
+          "currency": "AZN",
+          "active": true,
+          "sortOrder": 31
+        }
+      ]
+    }
+  ]
+}

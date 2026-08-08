@@ -82,7 +82,7 @@ export async function listDoctors(query) {
     },
     ...(query.branch ? { branch: { slug: query.branch } } : {}),
     ...(query.specialty
-      ? { specialty: { contains: query.specialty, mode: 'insensitive' } }
+      ? { specialty: { contains: query.specialty } }
       : {}),
     ...(query.minExperience
       ? { experienceYears: { gte: query.minExperience } }
@@ -91,9 +91,9 @@ export async function listDoctors(query) {
     ...(query.search
       ? {
           OR: [
-            { firstName: { contains: query.search, mode: 'insensitive' } },
-            { lastName: { contains: query.search, mode: 'insensitive' } },
-            { specialty: { contains: query.search, mode: 'insensitive' } }
+            { firstName: { contains: query.search } },
+            { lastName: { contains: query.search } },
+            { specialty: { contains: query.search } }
           ]
         }
       : {})
@@ -195,8 +195,8 @@ export async function listDepartments(query) {
     ...(query.search
       ? {
           OR: [
-            { name: { contains: query.search, mode: 'insensitive' } },
-            { summary: { contains: query.search, mode: 'insensitive' } }
+            { name: { contains: query.search } },
+            { summary: { contains: query.search } }
           ]
         }
       : {})
@@ -286,8 +286,8 @@ export async function listServices(query) {
     ...(query.search
       ? {
           OR: [
-            { name: { contains: query.search, mode: 'insensitive' } },
-            { summary: { contains: query.search, mode: 'insensitive' } }
+            { name: { contains: query.search } },
+            { summary: { contains: query.search } }
           ]
         }
       : {})
@@ -373,8 +373,8 @@ export async function listArticles(query) {
     ...(query.search
       ? {
           OR: [
-            { title: { contains: query.search, mode: 'insensitive' } },
-            { excerpt: { contains: query.search, mode: 'insensitive' } }
+            { title: { contains: query.search } },
+            { excerpt: { contains: query.search } }
           ]
         }
       : {})
@@ -628,9 +628,9 @@ export async function searchPublicContent(searchTerm) {
         deletedAt: null,
         department: { active: true, deletedAt: null },
         OR: [
-          { firstName: { contains: term, mode: 'insensitive' } },
-          { lastName: { contains: term, mode: 'insensitive' } },
-          { specialty: { contains: term, mode: 'insensitive' } }
+          { firstName: { contains: term } },
+          { lastName: { contains: term } },
+          { specialty: { contains: term } }
         ]
       },
       take: 5,
@@ -648,8 +648,8 @@ export async function searchPublicContent(searchTerm) {
         active: true,
         deletedAt: null,
         OR: [
-          { name: { contains: term, mode: 'insensitive' } },
-          { summary: { contains: term, mode: 'insensitive' } }
+          { name: { contains: term } },
+          { summary: { contains: term } }
         ]
       },
       take: 5,
@@ -661,8 +661,8 @@ export async function searchPublicContent(searchTerm) {
         deletedAt: null,
         department: { active: true, deletedAt: null },
         OR: [
-          { name: { contains: term, mode: 'insensitive' } },
-          { summary: { contains: term, mode: 'insensitive' } }
+          { name: { contains: term } },
+          { summary: { contains: term } }
         ]
       },
       take: 5,
@@ -671,8 +671,8 @@ export async function searchPublicContent(searchTerm) {
     prisma.article.findMany({
       where: publishedArticleWhere({
         OR: [
-          { title: { contains: term, mode: 'insensitive' } },
-          { excerpt: { contains: term, mode: 'insensitive' } }
+          { title: { contains: term } },
+          { excerpt: { contains: term } }
         ]
       }),
       take: 5,

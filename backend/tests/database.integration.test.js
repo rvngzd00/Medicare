@@ -5,7 +5,7 @@ import { test } from 'node:test';
 const runDatabaseTests = process.env.RUN_DB_TESTS === 'true';
 
 test(
-  'seeded PostgreSQL supports public, auth, admin CRUD and media flows',
+  'seeded MySQL supports public, auth, admin CRUD and media flows',
   { skip: !runDatabaseTests },
   async () => {
     process.env.NODE_ENV = 'test';
@@ -27,6 +27,22 @@ test(
     try {
       originalPricingSetting = await prisma.siteSetting.findUnique({
         where: { key: 'services.pricing' }
+      });
+      await prisma.siteSetting.upsert({
+        where: { key: 'services.pricing' },
+        update: {
+          value: { visible: true },
+          group: 'services',
+          label: 'Public service price visibility',
+          isPublic: true
+        },
+        create: {
+          key: 'services.pricing',
+          value: { visible: true },
+          group: 'services',
+          label: 'Public service price visibility',
+          isPublic: true
+        }
       });
       const role = await prisma.role.findUniqueOrThrow({
         where: { slug: 'super-admin' }

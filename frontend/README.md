@@ -1,10 +1,10 @@
 # Medicare Hospital — Frontend
 
-Medicare Hospital üçün Next.js App Router əsasında hazırlanmış public sayt və admin interfeysinin frontend layihəsidir. Public hissə Azərbaycan dilində, responsiv, SEO-uyğun və əlçatandır. Layihə backend olmadan lokal demo kimi açıla, yaxud eyni kod bazası ilə PostgreSQL/Express API-dən canlı məzmun və admin əməliyyatları ilə işləyə bilir.
+Medicare Hospital üçün Next.js App Router əsasında hazırlanmış public sayt və admin interfeysinin frontend layihəsidir. Public hissə Azərbaycan dilində, responsiv, SEO-uyğun və əlçatandır. Layihə backend olmadan lokal demo kimi açıla, yaxud eyni kod bazası ilə MySQL/Express API-dən canlı məzmun və admin əməliyyatları ilə işləyə bilir.
 
 ## Texnologiyalar
 
-- Next.js 15.5.21 və React 19.2.8
+- Next.js 15.5.23 və React 19.2.8
 - JavaScript (TypeScript istifadə edilmir)
 - App Router, Server Components və statik yaradılan dinamik səhifələr
 - Custom Global CSS və CSS Modules
@@ -16,7 +16,7 @@ Heç bir CSS/UI framework, hazır tema və böyük ikon kitabxanası istifadə e
 
 ## Sürətli başlanğıc
 
-Tələblər: Node.js 20+ və npm 10+.
+Tələblər: Node.js 22.12–24.x və npm 10+.
 
 ```bash
 cd frontend
@@ -128,7 +128,7 @@ npm run start
 - Həkim, şöbə, xidmət, məqalə və istifadəçi CRUD ekranları
 - Əlaqə mesajları
 - Ana səhifə, “Haqqımızda”, FAQ, filial, rəy, qalereya, sertifikat, naviqasiya, sosial hesab və əlaqə kontenti
-- Baş direktorun adı, vəzifəsi, fotosu, müraciəti, imzası və ana səhifədə görünməsi
+- Rəhbərlik üzvlərinin adı, vəzifəsi, fotosu, bioqrafiyası, optional təhsil/təcrübəsi, sırası və ana səhifədə görünməsi
 - WordPress tipli səhifə qurucusu: yeni səhifə, blok tipi, mətn, media/link parametrləri, görünürlük, sıra, nəşr statusu, SEO və revision bərpası
 - Rollar və icazələr
 - Sayt, əlaqə, sosial media və SEO parametrləri

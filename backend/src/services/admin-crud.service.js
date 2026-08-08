@@ -533,7 +533,13 @@ function normalizeData(definition, input, action) {
     const items = normalizeNestedCollection(data[collection], collection);
     if (collection === 'priceItems') {
       const prices = items
-        .filter((item) => item.active !== false && item.price !== null && item.price !== undefined)
+        .filter(
+          (item) =>
+            item.active !== false &&
+            item.price !== null &&
+            item.price !== undefined &&
+            Number(item.price) > 0
+        )
         .map((item) => Number(item.price));
       data.priceFrom = prices.length ? Math.min(...prices).toFixed(2) : null;
       data.currency = items.find((item) => item.currency)?.currency || data.currency || 'AZN';
@@ -553,9 +559,9 @@ async function lockMediaReferences(transaction, definition, data) {
     .filter(Boolean);
   for (const mediaId of new Set(mediaIds)) {
     const records = await transaction.$queryRaw`
-      SELECT "id"
-      FROM "MediaFile"
-      WHERE "id" = ${mediaId} AND "deletedAt" IS NULL
+      SELECT id
+      FROM MediaFile
+      WHERE id = ${mediaId} AND deletedAt IS NULL
       FOR UPDATE
     `;
     if (records.length === 0) {
@@ -576,7 +582,7 @@ export async function listAdminRecords(entity, query) {
     ...(query.search
       ? {
           OR: definition.searchFields.map((field) => ({
-            [field]: { contains: query.search, mode: 'insensitive' }
+            [field]: { contains: query.search }
           }))
         }
       : {}),

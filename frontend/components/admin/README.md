@@ -5,7 +5,7 @@ The admin UI supports two explicit runtime modes:
 - Demo mode is selected with `NEXT_PUBLIC_ADMIN_DEMO_MODE=true`. If the variable is omitted, demo mode is only inherited when `NEXT_PUBLIC_USE_MOCK_API=true`; otherwise real mode is the safe default. It uses local Azerbaijani sample data; UI mutations are not durable and no credentials are hardcoded.
 - Real mode is selected explicitly with `NEXT_PUBLIC_ADMIN_DEMO_MODE=false`. When that variable is omitted, `NEXT_PUBLIC_USE_MOCK_API=false` also selects real admin mode. It uses `NEXT_PUBLIC_API_URL`, accepting either an origin such as `http://localhost:4000` or a full `/api/v1` base.
 
-For a complete real-mode run, start the backend and its PostgreSQL database first, then use:
+For a complete real-mode run, start the backend and its MySQL database first, then use:
 
 ```dotenv
 NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1

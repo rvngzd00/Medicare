@@ -231,8 +231,8 @@ export async function activityController(request, response) {
   const where = request.query.search
     ? {
         OR: [
-          { action: { contains: request.query.search, mode: 'insensitive' } },
-          { entityType: { contains: request.query.search, mode: 'insensitive' } }
+          { action: { contains: request.query.search } },
+          { entityType: { contains: request.query.search } }
         ]
       }
     : {};

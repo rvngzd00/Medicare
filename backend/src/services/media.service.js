@@ -114,8 +114,8 @@ export async function listMedia(query) {
     ...(query.search
       ? {
           OR: [
-            { originalName: { contains: query.search, mode: 'insensitive' } },
-            { altText: { contains: query.search, mode: 'insensitive' } }
+            { originalName: { contains: query.search } },
+            { altText: { contains: query.search } }
           ]
         }
       : {})
@@ -140,9 +140,9 @@ export async function listMedia(query) {
 export async function deleteMedia(id) {
   const media = await prisma.$transaction(async (transaction) => {
     const lockedMedia = await transaction.$queryRaw`
-      SELECT "id"
-      FROM "MediaFile"
-      WHERE "id" = ${id} AND "deletedAt" IS NULL
+      SELECT id
+      FROM MediaFile
+      WHERE id = ${id} AND deletedAt IS NULL
       FOR UPDATE
     `;
     if (lockedMedia.length === 0) {

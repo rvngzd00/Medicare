@@ -1,8 +1,28 @@
 import 'dotenv/config';
+import { readFile } from 'node:fs/promises';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+
+async function loadServicePriceCatalog() {
+  const raw = await readFile(new URL('./service-prices.seed.json', import.meta.url), 'utf8');
+  const catalog = JSON.parse(raw);
+  const itemCount = catalog.categories?.reduce(
+    (total, category) => total + (category.items?.length || 0),
+    0
+  );
+
+  if (
+    !Array.isArray(catalog.categories) ||
+    catalog.categories.length !== catalog.categoryCount ||
+    itemCount !== catalog.itemCount
+  ) {
+    throw new Error('Service price seed catalog metadata does not match its contents.');
+  }
+
+  return catalog;
+}
 
 const permissionGroups = {
   dashboard: ['dashboard.read'],
@@ -410,6 +430,58 @@ async function seedContent() {
       }
     });
     services.set(data.slug, service);
+  }
+
+  const priceCatalog = await loadServicePriceCatalog();
+  for (const [catalogIndex, category] of priceCatalog.categories.entries()) {
+    const department = departments.get(category.departmentSlug);
+    if (!department) {
+      throw new Error(`Unknown department for service price category: ${category.name}`);
+    }
+
+    await prisma.$transaction(async (transaction) => {
+      const service = await transaction.service.upsert({
+        where: { slug: category.slug },
+        update: {},
+        create: {
+          slug: category.slug,
+          name: category.name,
+          summary: `${category.name} üzrə xidmət və müayinə qiymətləri.`,
+          description: `${category.name} kateqoriyasına daxil olan xidmətlərin aktual qiymət siyahısı.`,
+          departmentId: department.id,
+          currency: priceCatalog.currency,
+          featured: false,
+          sortOrder: 20 + catalogIndex
+        }
+      });
+
+      const existingPriceItemCount = await transaction.servicePriceItem.count({
+        where: { serviceId: service.id }
+      });
+      if (existingPriceItemCount > 0) return;
+
+      await transaction.servicePriceItem.createMany({
+        data: category.items.map((item) => ({
+          serviceId: service.id,
+          code: item.code,
+          name: item.name,
+          price: item.price,
+          currency: item.currency,
+          active: item.active,
+          sortOrder: item.sortOrder
+        }))
+      });
+
+      const positivePrices = category.items
+        .filter((item) => item.active !== false && Number(item.price) > 0)
+        .map((item) => Number(item.price));
+      await transaction.service.update({
+        where: { id: service.id },
+        data: {
+          priceFrom: positivePrices.length ? Math.min(...positivePrices) : null
+        }
+      });
+    });
   }
 
   const doctorData = [

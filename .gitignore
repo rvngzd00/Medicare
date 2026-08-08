@@ -1,19 +1,19 @@
 
-# Environment files
+# Environment files and local secrets
 .env
-.env.local
+.env.*
+!.env.example
+env
 env.local
 **/.env
-**/.env.local
+**/.env.*
+!**/.env.example
 **/env.local
-backend/.env
-backend/.env.*
-!backend/.env.example
-frontend/.env
-frontend/.env.*
-!frontend/.env.example
+
+# Dependencies, builds and tooling output
 **/node_modules/
 **/.next/
+**/coverage/
 *.log
 core
 core.*
@@ -31,7 +31,3 @@ backend/*.before-*
 frontend/*.before-*
 
 .DS_Store
-env
-.env
-.env.*
-!.env.example

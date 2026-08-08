@@ -3,12 +3,36 @@
 Layihə iki ayrı Node.js tətbiqindən ibarətdir:
 
 - `frontend/` — Next.js public sayt və admin panel
-- `backend/` — Express, Prisma və PostgreSQL REST API
+- `backend/` — Express, Prisma və MySQL REST API
+
+Tələb olunan versiyalar: Node.js `22.12–24.x`, npm `10+` və MySQL `8.x`.
+
+## İlk quraşdırma
+
+```bash
+npm --prefix backend ci
+npm --prefix frontend ci
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+```
+
+`backend/.env` daxilində MySQL `DATABASE_URL`, minimum 32 simvolluq
+`JWT_ACCESS_SECRET` və lazım olduqda ilkin admin məlumatlarını yazın. Sonra bazanı
+hazırlayın:
+
+```bash
+npm --prefix backend run db:deploy
+npm --prefix backend run db:seed
+```
+
+Seed komandası 25 qiymət kateqoriyasını və 684 xidmət sətrini də daxil olmaqla
+başlanğıc kontenti yaradır. Admin paneldə edilmiş dəyişiklikləri qorumaq üçün
+seed-i hər restartda işlətməyin.
 
 ## Lokal başlatma
 
-Hazırkı lokal konfiqurasiya real PostgreSQL/API rejimindədir. Kök qovluqda
-aşağıdakı komanda frontend və backend-i birlikdə başladır:
+MySQL işlək olduqda kök qovluqda bu komanda frontend və backend-i birlikdə
+başladır:
 
 ```bash
 npm run start
@@ -21,35 +45,43 @@ etmək mümkündür.
 
 Eyni əməliyyat üçün `npm run dev` də istifadə edilə bilər.
 
-## Production frontend
+macOS-da MySQL servisi dayanıbsa əvvəlcə:
 
 ```bash
-npm run build
-npm run frontend:start
+brew services start mysql@8.4
 ```
 
-## Backend
-
-Yeni mühitdə backend üçün `backend/.env.example` faylını `backend/.env` kimi
-kopyalayın, PostgreSQL bağlantısını və minimum 32 simvolluq
-`JWT_ACCESS_SECRET` dəyərini təyin edin. Sonra:
-
-```bash
-cd backend
-npm run prisma:generate
-npm run db:deploy
-npm run db:seed
-cd ..
-npm run backend:dev
-```
-
-Canlı API rejimi üçün `frontend/.env.local` daxilində
-`NEXT_PUBLIC_USE_MOCK_API=false` və `NEXT_PUBLIC_ADMIN_DEMO_MODE=false` seçilməlidir.
-
-## Yoxlama
+## Yoxlama və production build
 
 ```bash
 npm run check
+npm run build
 ```
 
-Bu komanda frontend lint, backend syntax və backend testlərini işlədir.
+Production build zamanı canlı kontent istifadə edilirsə API əlçatan olmalıdır.
+Frontend üçün `NEXT_PUBLIC_USE_MOCK_API=false` və
+`NEXT_PUBLIC_ADMIN_DEMO_MODE=false` saxlayın.
+
+## Production start
+
+Backend-də `npm ci` Prisma Client-i avtomatik generasiya edir, `npm start` isə
+migrasiyaları tətbiq edib API-ni başladır. Seed yalnız ilk deploy zamanı ayrıca
+işlədilir:
+
+```bash
+npm --prefix backend ci
+npm --prefix backend run db:seed
+npm --prefix backend start
+```
+
+Frontend:
+
+```bash
+npm --prefix frontend ci
+npm --prefix frontend run build
+npm --prefix frontend start
+```
+
+Real `.env` fayllarını, `node_modules` və `.next` qovluqlarını repository-yə və
+deploy arxivinə daxil etməyin. Hostinger-də secret-ləri ayrıca environment
+dəyişənləri kimi təyin edin.

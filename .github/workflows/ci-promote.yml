@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20.20.2
+          node-version: 22
           cache: npm
           cache-dependency-path: |
             backend/package-lock.json
@@ -40,12 +40,12 @@ jobs:
 
       - name: Generate Prisma Client
         env:
-          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci?schema=public
+          DATABASE_URL: mysql://ci:ci@127.0.0.1:3306/ci
         run: npm --prefix backend run prisma:generate
 
       - name: Check backend
         env:
-          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci?schema=public
+          DATABASE_URL: mysql://ci:ci@127.0.0.1:3306/ci
         run: npm --prefix backend run check
 
       - name: Verify backend Sharp

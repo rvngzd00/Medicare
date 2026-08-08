@@ -1,14 +1,14 @@
 # Medicare Hospital API
 
 Medicare Hospital API xəstəxananın public saytı və admin paneli üçün hazırlanmış
-Node.js/Express REST backend-dir. Layihə PostgreSQL və Prisma üzərində qurulur,
+Node.js/Express REST backend-dir. Layihə MySQL və Prisma üzərində qurulur,
 JWT access token, rotasiya olunan refresh token, permission əsaslı RBAC, təhlükəsiz
 şəkil emalı, audit jurnalı və soft delete axınlarını birlikdə təmin edir.
 
 ## Texnologiyalar
 
-- Node.js 20.9+, Express və JavaScript ES modules
-- PostgreSQL və Prisma ORM
+- Node.js 22.12–24.x, Express və JavaScript ES modules
+- MySQL və Prisma ORM
 - JWT access token, opaque refresh token rotation və bcrypt
 - Zod validation, server-side sanitization və Prisma parametrli sorğular
 - Helmet, CORS whitelist, strict query validation, ümumi/auth/form rate limitləri
@@ -38,7 +38,7 @@ işləyir. `GET /health` liveness üçündür və database bağlantısı tələb
 
 | Dəyişən | Məqsəd |
 | --- | --- |
-| `DATABASE_URL` | PostgreSQL connection URL |
+| `DATABASE_URL` | MySQL connection URL |
 | `JWT_ACCESS_SECRET` | Minimum 32 simvolluq access-token secret |
 | `JWT_ACCESS_EXPIRES_IN` | Access token müddəti, məsələn `15m` |
 | `REFRESH_TOKEN_EXPIRES_DAYS` | Refresh sessiyasının maksimum müddəti |
@@ -61,14 +61,16 @@ npm run db:migrate -- --name descriptive_name
 # Mövcud migration-ların production-a tətbiqi
 npm run db:deploy
 
-# Təkrar icra oluna bilən demo seed
+# İlkin kontent və xidmət qiymətləri seed-i
 npm run db:seed
 ```
 
 Seed dörd sistem rolunu və onların permission-larını, Azərbaycan dilində şöbə,
-xidmət, həkim, məqalə, FAQ və sayt konfiqurasiyası nümunələrini yaradır. Hardcoded
-admin yoxdur. İlkin administrator yalnız `SEED_ADMIN_EMAIL` və minimum 12 simvolluq
-`SEED_ADMIN_PASSWORD` birlikdə verildikdə yaradılır.
+xidmət, həkim, məqalə, FAQ və sayt konfiqurasiyası nümunələrini, həmçinin 25
+qiymət kateqoriyası üzrə 684 xidmət sətrini yaradır. Hardcoded admin yoxdur.
+İlkin administrator yalnız `SEED_ADMIN_EMAIL` və minimum 12 simvolluq
+`SEED_ADMIN_PASSWORD` birlikdə verildikdə yaradılır. Admin paneldə redaktə edilmiş
+qiymət sətirləri seed təkrar işləndikdə avtomatik əvəz edilmir.
 
 Minimum rollar:
 
@@ -195,7 +197,7 @@ token utility və real Sharp media pipeline testlərini işlədir. Tam inteqrasi
 testi ayrıca, yalnız silinə bilən test database-i ilə aktiv edilməlidir:
 
 ```bash
-RUN_DB_TESTS=true DATABASE_URL="postgresql://.../medicare_test" npm test
+RUN_DB_TESTS=true DATABASE_URL="mysql://user:password@127.0.0.1:3306/medicare_test" npm test
 ```
 
 Bu axın seed olunmuş public endpoint-ləri, login, refresh rotation/reuse
@@ -205,9 +207,10 @@ qiymət redaksiyası, CMS səhifə yaratma, atomik bölmə sıralama və revisio
 restore əməliyyatlarını yoxlayır. Production database URL-i ilə
 `RUN_DB_TESTS=true` istifadə etməyin.
 
-Production deploy zamanı əvvəlcə `npm ci`, `npm run prisma:generate` və
-`npm run db:deploy` icra edin. HTTPS arxasında `COOKIE_SECURE=true` seçin,
+Production deploy zamanı `npm ci` Prisma Client-i avtomatik generasiya edir.
+İlk deploy-da `npm run db:seed` komandasını bir dəfə ayrıca işlədin; sonrakı
+restartlarda `npm start` migrasiyaları tətbiq edib API-ni başladır. HTTPS arxasında `COOKIE_SECURE=true` seçin,
 `TRUST_PROXY=true` yalnız etibarlı reverse proxy olduqda aktiv edin, ayrıca
-PostgreSQL backup/retention siyasəti qurun və `uploads` üçün persistent volume
+MySQL backup/retention siyasəti qurun və `uploads` üçün persistent volume
 və ya S3 adapterindən istifadə edin. Birdən çox API instance olduqda maintenance
 job-u ayrıca worker/cron prosesinə çıxarmaq tövsiyə olunur.
