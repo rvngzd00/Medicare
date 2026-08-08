@@ -5,6 +5,8 @@ function applyLimits(config = {}) {
   return {
     ...config,
 
+    output: "standalone",
+
     eslint: {
       ...(config.eslint || {}),
       ignoreDuringBuilds: true,

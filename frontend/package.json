@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && cp -R public .next/standalone/public && mkdir -p .next/standalone/.next && cp -R .next/static .next/standalone/.next/static",
+    "start": "node .next/standalone/server.js",
     "lint": "eslint . --max-warnings=0"
   },
   "dependencies": {
