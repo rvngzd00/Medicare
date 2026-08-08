@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt';
 import { prisma } from '../config/prisma.js';
 import { ApiError } from '../utils/api-error.js';
+import {
+  clearAuthUserCache,
+  invalidateAuthUser
+} from '../utils/auth-user-cache.js';
 import { getPagination, paginationMeta } from '../utils/pagination.js';
 import { toSlug } from '../utils/slug.js';
 
@@ -141,7 +145,7 @@ export async function updateUser(id, input, actor) {
   assertTargetIsManageable(existing, actor);
   if (data.roleId) await getAssignableRole(data.roleId, actor);
 
-  return prisma.$transaction(async (transaction) => {
+  const updated = await prisma.$transaction(async (transaction) => {
     const user = await transaction.user.update({
       where: { id },
       data: {
@@ -161,6 +165,8 @@ export async function updateUser(id, input, actor) {
     }
     return user;
   });
+  invalidateAuthUser(id);
+  return updated;
 }
 
 export async function deleteUser(id, actor) {
@@ -184,6 +190,7 @@ export async function deleteUser(id, actor) {
       data: { revokedAt: new Date() }
     })
   ]);
+  invalidateAuthUser(id);
 }
 
 const roleInclude = {
@@ -241,7 +248,7 @@ export async function updateRole(id, input, actor) {
   }
   await assertPermissionGrant(permissionIds, actor);
 
-  return prisma.$transaction(async (transaction) => {
+  const updated = await prisma.$transaction(async (transaction) => {
     if (permissionIds) {
       await transaction.rolePermission.deleteMany({ where: { roleId: id } });
       await transaction.rolePermission.createMany({
@@ -257,4 +264,6 @@ export async function updateRole(id, input, actor) {
       include: roleInclude
     });
   });
+  clearAuthUserCache();
+  return updated;
 }

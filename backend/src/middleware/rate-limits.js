@@ -5,7 +5,8 @@ const commonOptions = {
   windowMs: env.rateLimitWindowMs,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
-  skip: () => env.isTest,
+  skip: (request) =>
+    env.isTest || request.path === '/health' || request.path === '/ready',
   handler(_request, response) {
     response.status(429).json({
       success: false,

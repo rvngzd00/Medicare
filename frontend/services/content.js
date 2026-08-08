@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 
 import { doctors as mockDoctors, getDoctor as getMockDoctor } from "@/data/doctors";
 import {
@@ -23,6 +24,11 @@ import {
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/v1").replace(/\/+$/, "");
 const API_ORIGIN = getApiOrigin(API_URL);
 const CONTENT_REVALIDATE_SECONDS = 300;
+const SHORT_CONTENT_REVALIDATE_SECONDS = 60;
+const CONTENT_FAILURE_COOLDOWN_MS = 15_000;
+const CONTENT_REQUEST_TIMEOUT_MS = 8_000;
+let contentUnavailableUntil = 0;
+let lastContentFailureMessage = "";
 const mockCertificates = [
   {
     id: "iso-9001",
@@ -54,19 +60,31 @@ class ContentApiError extends Error {
   }
 }
 
-async function requestContent(path, { fresh = false } = {}) {
+async function requestContent(
+  path,
+  { revalidate = CONTENT_REVALIDATE_SECONDS } = {}
+) {
+  if (contentUnavailableUntil > Date.now()) {
+    throw new ContentApiError(
+      lastContentFailureMessage || "Canlı məzmun xidməti müvəqqəti əlçatmazdır.",
+      503
+    );
+  }
+
   let response;
 
   try {
     response = await fetch(`${API_URL}${path}`, {
       headers: { Accept: "application/json" },
-      ...(fresh
-        ? { cache: "no-store" }
-        : { next: { revalidate: CONTENT_REVALIDATE_SECONDS } }),
-      signal: AbortSignal.timeout(5000)
+      next: { revalidate },
+      // Production Prisma gives up pool/connection work within five seconds;
+      // leave enough time for its structured 503 response to reach Next.js.
+      signal: AbortSignal.timeout(CONTENT_REQUEST_TIMEOUT_MS)
     });
   } catch {
-    throw new ContentApiError("Canlı məzmun xidməti ilə əlaqə yaratmaq mümkün olmadı.");
+    lastContentFailureMessage = "Canlı məzmun xidməti ilə əlaqə yaratmaq mümkün olmadı.";
+    contentUnavailableUntil = Date.now() + CONTENT_FAILURE_COOLDOWN_MS;
+    throw new ContentApiError(lastContentFailureMessage);
   }
 
   let payload;
@@ -81,9 +99,15 @@ async function requestContent(path, { fresh = false } = {}) {
       payload?.error?.message ||
       payload?.message ||
       "Canlı məzmunu yükləmək mümkün olmadı.";
+    if (response.status >= 500) {
+      lastContentFailureMessage = message;
+      contentUnavailableUntil = Date.now() + CONTENT_FAILURE_COOLDOWN_MS;
+    }
     throw new ContentApiError(message, response.status);
   }
 
+  contentUnavailableUntil = 0;
+  lastContentFailureMessage = "";
   return { data: payload.data, meta: payload.meta || null };
 }
 
@@ -179,7 +203,7 @@ export function getServicesContent() {
     "/public/services?limit=100",
     mockServices,
     adaptService,
-    { fresh: true }
+    { revalidate: SHORT_CONTENT_REVALIDATE_SECONDS }
   );
 }
 
@@ -188,7 +212,7 @@ export function getServiceContent(slug) {
     `/public/services/${encodeURIComponent(slug)}`,
     getMockService(slug),
     adaptService,
-    { fresh: true }
+    { revalidate: SHORT_CONTENT_REVALIDATE_SECONDS }
   );
 }
 
@@ -241,7 +265,7 @@ export function getLeadershipContent() {
     "/public/content/leadership?limit=100",
     mockLeadership,
     adaptLeadership,
-    { fresh: true }
+    { revalidate: SHORT_CONTENT_REVALIDATE_SECONDS }
   );
 }
 
@@ -250,9 +274,104 @@ export async function getPageContent(slug, mockPage = null) {
     `/public/pages/${encodeURIComponent(slug)}`,
     mockPage,
     adaptContentPage,
-    { fresh: true }
+    { revalidate: SHORT_CONTENT_REVALIDATE_SECONDS }
   );
 }
+
+function bundledCollection(items, adapter) {
+  return {
+    items: (Array.isArray(items) ? items : []).map((item) => adapter(item)),
+    source: "live",
+    meta: null,
+    unavailable: false
+  };
+}
+
+function unavailableCollection(message) {
+  return {
+    items: [],
+    source: "unavailable",
+    meta: null,
+    unavailable: true,
+    message
+  };
+}
+
+export const getHomeContentBundle = cache(async function getHomeContentBundle() {
+  if (!USE_LIVE_CONTENT) {
+    const [
+      pageContent,
+      leadershipContent,
+      serviceContent,
+      departmentContent,
+      doctorContent,
+      articleContent,
+      testimonialContent,
+      faqContent,
+      branchContent
+    ] = await Promise.all([
+      getPageContent("home"),
+      getLeadershipContent(),
+      getServicesContent(),
+      getDepartmentsContent(),
+      getDoctorsContent(),
+      getArticlesContent(),
+      getTestimonialsContent(),
+      getFaqsContent(),
+      getBranchesContent()
+    ]);
+    return {
+      pageContent,
+      leadershipContent,
+      serviceContent,
+      departmentContent,
+      doctorContent,
+      articleContent,
+      testimonialContent,
+      faqContent,
+      branchContent
+    };
+  }
+
+  try {
+    const { data } = await requestContent("/public/home", {
+      revalidate: SHORT_CONTENT_REVALIDATE_SECONDS
+    });
+    return {
+      pageContent: {
+        item: data?.page ? adaptContentPage(data.page) : null,
+        source: "live",
+        unavailable: false
+      },
+      leadershipContent: bundledCollection(data?.leadership, adaptLeadership),
+      serviceContent: bundledCollection(data?.services, adaptService),
+      departmentContent: bundledCollection(data?.departments, adaptDepartment),
+      doctorContent: bundledCollection(data?.doctors, adaptDoctor),
+      articleContent: bundledCollection(data?.articles, adaptArticle),
+      testimonialContent: bundledCollection(data?.testimonials, adaptTestimonial),
+      faqContent: bundledCollection(data?.faqs, adaptFaq),
+      branchContent: bundledCollection(data?.branches, adaptBranch)
+    };
+  } catch (error) {
+    const unavailable = () => unavailableCollection(error.message);
+    return {
+      pageContent: {
+        item: null,
+        source: "unavailable",
+        unavailable: true,
+        message: error.message
+      },
+      leadershipContent: unavailable(),
+      serviceContent: unavailable(),
+      departmentContent: unavailable(),
+      doctorContent: unavailable(),
+      articleContent: unavailable(),
+      testimonialContent: unavailable(),
+      faqContent: unavailable(),
+      branchContent: unavailable()
+    };
+  }
+});
 
 export async function getPublishedPagesContent() {
   if (!USE_LIVE_CONTENT) {

@@ -1,6 +1,7 @@
 import { prisma } from '../config/prisma.js';
 import { ApiError } from '../utils/api-error.js';
 import { asyncHandler } from '../utils/async-handler.js';
+import { cacheAuthUser, getCachedAuthUser } from '../utils/auth-user-cache.js';
 import { verifyAccessToken } from '../utils/tokens.js';
 
 export const authenticate = asyncHandler(async (request, _response, next) => {
@@ -10,21 +11,25 @@ export const authenticate = asyncHandler(async (request, _response, next) => {
   }
 
   const payload = verifyAccessToken(authorization.slice(7));
-  const user = await prisma.user.findFirst({
-    where: {
-      id: payload.sub,
-      deletedAt: null
-    },
-    include: {
-      role: {
-        include: {
-          permissions: {
-            include: { permission: true }
+  let user = getCachedAuthUser(payload.sub);
+  if (!user) {
+    user = await prisma.user.findFirst({
+      where: {
+        id: payload.sub,
+        deletedAt: null
+      },
+      include: {
+        role: {
+          include: {
+            permissions: {
+              include: { permission: true }
+            }
           }
         }
       }
-    }
-  });
+    });
+    if (user) cacheAuthUser(payload.sub, user);
+  }
 
   if (!user || user.status !== 'ACTIVE') {
     throw new ApiError(401, 'ACCOUNT_UNAVAILABLE', 'This account is not available.');

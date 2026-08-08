@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   activityController,
+  contentSummaryController,
   createRecordController,
   createRoleController,
   createUserController,
@@ -133,6 +134,12 @@ adminRouter.get(
   requirePermission('audit.read'),
   validate(adminListSchema),
   asyncHandler(activityController)
+);
+
+adminRouter.get(
+  '/content-summary',
+  requirePermission('home_sections.read', 'pages.read'),
+  asyncHandler(contentSummaryController)
 );
 
 adminRouter.get(

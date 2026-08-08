@@ -1,5 +1,7 @@
 import { prisma } from '../config/prisma.js';
+import { env } from '../config/env.js';
 import { logger } from '../config/logger.js';
+import { tripDatabaseCircuit } from '../utils/database-circuit.js';
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
@@ -51,11 +53,12 @@ export function startMaintenanceJobs() {
     try {
       await runMaintenance();
     } catch (error) {
+      tripDatabaseCircuit(error, env.databaseCircuitCooldownMs);
       logger.warn({ error }, 'Maintenance job failed');
     } finally {
       running = false;
     }
-  }, 60 * 1000);
+  }, env.maintenanceIntervalMs);
   timer.unref();
   return () => clearInterval(timer);
 }

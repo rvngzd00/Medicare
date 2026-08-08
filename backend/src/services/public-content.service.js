@@ -617,6 +617,236 @@ export async function listPublicPages() {
   });
 }
 
+export async function getPublicHome() {
+  const [
+    _databaseReady,
+    page,
+    leadership,
+    services,
+    departments,
+    doctors,
+    articles,
+    testimonials,
+    faqs,
+    branches,
+    pricingSetting
+  ] = await prisma.$transaction([
+    // Keep the complete homepage read on one pooled connection. This also
+    // fails before Express starts any additional request-level DB fan-out.
+    prisma.$queryRaw`SELECT 1`,
+    prisma.contentPage.findFirst({
+      where: { slug: 'home', status: 'PUBLISHED', deletedAt: null },
+      include: {
+        seo: seoInclude,
+        sections: {
+          where: { deletedAt: null },
+          orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }]
+        }
+      }
+    }),
+    prisma.leadershipMember.findMany({
+      where: { active: true, deletedAt: null },
+      take: 100,
+      orderBy: [{ sortOrder: 'asc' }, { lastName: 'asc' }],
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        position: true,
+        bio: true,
+        education: true,
+        experience: true,
+        sortOrder: true,
+        image: { select: mediaSelect }
+      }
+    }),
+    prisma.service.findMany({
+      where: {
+        active: true,
+        deletedAt: null,
+        department: { active: true, deletedAt: null }
+      },
+      take: 100,
+      orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }],
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        summary: true,
+        priceFrom: true,
+        currency: true,
+        icon: true,
+        featured: true,
+        updatedAt: true,
+        image: { select: mediaSelect },
+        department: { select: { id: true, name: true, slug: true } }
+      }
+    }),
+    prisma.department.findMany({
+      where: { active: true, deletedAt: null },
+      take: 100,
+      orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }],
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        summary: true,
+        featured: true,
+        updatedAt: true,
+        image: { select: mediaSelect },
+        _count: {
+          select: {
+            doctors: { where: { active: true, deletedAt: null } },
+            services: { where: { active: true, deletedAt: null } }
+          }
+        }
+      }
+    }),
+    prisma.doctor.findMany({
+      where: {
+        active: true,
+        deletedAt: null,
+        department: { active: true, deletedAt: null }
+      },
+      take: 100,
+      orderBy: [{ sortOrder: 'asc' }, { lastName: 'asc' }],
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        title: true,
+        specialty: true,
+        shortBio: true,
+        experienceYears: true,
+        languages: true,
+        featured: true,
+        updatedAt: true,
+        profileImage: { select: mediaSelect },
+        department: { select: { id: true, name: true, slug: true } },
+        branch: { select: { id: true, name: true, slug: true } }
+      }
+    }),
+    prisma.article.findMany({
+      where: publishedArticleWhere(),
+      take: 100,
+      orderBy: { publishedAt: 'desc' },
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        excerpt: true,
+        featured: true,
+        readingMinutes: true,
+        publishedAt: true,
+        updatedAt: true,
+        coverImage: { select: mediaSelect },
+        categories: { select: { id: true, slug: true, name: true } },
+        author: { select: { firstName: true, lastName: true } }
+      }
+    }),
+    prisma.testimonial.findMany({
+      where: {
+        active: true,
+        deletedAt: null,
+        AND: [
+          {
+            OR: [
+              { departmentId: null },
+              { department: { active: true, deletedAt: null } }
+            ]
+          },
+          {
+            OR: [
+              { doctorId: null },
+              {
+                doctor: {
+                  active: true,
+                  deletedAt: null,
+                  department: { active: true, deletedAt: null }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      take: 100,
+      orderBy: { sortOrder: 'asc' },
+      include: {
+        image: { select: mediaSelect },
+        doctor: {
+          select: { slug: true, firstName: true, lastName: true, specialty: true }
+        },
+        department: { select: { slug: true, name: true } }
+      }
+    }),
+    prisma.fAQ.findMany({
+      where: {
+        active: true,
+        deletedAt: null,
+        AND: [
+          {
+            OR: [
+              { departmentId: null },
+              { department: { active: true, deletedAt: null } }
+            ]
+          },
+          {
+            OR: [
+              { serviceId: null },
+              {
+                service: {
+                  active: true,
+                  deletedAt: null,
+                  department: { active: true, deletedAt: null }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      take: 100,
+      orderBy: { sortOrder: 'asc' }
+    }),
+    prisma.branch.findMany({
+      where: { active: true, deletedAt: null },
+      take: 100,
+      orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }],
+      include: { image: { select: mediaSelect } }
+    }),
+    prisma.siteSetting.findUnique({
+      where: { key: 'services.pricing' },
+      select: { value: true }
+    })
+  ]);
+
+  if (!page) throw new ApiError(404, 'PAGE_NOT_FOUND', 'Page was not found.');
+  const pricingVisible = pricingSetting?.value?.visible !== false;
+  const publicPage = {
+    ...page,
+    sectionLayoutConfigured: page.sections.length > 0,
+    inactiveSectionKeys: page.sections
+      .filter((section) => !section.active)
+      .map((section) => section.key),
+    sections: page.sections.filter((section) => section.active)
+  };
+
+  return {
+    page: publicPage,
+    leadership,
+    services: services.map((service) =>
+      applyPublicPricingVisibility(service, pricingVisible)
+    ),
+    departments,
+    doctors,
+    articles,
+    testimonials,
+    faqs,
+    branches
+  };
+}
+
 export async function searchPublicContent(searchTerm) {
   const term = searchTerm.trim();
   if (term.length < 2) return { doctors: [], departments: [], services: [], articles: [] };

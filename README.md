@@ -64,12 +64,13 @@ Frontend üçün `NEXT_PUBLIC_USE_MOCK_API=false` və
 
 ## Production start
 
-Backend-də `npm ci` Prisma Client-i avtomatik generasiya edir, `npm start` isə
-migrasiyaları tətbiq edib API-ni başladır. Seed yalnız ilk deploy zamanı ayrıca
-işlədilir:
+Backend-də `npm ci` Prisma Client-i avtomatik generasiya edir. Migration release
+addımı kimi ayrıca tətbiq edilir, `npm start` isə yalnız API-ni başladır. Seed
+yalnız ilk deploy zamanı ayrıca işlədilir:
 
 ```bash
 npm --prefix backend ci
+npm --prefix backend run db:deploy
 npm --prefix backend run db:seed
 npm --prefix backend start
 ```

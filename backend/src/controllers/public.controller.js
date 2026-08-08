@@ -4,6 +4,7 @@ import {
   getContentPage,
   getDepartment,
   getDoctor,
+  getPublicHome,
   getPublicConfiguration,
   getService,
   listPublicPages,
@@ -18,6 +19,10 @@ import { success } from '../utils/api-response.js';
 
 export async function configurationController(_request, response) {
   return success(response, await getPublicConfiguration());
+}
+
+export async function homeController(_request, response) {
+  return success(response, await getPublicHome());
 }
 
 export async function doctorsController(request, response) {

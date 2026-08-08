@@ -237,6 +237,7 @@ export const adminApi = {
   dashboard: {
     getSummary: (params = {}, options = {}) => request(`/admin/dashboard?${new URLSearchParams(params)}`, options),
     getActivity: (params = {}, options = {}) => request(`/admin/activity-logs?${new URLSearchParams(params)}`, options),
+    getContentSummary: (options = {}) => request("/admin/content-summary", options),
   },
 
   resources: {

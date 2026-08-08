@@ -19,16 +19,8 @@ import { ContentStatusNotice } from "@/components/common/ContentStatus";
 import EmptyState from "@/components/common/EmptyState";
 import { createMetadata } from "@/utils/seo";
 import {
-  getArticlesContent,
-  getBranchesContent,
-  getDepartmentsContent,
-  getDoctorsContent,
-  getLeadershipContent,
-  getFaqsContent,
-  getPageContent,
+  getHomeContentBundle,
   getPublicConfigurationContent,
-  getServicesContent,
-  getTestimonialsContent,
 } from "@/services/content";
 import {
   positiveSectionLimit,
@@ -216,10 +208,11 @@ const assuranceSteps = [
 ];
 
 export async function generateMetadata() {
-  const [configurationContent, pageContent] = await Promise.all([
+  const [configurationContent, homeContent] = await Promise.all([
     getPublicConfigurationContent(),
-    getPageContent("home", HOME_PAGE_FALLBACK),
+    getHomeContentBundle(),
   ]);
+  const pageContent = homeContent.pageContent;
   const configuration = configurationContent.configuration;
   const page = pageContent.item || HOME_PAGE_FALLBACK;
   const cmsDescription = page.seo?.description || page.excerpt || "";
@@ -249,9 +242,12 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const [
+  const [configurationContent, homeContent] = await Promise.all([
+    getPublicConfigurationContent(),
+    getHomeContentBundle(),
+  ]);
+  const {
     pageContent,
-    configurationContent,
     leadershipContent,
     serviceContent,
     departmentContent,
@@ -259,19 +255,8 @@ export default async function HomePage() {
     articleContent,
     testimonialContent,
     faqContent,
-    branchContent,
-  ] = await Promise.all([
-    getPageContent("home", HOME_PAGE_FALLBACK),
-    getPublicConfigurationContent(),
-    getLeadershipContent(),
-    getServicesContent(),
-    getDepartmentsContent(),
-    getDoctorsContent(),
-    getArticlesContent(),
-    getTestimonialsContent(),
-    getFaqsContent(),
-    getBranchesContent(),
-  ]);
+    branchContent
+  } = homeContent;
   const page = pageContent.item || HOME_PAGE_FALLBACK;
   const configuration = configurationContent.configuration;
   const sections = resolvePageSections(page, HOME_SECTIONS);

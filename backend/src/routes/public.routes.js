@@ -11,6 +11,7 @@ import {
   departmentsController,
   doctorController,
   doctorsController,
+  homeController,
   searchController,
   serviceController,
   servicesController,
@@ -23,6 +24,7 @@ import { contactSchema, listQuerySchema, slugParamsSchema } from '../validators/
 
 export const publicRouter = Router();
 
+publicRouter.get('/home', asyncHandler(homeController));
 publicRouter.get('/configuration', asyncHandler(configurationController));
 publicRouter.get('/doctors', validate(listQuerySchema), asyncHandler(doctorsController));
 publicRouter.get('/doctors/:slug', validate(slugParamsSchema), asyncHandler(doctorController));

@@ -30,7 +30,9 @@ npm run dev
 
 API standart olaraq `http://localhost:4000`, base path isə `/api/v1` altında
 işləyir. `GET /health` liveness üçündür və database bağlantısı tələb etmir.
-`GET /ready` database bağlantısını da yoxlayır.
+`GET /ready` database bağlantısını da yoxlayır və uğurlu nəticəni qısa müddət
+cache edir. Hostinger və digər platforma liveness probe-ları üçün yalnız
+`GET /health` istifadə olunmalıdır.
 
 ## Environment dəyişənləri
 
@@ -43,13 +45,19 @@ işləyir. `GET /health` liveness üçündür və database bağlantısı tələb
 | `JWT_ACCESS_EXPIRES_IN` | Access token müddəti, məsələn `15m` |
 | `REFRESH_TOKEN_EXPIRES_DAYS` | Refresh sessiyasının maksimum müddəti |
 | `CORS_ORIGINS` | Vergüllə ayrılmış frontend origin whitelist |
-| `MAINTENANCE_JOBS_ENABLED` | Fon təmizliyi; Passenger production-da yalnız bir idarə olunan worker üçün `true` edin |
+| `MAINTENANCE_JOBS_ENABLED` | Default `false`; yalnız bir idarə olunan worker üçün `true` edin |
+| `MAINTENANCE_INTERVAL_MS` | Fon təmizliyi intervalı; default 15 dəqiqə |
+| `DATABASE_CIRCUIT_COOLDOWN_MS` | DB kəsildikdə yeni sorğuların qısa müddət sürətli dayandırılması |
+| `DATABASE_READINESS_CACHE_MS` | Uğurlu `/ready` nəticəsinin cache müddəti |
 | `COOKIE_SECURE`, `COOKIE_SAME_SITE` | Refresh cookie təhlükəsizliyi |
 | `UPLOAD_MAX_MB`, `UPLOAD_DIR` | Media limitləri və local storage yolu |
 | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` | Optional ilkin super admin |
 
 Secret, database parolu və admin şifrəsi repository-yə əlavə edilməməlidir.
 Production-da `JWT_ACCESS_SECRET` ayrıca secret manager-dən verilməlidir.
+Hostinger API-si ilə MySQL eyni hesab/serverdə işləyirsə `DATABASE_URL` hostu
+`localhost` olmalıdır; `srv....hstgr.io` kimi remote host yalnız kənardan lokal
+yoxlama üçündür və production-da əlavə bağlantı/firewall yükü yaradır.
 
 ## Database və seed
 
@@ -98,6 +106,7 @@ aktiv refresh sessiyaları ləğv olunur.
 
 Public:
 
+- `GET /api/v1/public/home` — ana səhifənin bütün kolleksiyalarını bir yüngül DB transaction-da qaytarır
 - `GET /api/v1/public/configuration`
 - `GET /api/v1/public/doctors`, `/doctors/:slug`
 - `GET /api/v1/public/departments`, `/departments/:slug`
@@ -110,6 +119,7 @@ Public:
 Admin:
 
 - `GET /api/v1/admin/dashboard`
+- `GET /api/v1/admin/content-summary` — kontent mərkəzi üçün modul sayları və son aktivlik
 - CRUD: `doctors`, `departments`, `services`, `articles`,
   `article-categories`, `leadership`, `faqs`, `testimonials`, `branches`, `gallery`,
   `certificates`, `navigation`, `settings`,
@@ -209,8 +219,9 @@ restore əməliyyatlarını yoxlayır. Production database URL-i ilə
 `RUN_DB_TESTS=true` istifadə etməyin.
 
 Production deploy zamanı `npm ci` Prisma Client-i avtomatik generasiya edir.
-İlk deploy-da `npm run db:seed` komandasını bir dəfə ayrıca işlədin; sonrakı
-restartlarda `npm start` migrasiyaları tətbiq edib API-ni başladır. HTTPS arxasında `COOKIE_SECURE=true` seçin,
+Hər release-dən əvvəl `npm run db:deploy`, ilk deploy-da isə əlavə olaraq
+`npm run db:seed` komandasını bir dəfə ayrıca işlədin. `npm start` yalnız API-ni
+başladır. HTTPS arxasında `COOKIE_SECURE=true` seçin,
 `TRUST_PROXY=true` yalnız etibarlı reverse proxy olduqda aktiv edin, ayrıca
 MySQL backup/retention siyasəti qurun və `uploads` üçün persistent volume
 və ya S3 adapterindən istifadə edin. Birdən çox API instance olduqda maintenance

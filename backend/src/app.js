@@ -3,14 +3,13 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import net from 'node:net';
 import {
-  buildDatabaseUrl,
   databaseEndpointKind
 } from './config/database-url.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { prisma } from './config/prisma.js';
+import { guardDatabaseAvailability } from './middleware/database-circuit.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFound } from './middleware/not-found.js';
 import { globalRateLimit } from './middleware/rate-limits.js';
@@ -22,6 +21,11 @@ import { publicRouter } from './routes/public.routes.js';
 import { ApiError } from './utils/api-error.js';
 import { asyncHandler } from './utils/async-handler.js';
 import { classifyDatabaseError } from './utils/database-error.js';
+import {
+  getDatabaseCircuitState,
+  resetDatabaseCircuit,
+  tripDatabaseCircuit
+} from './utils/database-circuit.js';
 import { success } from './utils/api-response.js';
 
 function corsOptions() {
@@ -43,15 +47,31 @@ function corsOptions() {
 }
 
 let activeDatabaseProbe = null;
+let lastSuccessfulDatabaseProbeAt = 0;
 
 async function databaseReadinessCheck() {
+  const now = Date.now();
+  const circuit = getDatabaseCircuitState(now);
+  if (circuit.open) {
+    const error = new Error('Database circuit is open.');
+    error.databaseReason = circuit.lastFailure?.reason || 'circuit_open';
+    throw error;
+  }
+
+  if (
+    lastSuccessfulDatabaseProbeAt > 0 &&
+    now - lastSuccessfulDatabaseProbeAt < env.databaseReadinessCacheMs
+  ) {
+    return true;
+  }
+
   let timer;
   const timeout = new Promise((_, reject) => {
     timer = setTimeout(() => {
       const error = new Error('Database readiness check timed out.');
       error.code = 'P1002';
       reject(error);
-    }, 8_000);
+    }, 4_000);
     timer.unref();
   });
   if (!activeDatabaseProbe) {
@@ -60,57 +80,13 @@ async function databaseReadinessCheck() {
     });
   }
   try {
-    return await Promise.race([activeDatabaseProbe, timeout]);
+    const result = await Promise.race([activeDatabaseProbe, timeout]);
+    lastSuccessfulDatabaseProbeAt = Date.now();
+    resetDatabaseCircuit();
+    return result;
   } finally {
     clearTimeout(timer);
   }
-}
-
-function databaseSocketCheck() {
-  let url;
-  try {
-    url = new URL(
-      buildDatabaseUrl(env.databaseUrl, { production: env.isProduction })
-    );
-    if (url.protocol !== 'mysql:') throw new Error('Unsupported database protocol.');
-  } catch {
-    const error = new Error('Database URL is invalid.');
-    error.databaseReason = 'configuration_invalid';
-    return Promise.reject(error);
-  }
-
-  return new Promise((resolve, reject) => {
-    const socket = net.createConnection({
-      host: url.hostname,
-      port: Number(url.port || 3306)
-    });
-    let settled = false;
-
-    function finish(error) {
-      if (settled) return;
-      settled = true;
-      socket.destroy();
-      if (error) reject(error);
-      else resolve();
-    }
-
-    socket.setTimeout(3_000, () => {
-      const error = new Error('Database socket check timed out.');
-      error.databaseReason = 'socket_timeout';
-      finish(error);
-    });
-    socket.once('connect', () => finish());
-    socket.once('error', (socketError) => {
-      const reasons = {
-        ECONNREFUSED: 'socket_refused',
-        ENOTFOUND: 'dns_failed',
-        EAI_AGAIN: 'dns_failed',
-        ETIMEDOUT: 'socket_timeout'
-      };
-      socketError.databaseReason = reasons[socketError.code] || 'socket_failed';
-      finish(socketError);
-    });
-  });
 }
 
 export function createApp() {
@@ -153,10 +129,10 @@ export function createApp() {
     '/ready',
     asyncHandler(async (_request, response) => {
       try {
-        await databaseSocketCheck();
         await databaseReadinessCheck();
         return success(response, { status: 'ready', database: 'connected' });
       } catch (error) {
+        tripDatabaseCircuit(error, env.databaseCircuitCooldownMs);
         const databaseError = classifyDatabaseError(error);
         logger.error({ error, databaseError }, 'Database readiness check failed');
         throw new ApiError(
@@ -172,6 +148,7 @@ export function createApp() {
     })
   );
 
+  app.use(env.apiPrefix, guardDatabaseAvailability);
   app.use(`${env.apiPrefix}/auth`, authRouter);
   app.use(`${env.apiPrefix}/public`, publicRouter);
   app.use(`${env.apiPrefix}/admin`, adminRouter);

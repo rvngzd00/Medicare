@@ -59,16 +59,15 @@ export default function DashboardOverview() {
       setLoading(true);
       setLoadError(null);
       try {
-        const [summaryData, activityData] = await Promise.all([
-          adminApi.dashboard.getSummary({}, { signal: controller.signal }),
-          adminApi.dashboard.getActivity(
-            { limit: 8 },
-            { signal: controller.signal }
-          )
-        ]);
+        const summaryData = await adminApi.dashboard.getSummary(
+          {},
+          { signal: controller.signal }
+        );
         if (cancelled) return;
         setSummary(summaryData);
-        setRecentActivity(listFromResponse(activityData).map(adaptActivity));
+        setRecentActivity(
+          listFromResponse(summaryData?.recentActivity).map(adaptActivity)
+        );
       } catch (error) {
         if (
           cancelled ||

@@ -229,33 +229,26 @@ export function ContentHub() {
       setLoading(true);
       setError("");
       try {
-        const [moduleRecords, activityRecords] = await Promise.all([
-          Promise.all(contentSections.map(async (module) => ({
-            module,
-            records: await loadSectionRecords(module.id, controller.signal),
-          }))),
-          adminApi.dashboard
-            .getActivity({ limit: 3 }, { signal: controller.signal })
-            .catch((requestError) => {
-              if (requestError.name === "AbortError") throw requestError;
-              return [];
-            }),
-        ]);
+        const summary = await adminApi.dashboard.getContentSummary({
+          signal: controller.signal,
+        });
         if (controller.signal.aborted) return;
-        setModules(moduleRecords.map(({ module, records }) => {
-          const blocks = records.map((record) => contentRecordToBlock(module.id, record));
-          const newest = records.map((record) => record.updatedAt).filter(Boolean).sort((a, b) => new Date(b) - new Date(a))[0];
+        const summaries = new Map(
+          (Array.isArray(summary?.modules) ? summary.modules : []).map((item) => [item.id, item])
+        );
+        setModules(contentSections.map((module) => {
+          const item = summaries.get(module.id);
           return {
             ...module,
-            items: records.length,
-            status: blocks.some((block) => block.visible) ? "Aktiv" : records.length ? "Deaktiv" : "Boş",
-            updated: newest ? formatRelativeAdminDate(newest) : "Yenilənmə yoxdur",
-            _updatedAt: newest,
+            items: item?.count || 0,
+            status: item?.activeCount ? "Aktiv" : item?.count ? "Deaktiv" : "Boş",
+            updated: item?.updatedAt ? formatRelativeAdminDate(item.updatedAt) : "Yenilənmə yoxdur",
+            _updatedAt: item?.updatedAt || null,
           };
         }));
-        const activityList = Array.isArray(activityRecords)
-          ? activityRecords
-          : Array.isArray(activityRecords?.items) ? activityRecords.items : [];
+        const activityList = Array.isArray(summary?.recentActivity)
+          ? summary.recentActivity
+          : [];
         setActivities(activityList.map(adaptActivity));
       } catch (requestError) {
         if (!controller.signal.aborted) setError(normalizeAdminError(requestError, "Kontent modullarını yükləmək mümkün olmadı."));

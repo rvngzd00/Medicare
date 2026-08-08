@@ -91,6 +91,150 @@ export async function dashboardController(_request, response) {
   });
 }
 
+export async function contentSummaryController(_request, response) {
+  const descriptors = [
+    {
+      id: 'home',
+      query: prisma.homeSection.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'leadership',
+      query: prisma.leadershipMember.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'about',
+      query: prisma.contentPage.groupBy({
+        by: ['status'],
+        where: { slug: 'about', deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.status === 'PUBLISHED'
+    },
+    {
+      id: 'faq',
+      query: prisma.fAQ.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'testimonials',
+      query: prisma.testimonial.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'branches',
+      query: prisma.branch.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'gallery',
+      query: prisma.galleryItem.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'certificates',
+      query: prisma.certificate.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'navigation',
+      query: prisma.navigationItem.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'social',
+      query: prisma.socialLink.groupBy({
+        by: ['active'],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.active
+    },
+    {
+      id: 'contact',
+      query: prisma.siteSetting.groupBy({
+        by: ['isPublic'],
+        where: { key: 'contact' },
+        _count: { _all: true },
+        _max: { updatedAt: true }
+      }),
+      isActive: (record) => record.isPublic
+    }
+  ];
+
+  const results = await prisma.$transaction([
+    ...descriptors.map(({ query }) => query),
+    prisma.activityLog.findMany({
+      take: 3,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        user: { select: { firstName: true, lastName: true, email: true } }
+      }
+    })
+  ]);
+  const recentActivity = results.pop();
+  const modules = descriptors.map((descriptor, index) => {
+    const records = results[index];
+    const updatedAt = records
+      .map((record) => record._max.updatedAt)
+      .filter(Boolean)
+      .sort((first, second) => new Date(second) - new Date(first))[0] || null;
+    return {
+      id: descriptor.id,
+      count: records.reduce((total, record) => total + record._count._all, 0),
+      activeCount: records
+        .filter(descriptor.isActive)
+        .reduce((total, record) => total + record._count._all, 0),
+      updatedAt
+    };
+  });
+
+  return success(response, { modules, recentActivity });
+}
+
 export async function getServicePricingVisibilityController(_request, response) {
   return success(response, await getServicePricingVisibility());
 }

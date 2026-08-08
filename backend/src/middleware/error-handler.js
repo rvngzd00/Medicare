@@ -6,6 +6,7 @@ import {
   classifyDatabaseError,
   isDatabaseAvailabilityError
 } from '../utils/database-error.js';
+import { tripDatabaseCircuit } from '../utils/database-circuit.js';
 
 function normalizeError(error) {
   if (error instanceof ApiError) return error;
@@ -63,6 +64,7 @@ function normalizeError(error) {
 }
 
 export function errorHandler(error, request, response, _next) {
+  tripDatabaseCircuit(error, env.databaseCircuitCooldownMs);
   const normalized = normalizeError(error);
   const logPayload = {
     error,

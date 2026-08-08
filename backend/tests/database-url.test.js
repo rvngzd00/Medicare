@@ -13,9 +13,9 @@ test('normalizes a MySQL loopback host and adds production pool safeguards', () 
   );
 
   assert.equal(result.hostname, 'localhost');
-  assert.equal(result.searchParams.get('connection_limit'), '5');
-  assert.equal(result.searchParams.get('connect_timeout'), '5');
-  assert.equal(result.searchParams.get('pool_timeout'), '10');
+  assert.equal(result.searchParams.get('connection_limit'), '2');
+  assert.equal(result.searchParams.get('connect_timeout'), '3');
+  assert.equal(result.searchParams.get('pool_timeout'), '5');
 });
 
 test('preserves explicit production connection tuning', () => {
@@ -29,7 +29,27 @@ test('preserves explicit production connection tuning', () => {
   assert.equal(result.hostname, 'db.example.com');
   assert.equal(result.searchParams.get('connection_limit'), '2');
   assert.equal(result.searchParams.get('connect_timeout'), '9');
-  assert.equal(result.searchParams.get('pool_timeout'), '10');
+  assert.equal(result.searchParams.get('pool_timeout'), '5');
+});
+
+test('uses a single resilient connection for a remote development database', () => {
+  const result = new URL(
+    buildDatabaseUrl('mysql://user:secret@db.example.com/database')
+  );
+
+  assert.equal(result.hostname, 'db.example.com');
+  assert.equal(result.searchParams.get('connection_limit'), '1');
+  assert.equal(result.searchParams.get('connect_timeout'), '10');
+  assert.equal(result.searchParams.get('pool_timeout'), '20');
+});
+
+test('does not tune a local development database', () => {
+  const result = new URL(
+    buildDatabaseUrl('mysql://user:secret@127.0.0.1:3306/database')
+  );
+
+  assert.equal(result.hostname, 'localhost');
+  assert.equal(result.search, '');
 });
 
 test('classifies database endpoints without exposing credentials', () => {

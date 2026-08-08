@@ -41,13 +41,25 @@ export const env = Object.freeze({
   cookieSecure: boolean(process.env.COOKIE_SECURE),
   cookieSameSite: sameSite,
   logLevel: process.env.LOG_LEVEL || 'info',
-  trustProxy: boolean(process.env.TRUST_PROXY),
+  trustProxy: boolean(process.env.TRUST_PROXY, nodeEnv === 'production'),
   rateLimitWindowMs: integer(process.env.RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000),
-  rateLimitMax: integer(process.env.RATE_LIMIT_MAX, 300),
+  rateLimitMax: integer(process.env.RATE_LIMIT_MAX, 1200),
   authRateLimitMax: integer(process.env.AUTH_RATE_LIMIT_MAX, 10),
   maintenanceJobsEnabled: boolean(
     process.env.MAINTENANCE_JOBS_ENABLED,
-    nodeEnv !== 'production'
+    false
+  ),
+  maintenanceIntervalMs: integer(
+    process.env.MAINTENANCE_INTERVAL_MS,
+    15 * 60 * 1000
+  ),
+  databaseCircuitCooldownMs: integer(
+    process.env.DATABASE_CIRCUIT_COOLDOWN_MS,
+    15_000
+  ),
+  databaseReadinessCacheMs: integer(
+    process.env.DATABASE_READINESS_CACHE_MS,
+    10_000
   ),
   uploadMaxBytes: integer(process.env.UPLOAD_MAX_MB, 8) * 1024 * 1024,
   uploadDirectory: path.resolve(projectRoot, process.env.UPLOAD_DIR || 'uploads'),

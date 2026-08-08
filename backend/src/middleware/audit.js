@@ -12,6 +12,7 @@ export function auditChanges(request, response, next) {
   if (!request.user || !actions[request.method]) return next();
 
   response.once('finish', () => {
+    if (response.statusCode >= 500) return;
     const segments = request.path.split('/').filter(Boolean);
     prisma.activityLog
       .create({

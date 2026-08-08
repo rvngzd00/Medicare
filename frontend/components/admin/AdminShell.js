@@ -116,7 +116,7 @@ export default function AdminShell({ children }) {
       });
 
     return () => controller.abort();
-  }, [isLogin, pathname, router]);
+  }, [isLogin, router]);
 
   useEffect(() => {
     setDrawerOpen(false);
