@@ -11,13 +11,46 @@ const prismaExecutable = path.join(
   process.platform === 'win32' ? 'prisma.cmd' : 'prisma'
 );
 
-const migration = spawnSync(prismaExecutable, ['migrate', 'deploy'], {
-  cwd: backendRoot,
-  env: process.env,
-  stdio: 'inherit'
-});
+function runPrisma(arguments_) {
+  const result = spawnSync(prismaExecutable, arguments_, {
+    cwd: backendRoot,
+    env: process.env,
+    stdio: 'inherit'
+  });
 
-if (migration.error) throw migration.error;
-if (migration.status !== 0) process.exit(migration.status ?? 1);
+  if (result.error) throw result.error;
+  if (result.status !== 0) process.exit(result.status ?? 1);
+}
+
+runPrisma(['migrate', 'deploy']);
+
+const { PrismaClient } = await import('@prisma/client');
+const prisma = new PrismaClient();
+const bootstrapKey = 'system.initial_seed_v1';
+
+try {
+  const marker = await prisma.siteSetting.findUnique({ where: { key: bootstrapKey } });
+
+  if (!marker) {
+    const [doctorCount, priceItemCount] = await Promise.all([
+      prisma.doctor.count(),
+      prisma.servicePriceItem.count()
+    ]);
+
+    if (doctorCount === 0 && priceItemCount === 0) runPrisma(['db', 'seed']);
+
+    await prisma.siteSetting.create({
+      data: {
+        key: bootstrapKey,
+        group: 'system',
+        label: 'Initial production data bootstrap',
+        isPublic: false,
+        value: { completedAt: new Date().toISOString() }
+      }
+    });
+  }
+} finally {
+  await prisma.$disconnect();
+}
 
 await import('./src/server.js');
