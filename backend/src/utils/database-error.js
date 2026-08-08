@@ -57,8 +57,10 @@ function errorObjects(error) {
 
 function findPrismaCode(objects) {
   for (const current of objects) {
-    if (typeof current.code === 'string' && /^P\d{4}$/.test(current.code)) {
-      return current.code;
+    for (const candidate of [current.code, current.errorCode]) {
+      if (typeof candidate === 'string' && /^P\d{4}$/.test(candidate)) {
+        return candidate;
+      }
     }
   }
   return null;

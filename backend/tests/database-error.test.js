@@ -26,6 +26,18 @@ test('finds a Prisma error code through an error cause', () => {
   });
 });
 
+test('reads the errorCode field used by Prisma initialization errors', () => {
+  const error = Object.assign(new Error('initialization failed'), {
+    name: 'PrismaClientInitializationError',
+    errorCode: 'P1001'
+  });
+
+  assert.deepEqual(classifyDatabaseError(error), {
+    code: 'P1001',
+    reason: 'server_unreachable'
+  });
+});
+
 test('does not misclassify unrelated application errors', () => {
   const error = Object.assign(new Error('unrelated'), { code: 'ENOENT' });
 
