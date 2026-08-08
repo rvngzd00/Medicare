@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "node --watch src/server.js",
-    "start": "node server.js",
+    "start": "node server.cjs",
     "check": "node scripts/check-syntax.js",
     "test": "node --test --test-concurrency=1",
     "prisma:generate": "prisma generate",
