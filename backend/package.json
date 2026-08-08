@@ -4,14 +4,14 @@
   "private": true,
   "description": "Production-minded REST API for the Medicare hospital platform",
   "type": "module",
-  "main": "src/server.js",
+  "main": "server.js",
   "engines": {
     "node": ">=22.12.0 <25"
   },
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "node --watch src/server.js",
-    "start": "npm run db:deploy && node src/server.js",
+    "start": "node server.js",
     "check": "node scripts/check-syntax.js",
     "test": "node --test --test-concurrency=1",
     "prisma:generate": "prisma generate",

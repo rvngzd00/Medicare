@@ -4,7 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 const roots = ['src', 'prisma', 'scripts', 'tests'];
-const files = [];
+const files = ['server.js'];
 
 async function collect(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
