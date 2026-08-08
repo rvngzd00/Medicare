@@ -2,7 +2,11 @@ export function resolvePageSections(page, fallbackSections = []) {
   const defaults = new Map(
     fallbackSections.map((section, index) => [
       section.key,
-      { ...section, sortOrder: section.sortOrder ?? index },
+      {
+        ...section,
+        content: section.content || {},
+        sortOrder: section.sortOrder ?? index,
+      },
     ]),
   );
   const configuredSections = Array.isArray(page?.sections)

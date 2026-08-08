@@ -3,7 +3,7 @@ import Icon from "@/components/common/Icon";
 import { getPublicConfigurationContent } from "@/services/content";
 
 export async function ContentStatusNotice({ result }) {
-  if (!result?.unavailable || result.source !== "fallback") return null;
+  if (!result?.unavailable) return null;
   const { contact } = (await getPublicConfigurationContent()).configuration;
 
   return (
@@ -12,8 +12,8 @@ export async function ContentStatusNotice({ result }) {
       <div>
         <strong>Canlı məlumatlar müvəqqəti əlçatmazdır</strong>
         <p>
-          Xidmət bərpa olunanadək əvvəlcədən saxlanmış nümunə məzmun göstərilir.
-          Qəbul və aktual məlumat üçün əlaqə mərkəzi ilə dəqiqləşdirin.
+          Bu bölmədə köhnə və ya nümunə məlumat göstərilmir. Qəbul və aktual
+          məlumat üçün əlaqə mərkəzi ilə dəqiqləşdirin.
         </p>
       </div>
       <a href={contact.phoneHref}>Zəng et</a>

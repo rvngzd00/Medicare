@@ -88,11 +88,9 @@ async function requestContent(path, { fresh = false } = {}) {
 }
 
 async function getCollection(path, mockItems, adapter, options = {}) {
-  const adaptedMockItems = mockItems.map((item) => adapter(item));
-
   if (!USE_LIVE_CONTENT) {
     return {
-      items: adaptedMockItems,
+      items: mockItems.map((item) => adapter(item)),
       source: "mock",
       meta: null,
       unavailable: false
@@ -110,8 +108,8 @@ async function getCollection(path, mockItems, adapter, options = {}) {
     };
   } catch (error) {
     return {
-      items: adaptedMockItems,
-      source: "fallback",
+      items: [],
+      source: "unavailable",
       meta: null,
       unavailable: true,
       message: error.message
@@ -140,8 +138,8 @@ async function getDetail(path, mockItem, adapter, options = {}) {
       return { item: null, source: "live", unavailable: false };
     }
     return {
-      item: mockItem ? adapter(mockItem) : null,
-      source: mockItem ? "fallback" : "unavailable",
+      item: null,
+      source: "unavailable",
       unavailable: true,
       message: error.message
     };
@@ -248,22 +246,12 @@ export function getLeadershipContent() {
 }
 
 export async function getPageContent(slug, mockPage = null) {
-  const result = await getDetail(
+  return getDetail(
     `/public/pages/${encodeURIComponent(slug)}`,
     mockPage,
     adaptContentPage,
     { fresh: true }
   );
-
-  if (!result.item && mockPage) {
-    return {
-      ...result,
-      item: adaptContentPage(mockPage),
-      source: "fallback"
-    };
-  }
-
-  return result;
 }
 
 export async function getPublishedPagesContent() {
@@ -415,7 +403,7 @@ export async function getPublicConfigurationContent() {
   } catch (error) {
     return {
       configuration: fallback,
-      source: "fallback",
+      source: "unavailable",
       unavailable: true,
       message: error.message
     };
@@ -449,7 +437,7 @@ export async function getSearchContent() {
       articles: articleResult.items
     },
     source: degraded
-      ? "fallback"
+      ? "unavailable"
       : results.every((result) => result.source === "live")
         ? "live"
         : "mock",

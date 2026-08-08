@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import { env } from './config/env.js';
+import { logger } from './config/logger.js';
 import { prisma } from './config/prisma.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFound } from './middleware/not-found.js';
@@ -15,6 +16,7 @@ import { authRouter } from './routes/auth.routes.js';
 import { publicRouter } from './routes/public.routes.js';
 import { ApiError } from './utils/api-error.js';
 import { asyncHandler } from './utils/async-handler.js';
+import { classifyDatabaseError } from './utils/database-error.js';
 import { success } from './utils/api-response.js';
 
 function corsOptions() {
@@ -77,11 +79,14 @@ export function createApp() {
       try {
         await prisma.$queryRaw`SELECT 1`;
         return success(response, { status: 'ready', database: 'connected' });
-      } catch {
+      } catch (error) {
+        const databaseError = classifyDatabaseError(error);
+        logger.error({ error, databaseError }, 'Database readiness check failed');
         throw new ApiError(
           503,
           'DATABASE_UNAVAILABLE',
-          'The API is running but the database is unavailable.'
+          'The API is running but the database is unavailable.',
+          { reason: databaseError.reason }
         );
       }
     })

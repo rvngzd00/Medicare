@@ -2,6 +2,10 @@ import multer from 'multer';
 import { env } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { ApiError } from '../utils/api-error.js';
+import {
+  classifyDatabaseError,
+  isDatabaseAvailabilityError
+} from '../utils/database-error.js';
 
 function normalizeError(error) {
   if (error instanceof ApiError) return error;
@@ -34,6 +38,18 @@ function normalizeError(error) {
   }
   if (error?.name === 'PrismaClientValidationError') {
     return new ApiError(422, 'VALIDATION_FAILED', 'The request data is invalid.');
+  }
+  if (isDatabaseAvailabilityError(error)) {
+    const databaseError = classifyDatabaseError(error);
+    const schemaUnavailable = ['P2021', 'P2022'].includes(databaseError.code);
+    return new ApiError(
+      503,
+      schemaUnavailable ? 'DATABASE_SCHEMA_UNAVAILABLE' : 'DATABASE_UNAVAILABLE',
+      schemaUnavailable
+        ? 'The database schema is not ready for this request.'
+        : 'The database is temporarily unavailable.',
+      { reason: databaseError.reason }
+    );
   }
   if (Number.isInteger(error?.status) && error.status >= 400 && error.status < 500) {
     return new ApiError(
