@@ -42,6 +42,8 @@ function corsOptions() {
   };
 }
 
+let activeDatabaseProbe = null;
+
 async function databaseReadinessCheck() {
   let timer;
   const timeout = new Promise((_, reject) => {
@@ -52,8 +54,13 @@ async function databaseReadinessCheck() {
     }, 8_000);
     timer.unref();
   });
+  if (!activeDatabaseProbe) {
+    activeDatabaseProbe = prisma.$queryRaw`SELECT 1`.finally(() => {
+      activeDatabaseProbe = null;
+    });
+  }
   try {
-    return await Promise.race([prisma.$queryRaw`SELECT 1`, timeout]);
+    return await Promise.race([activeDatabaseProbe, timeout]);
   } finally {
     clearTimeout(timer);
   }

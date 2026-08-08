@@ -43,6 +43,7 @@ işləyir. `GET /health` liveness üçündür və database bağlantısı tələb
 | `JWT_ACCESS_EXPIRES_IN` | Access token müddəti, məsələn `15m` |
 | `REFRESH_TOKEN_EXPIRES_DAYS` | Refresh sessiyasının maksimum müddəti |
 | `CORS_ORIGINS` | Vergüllə ayrılmış frontend origin whitelist |
+| `MAINTENANCE_JOBS_ENABLED` | Fon təmizliyi; Passenger production-da yalnız bir idarə olunan worker üçün `true` edin |
 | `COOKIE_SECURE`, `COOKIE_SAME_SITE` | Refresh cookie təhlükəsizliyi |
 | `UPLOAD_MAX_MB`, `UPLOAD_DIR` | Media limitləri və local storage yolu |
 | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` | Optional ilkin super admin |

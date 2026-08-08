@@ -45,6 +45,10 @@ export const env = Object.freeze({
   rateLimitWindowMs: integer(process.env.RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000),
   rateLimitMax: integer(process.env.RATE_LIMIT_MAX, 300),
   authRateLimitMax: integer(process.env.AUTH_RATE_LIMIT_MAX, 10),
+  maintenanceJobsEnabled: boolean(
+    process.env.MAINTENANCE_JOBS_ENABLED,
+    nodeEnv !== 'production'
+  ),
   uploadMaxBytes: integer(process.env.UPLOAD_MAX_MB, 8) * 1024 * 1024,
   uploadDirectory: path.resolve(projectRoot, process.env.UPLOAD_DIR || 'uploads'),
   isProduction: nodeEnv === 'production',

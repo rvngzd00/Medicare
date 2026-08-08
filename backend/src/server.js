@@ -9,7 +9,13 @@ validateRuntimeEnv();
 const server = app.listen(env.port, () => {
   logger.info({ port: env.port, apiPrefix: env.apiPrefix }, 'Medicare API started');
 });
-const stopMaintenanceJobs = startMaintenanceJobs();
+const stopMaintenanceJobs = env.maintenanceJobsEnabled
+  ? startMaintenanceJobs()
+  : () => {};
+
+if (!env.maintenanceJobsEnabled) {
+  logger.info('Background maintenance jobs are disabled for this runtime');
+}
 let shutdownStarted = false;
 
 async function shutdown(signal) {

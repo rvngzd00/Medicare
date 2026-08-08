@@ -41,10 +41,20 @@ async function runMaintenance() {
 }
 
 export function startMaintenanceJobs() {
-  const timer = setInterval(() => {
-    runMaintenance().catch((error) =>
-      logger.warn({ error }, 'Maintenance job failed')
-    );
+  let running = false;
+  const timer = setInterval(async () => {
+    if (running) {
+      logger.warn('Skipping overlapping maintenance job');
+      return;
+    }
+    running = true;
+    try {
+      await runMaintenance();
+    } catch (error) {
+      logger.warn({ error }, 'Maintenance job failed');
+    } finally {
+      running = false;
+    }
   }, 60 * 1000);
   timer.unref();
   return () => clearInterval(timer);
