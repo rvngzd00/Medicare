@@ -35,3 +35,14 @@ test('does not misclassify unrelated application errors', () => {
   });
   assert.equal(isDatabaseAvailabilityError(error), false);
 });
+
+test('uses an explicit safe socket classification without exposing the error message', () => {
+  const error = Object.assign(new Error('sensitive network details'), {
+    databaseReason: 'socket_refused'
+  });
+
+  assert.deepEqual(classifyDatabaseError(error), {
+    code: null,
+    reason: 'socket_refused'
+  });
+});

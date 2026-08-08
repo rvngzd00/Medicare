@@ -32,6 +32,7 @@ export function classifyDatabaseError(error) {
   return {
     code,
     reason:
+      error?.databaseReason ||
       DATABASE_ERROR_REASONS[code] ||
       (error?.name === 'PrismaClientInitializationError'
         ? 'initialization_failed'

@@ -3,7 +3,11 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import { databaseEndpointKind } from './config/database-url.js';
+import net from 'node:net';
+import {
+  buildDatabaseUrl,
+  databaseEndpointKind
+} from './config/database-url.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { prisma } from './config/prisma.js';
@@ -55,6 +59,53 @@ async function databaseReadinessCheck() {
   }
 }
 
+function databaseSocketCheck() {
+  let url;
+  try {
+    url = new URL(
+      buildDatabaseUrl(env.databaseUrl, { production: env.isProduction })
+    );
+    if (url.protocol !== 'mysql:') throw new Error('Unsupported database protocol.');
+  } catch {
+    const error = new Error('Database URL is invalid.');
+    error.databaseReason = 'configuration_invalid';
+    return Promise.reject(error);
+  }
+
+  return new Promise((resolve, reject) => {
+    const socket = net.createConnection({
+      host: url.hostname,
+      port: Number(url.port || 3306)
+    });
+    let settled = false;
+
+    function finish(error) {
+      if (settled) return;
+      settled = true;
+      socket.destroy();
+      if (error) reject(error);
+      else resolve();
+    }
+
+    socket.setTimeout(3_000, () => {
+      const error = new Error('Database socket check timed out.');
+      error.databaseReason = 'socket_timeout';
+      finish(error);
+    });
+    socket.once('connect', () => finish());
+    socket.once('error', (socketError) => {
+      const reasons = {
+        ECONNREFUSED: 'socket_refused',
+        ENOTFOUND: 'dns_failed',
+        EAI_AGAIN: 'dns_failed',
+        ETIMEDOUT: 'socket_timeout'
+      };
+      socketError.databaseReason = reasons[socketError.code] || 'socket_failed';
+      finish(socketError);
+    });
+  });
+}
+
 export function createApp() {
   const app = express();
   app.disable('x-powered-by');
@@ -95,6 +146,7 @@ export function createApp() {
     '/ready',
     asyncHandler(async (_request, response) => {
       try {
+        await databaseSocketCheck();
         await databaseReadinessCheck();
         return success(response, { status: 'ready', database: 'connected' });
       } catch (error) {
