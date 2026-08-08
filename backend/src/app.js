@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import { databaseEndpointKind } from './config/database-url.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { prisma } from './config/prisma.js';
@@ -35,6 +36,23 @@ function corsOptions() {
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
     exposedHeaders: ['X-Request-Id', 'RateLimit', 'RateLimit-Policy']
   };
+}
+
+async function databaseReadinessCheck() {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      const error = new Error('Database readiness check timed out.');
+      error.code = 'P1002';
+      reject(error);
+    }, 8_000);
+    timer.unref();
+  });
+  try {
+    return await Promise.race([prisma.$queryRaw`SELECT 1`, timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export function createApp() {
@@ -77,7 +95,7 @@ export function createApp() {
     '/ready',
     asyncHandler(async (_request, response) => {
       try {
-        await prisma.$queryRaw`SELECT 1`;
+        await databaseReadinessCheck();
         return success(response, { status: 'ready', database: 'connected' });
       } catch (error) {
         const databaseError = classifyDatabaseError(error);
@@ -86,7 +104,10 @@ export function createApp() {
           503,
           'DATABASE_UNAVAILABLE',
           'The API is running but the database is unavailable.',
-          { reason: databaseError.reason }
+          {
+            reason: databaseError.reason,
+            endpoint: databaseEndpointKind(env.databaseUrl)
+          }
         );
       }
     })

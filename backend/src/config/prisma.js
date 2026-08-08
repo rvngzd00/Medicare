@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { buildDatabaseUrl } from './database-url.js';
 import { env } from './env.js';
 import { logger } from './logger.js';
 
@@ -7,6 +8,9 @@ const globalPrisma = globalThis;
 export const prisma =
   globalPrisma.__medicarePrisma ||
   new PrismaClient({
+    datasourceUrl: buildDatabaseUrl(env.databaseUrl, {
+      production: env.isProduction
+    }),
     log: env.isProduction
       ? [{ emit: 'event', level: 'error' }]
       : [
