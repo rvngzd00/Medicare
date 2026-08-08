@@ -141,6 +141,10 @@ export function createApp() {
           'The API is running but the database is unavailable.',
           {
             reason: databaseError.reason,
+            ...(databaseError.code ? { code: databaseError.code } : {}),
+            ...(databaseError.providerCode
+              ? { providerCode: databaseError.providerCode }
+              : {}),
             endpoint: databaseEndpointKind(env.databaseUrl)
           }
         );

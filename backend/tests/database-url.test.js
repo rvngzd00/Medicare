@@ -13,7 +13,7 @@ test('normalizes a MySQL loopback host and adds production pool safeguards', () 
   );
 
   assert.equal(result.hostname, 'localhost');
-  assert.equal(result.searchParams.get('connection_limit'), '2');
+  assert.equal(result.searchParams.get('connection_limit'), '1');
   assert.equal(result.searchParams.get('connect_timeout'), '3');
   assert.equal(result.searchParams.get('pool_timeout'), '5');
 });

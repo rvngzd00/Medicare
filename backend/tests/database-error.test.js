@@ -46,3 +46,28 @@ test('uses an explicit safe socket classification without exposing the error mes
     reason: 'socket_refused'
   });
 });
+
+test('classifies nested MySQL provider errors from Prisma raw queries', () => {
+  const error = Object.assign(new Error('Raw query failed'), {
+    code: 'P2010',
+    meta: {
+      code: '1045',
+      message: 'Access denied for a database user with sensitive details'
+    }
+  });
+  const result = classifyDatabaseError(error);
+  assert.equal(result.code, 'P2010');
+  assert.equal(result.providerCode, '1045');
+  assert.equal(result.reason, 'authentication_failed');
+  assert.equal(isDatabaseAvailabilityError(error), true);
+});
+
+test('classifies aggregate and nested connection failures', () => {
+  const error = new AggregateError([
+    Object.assign(new Error('connect failed'), { code: 'ECONNREFUSED' })
+  ]);
+  const result = classifyDatabaseError(error);
+  assert.equal(result.providerCode, 'ECONNREFUSED');
+  assert.equal(result.reason, 'server_unreachable');
+  assert.equal(isDatabaseAvailabilityError(error), true);
+});

@@ -11,7 +11,7 @@ export function buildDatabaseUrl(rawUrl, { production = false } = {}) {
 
     if (production) {
       if (!url.searchParams.has('connection_limit')) {
-        url.searchParams.set('connection_limit', '2');
+        url.searchParams.set('connection_limit', '1');
       }
       if (!url.searchParams.has('connect_timeout')) {
         url.searchParams.set('connect_timeout', '3');
