@@ -1,9 +1,7 @@
 import 'dotenv/config';
 import { readFile } from 'node:fs/promises';
 import bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../src/config/prisma.js';
 
 async function loadServicePriceCatalog() {
   const raw = await readFile(new URL('./service-prices.seed.json', import.meta.url), 'utf8');

@@ -5,12 +5,14 @@ import { logger } from './logger.js';
 
 const globalPrisma = globalThis;
 
+const datasourceUrl = buildDatabaseUrl(env.databaseUrl, {
+  production: env.isProduction
+});
+
 export const prisma =
   globalPrisma.__medicarePrisma ||
   new PrismaClient({
-    datasourceUrl: buildDatabaseUrl(env.databaseUrl, {
-      production: env.isProduction
-    }),
+    datasourceUrl,
     log: env.isProduction
       ? [{ emit: 'event', level: 'error' }]
       : [
@@ -19,7 +21,14 @@ export const prisma =
         ]
   });
 
-prisma.$on('warn', (event) => logger.warn({ prisma: event }, 'Prisma warning'));
-prisma.$on('error', (event) => logger.error({ prisma: event }, 'Prisma error'));
+prisma.$on('warn', (event) =>
+  logger.warn({ prisma: event }, 'Prisma warning')
+);
 
-if (!env.isProduction) globalPrisma.__medicarePrisma = prisma;
+prisma.$on('error', (event) =>
+  logger.error({ prisma: event }, 'Prisma error')
+);
+
+if (!env.isProduction) {
+  globalPrisma.__medicarePrisma = prisma;
+}

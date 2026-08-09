@@ -22,6 +22,7 @@
     "build": "npm run prisma:generate"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^6.19.3",
     "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.0",
