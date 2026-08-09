@@ -105,21 +105,20 @@ export function createApp() {
   });
 
   app.get('/debug/db-source', async (req, res) => {
-    try {
-      const result = await prisma.$queryRawUnsafe(`
+  try {
+    const result = await prisma.$queryRawUnsafe(`
       SELECT
         USER() AS user,
-        CURRENT_USER() AS currentUser,
-        CONNECTION_ID() AS connectionId
+        CURRENT_USER() AS currentUser
     `);
 
-      res.json(result);
-    } catch (error) {
-      res.status(500).json({
-        error: error.message
-      });
-    }
-  });
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
 
   if (env.trustProxy) app.set('trust proxy', 1);
 
