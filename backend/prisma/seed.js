@@ -2,6 +2,141 @@ import 'dotenv/config';
 import { readFile } from 'node:fs/promises';
 import bcrypt from 'bcrypt';
 import { prisma } from '../src/config/prisma.js';
+import { toSlug } from '../src/utils/slug.js';
+
+const SEED_CURRENT_YEAR = 2026;
+
+function yearsSince(startYear) {
+  return startYear ? Math.max(SEED_CURRENT_YEAR - startYear, 0) : 0;
+}
+
+function startOfYear(year) {
+  return year ? new Date(Date.UTC(year, 0, 1)) : null;
+}
+
+function splitDoctorName(fullName) {
+  const normalized = String(fullName || '').replace(/\s+/g, ' ').trim();
+  const parts = normalized.split(' ').filter(Boolean);
+  const suffixes = new Set(['oğlu', 'qızı']);
+  const withoutSuffix = suffixes.has(parts.at(-1)?.toLowerCase()) ? parts.slice(0, -1) : parts;
+
+  return {
+    firstName: withoutSuffix.slice(1).join(' ') || withoutSuffix[0] || normalized,
+    lastName: withoutSuffix[0] || normalized
+  };
+}
+
+function doctorRecord({
+  name,
+  specialty = 'Tibb mütəxəssisi',
+  departmentSlug = 'poliklinika-ve-reabilitasiya',
+  departmentName,
+  startYear,
+  education = [],
+  certificates = [],
+  languages = [],
+  shortBio,
+  bio,
+  conditions = [],
+  procedures = [],
+  featured = false,
+  sortOrder
+}) {
+  const names = splitDoctorName(name);
+  const cleanSpecialty = specialty || 'Tibb mütəxəssisi';
+  const fallbackBio = `${name} Medicare Hospital həkim komandasının üzvüdür. Peşəkar məlumatlar admin paneldən tamamlanacaq.`;
+
+  return {
+    slug: `dr-${toSlug(name)}`,
+    firstName: names.firstName,
+    lastName: names.lastName,
+    title: 'Dr.',
+    specialty: cleanSpecialty,
+    shortBio:
+      shortBio ||
+      `${cleanSpecialty} kimi Medicare Hospital-da pasiyentlərə tibbi xidmət göstərir.`,
+    bio: bio || fallbackBio,
+    experienceYears: yearsSince(startYear),
+    languages,
+    conditions,
+    procedures,
+    departmentSlug,
+    departmentName,
+    serviceSlugs: [],
+    featured,
+    sortOrder,
+    educations: education.map((institution, index) => ({
+      institution,
+      degree: 'Tibb təhsili',
+      sortOrder: index + 1
+    })),
+    certificates: certificates.map((title, index) => ({ title, sortOrder: index + 1 })),
+    experiences: startYear
+      ? [
+          {
+            organization: 'Tibbi fəaliyyət',
+            position: cleanSpecialty,
+            startYear,
+            current: true,
+            description: departmentName ? `${departmentName} üzrə peşəkar fəaliyyət.` : null,
+            sortOrder: 1
+          }
+        ]
+      : []
+  };
+}
+
+async function seedDoctorDetails(doctor, details) {
+  const [educationCount, experienceCount, certificateCount] = await Promise.all([
+    prisma.doctorEducation.count({ where: { doctorId: doctor.id } }),
+    prisma.doctorExperience.count({ where: { doctorId: doctor.id } }),
+    prisma.doctorCertificate.count({ where: { doctorId: doctor.id } })
+  ]);
+
+  if (educationCount === 0 && details.educations?.length) {
+    await prisma.doctorEducation.createMany({
+      data: details.educations.map((item, index) => ({
+        doctorId: doctor.id,
+        institution: item.institution,
+        degree: item.degree,
+        field: item.field,
+        startYear: item.startYear,
+        endYear: item.endYear,
+        description: item.description,
+        sortOrder: item.sortOrder ?? index + 1
+      }))
+    });
+  }
+
+  if (experienceCount === 0 && details.experiences?.length) {
+    await prisma.doctorExperience.createMany({
+      data: details.experiences.map((item, index) => ({
+        doctorId: doctor.id,
+        organization: item.organization,
+        position: item.position,
+        startDate: startOfYear(item.startYear),
+        endDate: startOfYear(item.endYear),
+        current: item.current ?? !item.endYear,
+        description: item.description,
+        sortOrder: item.sortOrder ?? index + 1
+      }))
+    });
+  }
+
+  if (certificateCount === 0 && details.certificates?.length) {
+    await prisma.doctorCertificate.createMany({
+      data: details.certificates.map((item, index) => ({
+        doctorId: doctor.id,
+        title: item.title,
+        issuer: item.issuer,
+        issuedAt: item.issuedAt,
+        expiresAt: item.expiresAt,
+        credentialUrl: item.credentialUrl,
+        sortOrder: item.sortOrder ?? index + 1
+      }))
+    });
+  }
+}
 
 async function loadServicePriceCatalog() {
   const raw = await readFile(new URL('./service-prices.seed.json', import.meta.url), 'utf8');
@@ -190,6 +325,7 @@ async function seedContent() {
     ['doctor-aydan', 'leyla-memmedova.png', 1744153, 864, 1821, 'Dr. Aydan Məmmədova'],
     ['doctor-elvin', 'orxan-aliyev.png', 2209323, 1024, 1536, 'Dr. Elvin Əliyev'],
     ['doctor-nigar', 'nigar-aliyeva.png', 1723074, 1023, 1537, 'Dr. Nigar Hüseynli'],
+    ['doctor-placeholder', 'doctor-placeholder.svg', 1100, 512, 512, 'Həkim profil fotosu'],
     ['leader-kamran', 'orxan-huseynli.png', 1985890, 1024, 1536, 'Dr. Kamran Rzayev'],
     ['leader-nermin', 'leyla-quliyeva.png', 1973834, 1024, 1536, 'Dr. Nərmin Məmmədova'],
     ['leader-elcin', 'elcin-memmedov.png', 2051005, 1024, 1536, 'Elçin Məmmədov']
@@ -204,11 +340,11 @@ async function seedContent() {
         storageKey: `static/doctors/${filename}`,
         filename,
         originalName: filename,
-        mimeType: 'image/png',
+        mimeType: filename.endsWith('.svg') ? 'image/svg+xml' : 'image/png',
         size,
         width,
         height,
-        url: `/images/doctors/${filename}`,
+        url: filename === 'doctor-placeholder.svg' ? `/images/${filename}` : `/images/doctors/${filename}`,
         altText
       }
     });
@@ -323,6 +459,96 @@ async function seedContent() {
       sortOrder: 3
     },
     {
+      slug: 'umumi-cerrahiyye',
+      name: 'Ümumi cərrahiyyə',
+      summary: 'Cərrahi xəstəliklərin diaqnostikası və müalicəsi.',
+      description: 'Ümumi cərrahiyyə şöbəsi müxtəlif cərrahi patologiyaların qiymətləndirilməsi, planlanması və müalicəsi üzrə xidmət göstərir.',
+      conditions: ['Appendisit', 'Yırtıqlar', 'Öd kisəsi xəstəlikləri', 'Yumşaq toxuma törəmələri'],
+      technologies: [],
+      featured: true,
+      sortOrder: 4
+    },
+    {
+      slug: 'terapiya-ve-endokrinologiya',
+      name: 'Terapiya və endokrinologiya',
+      summary: 'Daxili xəstəliklər və hormonal pozğunluqlar üzrə müayinə və müalicə.',
+      description: 'Terapiya və endokrinologiya istiqaməti daxili orqan xəstəlikləri, metabolik və endokrin problemlərin kompleks qiymətləndirilməsini təmin edir.',
+      conditions: ['Şəkərli diabet', 'Qalxanabənzər vəz xəstəlikləri', 'Metabolik sindrom', 'Arterial hipertenziya'],
+      technologies: [],
+      featured: true,
+      sortOrder: 5
+    },
+    {
+      slug: 'terapiya',
+      name: 'Terapiya',
+      summary: 'Daxili orqan xəstəlikləri üzrə ilkin və davamlı tibbi baxış.',
+      description: 'Terapiya şöbəsi ümumi klinik müayinə, diaqnostika nəticələrinin qiymətləndirilməsi və fərdi müalicə planının hazırlanması üzrə xidmət göstərir.',
+      conditions: ['Ürək-damar xəstəlikləri', 'Tənəffüs sistemi xəstəlikləri', 'Həzm sistemi xəstəlikləri', 'Anemiya'],
+      technologies: [],
+      featured: false,
+      sortOrder: 6
+    },
+    {
+      slug: 'radiologiya',
+      name: 'Radiologiya',
+      summary: 'Rentgen və ultrasəs müayinələrinin aparılması və şərhi.',
+      description: 'Radiologiya şöbəsi görüntüləmə müayinələrinin icrası, nəticələrin qiymətləndirilməsi və klinik qərara dəstək üzrə xidmət göstərir.',
+      conditions: ['Ağciyər və tənəffüs sistemi patologiyaları', 'Sümük və oynaq problemləri', 'Daxili orqan xəstəliklərinin görüntülənməsi'],
+      technologies: ['Rentgen', 'Ultrasəs müayinəsi'],
+      featured: true,
+      sortOrder: 7
+    },
+    {
+      slug: 'ginekologiya',
+      name: 'Ginekologiya',
+      summary: 'Qadın sağlamlığı üzrə konsultasiya və müayinə.',
+      description: 'Ginekologiya istiqaməti qadın sağlamlığının profilaktikası, diaqnostikası və müalicəsi üzrə tibbi xidmət göstərir.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 8
+    },
+    {
+      slug: 'dermatologiya',
+      name: 'Dermatologiya',
+      summary: 'Dəri, saç və dırnaq xəstəlikləri üzrə tibbi xidmət.',
+      description: 'Dermatologiya şöbəsi dəri, saç və dırnaq xəstəliklərinin diaqnostikası, müalicəsi və profilaktikası ilə məşğul olur.',
+      conditions: ['Dermatit', 'Ekzema', 'Psoriaz', 'Akne', 'Göbələk xəstəlikləri'],
+      technologies: [],
+      featured: false,
+      sortOrder: 9
+    },
+    {
+      slug: 'stomatologiya',
+      name: 'Stomatologiya',
+      summary: 'Ağız və diş sağlamlığı üzrə həkim konsultasiyası.',
+      description: 'Stomatologiya istiqaməti ağız boşluğu və diş sağlamlığının qiymətləndirilməsi və müalicəsi üzrə xidmət göstərir.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 10
+    },
+    {
+      slug: 'otorinolarinqologiya',
+      name: 'Otorinolarinqologiya',
+      summary: 'Qulaq, burun və boğaz xəstəlikləri üzrə müayinə və müalicə.',
+      description: 'Otorinolarinqologiya istiqaməti LOR xəstəliklərinin diaqnostikası və müalicəsi üzrə xidmət göstərir.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 11
+    },
+    {
+      slug: 'fizioterapiya',
+      name: 'Fizioterapiya',
+      summary: 'Bərpa və fizioterapevtik xidmətlər.',
+      description: 'Fizioterapiya istiqaməti pasiyentlərin bərpa prosesinə dəstək verən müayinə və müalicə xidmətlərini əhatə edir.',
+      conditions: [],
+      technologies: [],
+      featured: false,
+      sortOrder: 12
+    },
+    {
       slug: 'psixiatriya',
       name: 'Psixiatriya',
       summary: 'Psixi sağlamlıq üzrə konsultasiya və müayinə xidmətləri.',
@@ -330,7 +556,7 @@ async function seedContent() {
       conditions: [],
       technologies: [],
       featured: false,
-      sortOrder: 10
+      sortOrder: 13
     },
     {
       slug: 'diaqnostika',
@@ -340,7 +566,7 @@ async function seedContent() {
       conditions: [],
       technologies: [],
       featured: false,
-      sortOrder: 11
+      sortOrder: 14
     },
     {
       slug: 'laboratoriya',
@@ -350,7 +576,7 @@ async function seedContent() {
       conditions: [],
       technologies: [],
       featured: false,
-      sortOrder: 12
+      sortOrder: 15
     },
     {
       slug: 'poliklinika-ve-reabilitasiya',
@@ -360,7 +586,7 @@ async function seedContent() {
       conditions: [],
       technologies: [],
       featured: false,
-      sortOrder: 13
+      sortOrder: 16
     }
   ];
 
@@ -483,119 +709,317 @@ async function seedContent() {
   }
 
   const doctorData = [
-    {
-      slug: 'dr-aydan-memmedova',
-      firstName: 'Aydan',
-      lastName: 'Məmmədova',
-      title: 'Dr.',
-      specialty: 'Kardioloq',
-      shortBio: 'Ürək-damar risklərinin erkən aşkarlanması üzrə ixtisaslaşmış kardioloq.',
-      bio: 'Dr. Aydan Məmmədova pasiyentlərin həyat tərzinə uyğun, ölçülə bilən və davamlı kardioloji qayğı planları hazırlayır.',
-      experienceYears: 14,
-      languages: ['Azərbaycan', 'İngilis', 'Rus'],
-      conditions: ['Arterial hipertenziya', 'Aritmiya', 'Ürək çatışmazlığı'],
-      procedures: ['EKQ şərhi', 'Exokardioqrafiya', 'Holter nəticələrinin analizi'],
-      departmentSlug: 'kardiologiya',
-      serviceSlugs: ['kardioloji-check-up'],
-      profileImageId: media.get('doctor-aydan').id,
+    doctorRecord({
+      name: 'Novruzov Qəhrəman Əkbər oğlu',
+      specialty: 'Ümumi cərrah',
+      departmentSlug: 'umumi-cerrahiyye',
+      departmentName: 'Ümumi cərrahiyyə şöbəsi',
+      startYear: 1976,
+      education: ['Azərbaycan Dövlət Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: '1976-cı ildən ümumi cərrah kimi fəaliyyət göstərən uzunillik peşəkar təcrübəyə malik həkim.',
+      bio: '1976-cı ildən ümumi cərrah kimi fəaliyyət göstərən Novruzov Qəhrəman Əkbər oğlu uzunillik peşəkar təcrübəyə malikdir. Müxtəlif cərrahi xəstəliklərin diaqnostikası və müalicəsini həyata keçirir.',
+      conditions: ['Appendisit', 'Öd daşı xəstəliyi və xolesistit', 'Qarın və qasıq yırtıqları', 'Hemoroid', 'Anal çat', 'Pilonidal sinus', 'Lipoma', 'Ateroma', 'Abseslər', 'Dəri və yumşaq toxuma törəmələri', 'Mədə-bağırsaq sisteminin cərrahi xəstəlikləri'],
+      procedures: ['Appendektomiya', 'Yırtıqların cərrahi müalicəsi', 'Öd kisəsi əməliyyatları', 'Abseslərin açılması və drenajı', 'Lipoma və ateromaların çıxarılması', 'Pilonidal sinusun cərrahi müalicəsi', 'Dəri və yumşaq toxuma törəmələrinin çıxarılması', 'Yaraların cərrahi işlənməsi', 'Kiçik cərrahi müdaxilələr'],
       featured: true,
       sortOrder: 1
-    },
-    {
-      slug: 'dr-elvin-eliyev',
-      firstName: 'Elvin',
-      lastName: 'Əliyev',
-      title: 'Dr.',
-      specialty: 'Nevroloq',
-      shortBio: 'Baş ağrıları və periferik sinir sistemi xəstəlikləri üzrə mütəxəssis.',
-      bio: 'Dr. Elvin Əliyev diaqnostik nəticələri gündəlik həyat məqsədləri ilə birləşdirən pasiyent yönümlü yanaşma tətbiq edir.',
-      experienceYears: 11,
-      languages: ['Azərbaycan', 'Türk', 'İngilis'],
-      conditions: ['Miqren', 'Nevropatiya', 'Başgicəllənmə'],
-      procedures: ['Nevroloji müayinə', 'EEQ nəticələrinin şərhi'],
-      departmentSlug: 'nevrologiya',
-      serviceSlugs: ['nevroloji-konsultasiya'],
-      profileImageId: media.get('doctor-elvin').id,
+    }),
+    doctorRecord({
+      name: 'Məmmədov İsmət Yusif',
+      specialty: 'Terapevt-endokrinoloq',
+      departmentSlug: 'terapiya-ve-endokrinologiya',
+      departmentName: 'Terapiya və endokrinologiya şöbəsi',
+      startYear: 1982,
+      education: ['Azərbaycan Dövlət Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Uzunillik klinik, elmi və pedaqoji təcrübəyə malik terapevt-endokrinoloq.',
+      bio: '1982-ci ildən tibbi fəaliyyət göstərən Məmmədov İsmət uzunillik klinik, elmi və pedaqoji təcrübəyə malik terapevt-endokrinoloqdur. 16 il universitetdə müəllim kimi fəaliyyət göstərmişdir.',
+      conditions: ['Şəkərli diabet', 'Qalxanabənzər vəz xəstəlikləri', 'Hipotireoz', 'Hipertireoz', 'Autoimmun tireoidit', 'Zob', 'Metabolik və hormonal pozğunluqlar', 'Piylənmə', 'İnsulin müqaviməti', 'Metabolik sindrom', 'Arterial hipertenziya', 'Ürək-damar xəstəlikləri', 'Tənəffüs sistemi xəstəlikləri', 'Həzm sistemi xəstəlikləri'],
+      procedures: ['Terapevtik və endokrinoloji müayinə', 'Şəkərli diabetin diaqnostikası və müalicəsinin planlaşdırılması', 'Qalxanabənzər vəz xəstəliklərinin qiymətləndirilməsi', 'Hormonal analizlərin interpretasiyası', 'Metabolik pozğunluqların qiymətləndirilməsi', 'Fərdi müalicə planının hazırlanması', 'Xəstələrin dinamik müşahidəsi'],
       featured: true,
       sortOrder: 2
-    },
-    {
-      slug: 'dr-nigar-huseynli',
-      firstName: 'Nigar',
-      lastName: 'Hüseynli',
-      title: 'Dr.',
-      specialty: 'Pediatr',
-      shortBio: 'Uşaq inkişafı və profilaktik pediatriya üzrə təcrübəli mütəxəssis.',
-      bio: 'Dr. Nigar Hüseynli valideynlərlə açıq ünsiyyətə əsaslanan, uşağın fiziki və emosional inkişafını birlikdə nəzərə alan xidmət göstərir.',
-      experienceYears: 9,
-      languages: ['Azərbaycan', 'Rus'],
-      conditions: ['Uşaq infeksiyaları', 'Allergik vəziyyətlər', 'İnkişaf izlənməsi'],
-      procedures: ['Profilaktik baxış', 'Peyvənd planlaması', 'İnkişaf skrininqi'],
-      departmentSlug: 'pediatriya',
-      serviceSlugs: ['usaq-saglamliq-izlenmesi'],
-      profileImageId: media.get('doctor-nigar').id,
-      featured: true,
+    }),
+    doctorRecord({
+      name: 'Teymurov Güləli Əhəd oğlu',
       sortOrder: 3
-    }
+    }),
+    doctorRecord({
+      name: 'Yusifova Suheyla Ələsgər qızı',
+      specialty: 'Nevropatoloq',
+      departmentSlug: 'nevrologiya',
+      departmentName: 'Nevrologiya şöbəsi',
+      startYear: 1981,
+      education: ['Azərbaycan Dövlət Tibb Universiteti'],
+      languages: ['Rus dili', 'Azərbaycan dili'],
+      shortBio: 'Uzunillik peşəkar təcrübəyə malik ali dərəcəli nevropatoloq.',
+      bio: '1981-ci ildən tibbi fəaliyyət göstərən Yusifova Suheyla uzunillik peşəkar təcrübəyə malik ali dərəcəli nevropatoloqdur. Sinir sistemi xəstəliklərinin diaqnostikası, müalicəsi və xəstələrin dinamik müşahidəsi ilə məşğul olur.',
+      conditions: ['Baş ağrıları', 'Miqren', 'Başgicəllənmə', 'Nevralgiya', 'Nevritlər', 'Osteoxondrozla əlaqəli nevroloji problemlər', 'Radikulit', 'Onurğa xəstəlikləri', 'Yuxu pozğunluqları', 'Periferik sinir sistemi xəstəlikləri'],
+      procedures: ['Nevroloji müayinə', 'Nevroloji statusun qiymətləndirilməsi', 'Reflekslərin və hissiyyatın yoxlanılması', 'Baş ağrısı və başgicəllənmənin səbəblərinin qiymətləndirilməsi', 'Müalicə planının hazırlanması', 'Xəstələrin dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 4
+    }),
+    doctorRecord({
+      name: 'Xammədova Leyla Zahid qızı',
+      specialty: 'Ümumi cərrah',
+      departmentSlug: 'umumi-cerrahiyye',
+      departmentName: 'Ümumi cərrahiyyə şöbəsi',
+      sortOrder: 5
+    }),
+    doctorRecord({
+      name: 'Əliyeva Leyla Əlisəfa qızı',
+      specialty: 'Psixiatr',
+      departmentSlug: 'psixiatriya',
+      departmentName: 'Psixiatriya şöbəsi',
+      sortOrder: 6
+    }),
+    doctorRecord({
+      name: 'Hacıyev Mərdəli Şahmalı oğlu',
+      sortOrder: 7
+    }),
+    doctorRecord({
+      name: 'Məmmədova Firuzə Qürbət qızı',
+      specialty: 'Ginekoloq',
+      departmentSlug: 'ginekologiya',
+      departmentName: 'Ginekologiya şöbəsi',
+      sortOrder: 8
+    }),
+    doctorRecord({
+      name: 'Axundova Ceyran Nazim qızı',
+      specialty: 'USM həkimi',
+      departmentSlug: 'radiologiya',
+      departmentName: 'Radiologiya şöbəsi',
+      startYear: 2015,
+      education: ['Azərbaycan Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Ultrasəs müayinələrinin aparılması və nəticələrin qiymətləndirilməsi üzrə fəaliyyət göstərən həkim.',
+      bio: '2015-ci ildən tibbi fəaliyyət göstərən Axundova Ceyran müasir ultrasəs müayinələrinin aparılması və nəticələrin qiymətləndirilməsi üzrə fəaliyyət göstərir. Müxtəlif orqan və sistemlərin ultrasəs müayinəsini həyata keçirir.',
+      conditions: ['Qalxanabənzər vəz xəstəliklərinin USM diaqnostikası', 'Süd vəziləri xəstəliklərinin USM diaqnostikası', 'Qaraciyər və öd kisəsi xəstəliklərinin USM diaqnostikası', 'Mədəaltı vəzi və dalaq xəstəliklərinin USM diaqnostikası', 'Böyrək və sidik kisəsi xəstəliklərinin USM diaqnostikası'],
+      procedures: ['Qarın boşluğu orqanlarının USM müayinəsi', 'Böyrək və sidik yollarının USM müayinəsi', 'Qalxanabənzər vəzin USM müayinəsi', 'Süd vəzilərinin USM müayinəsi', 'Kiçik çanaq orqanlarının USM müayinəsi', 'Yumşaq toxumaların USM müayinəsi', 'Digər ultrasəs müayinələri'],
+      featured: true,
+      sortOrder: 9
+    }),
+    doctorRecord({
+      name: 'Əhmədov Nahid Mülazim oğlu',
+      specialty: 'Rentgenoloq',
+      departmentSlug: 'radiologiya',
+      departmentName: 'Radiologiya şöbəsi',
+      startYear: 2010,
+      education: ['Azərbaycan Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili', 'İngilis dili'],
+      shortBio: 'Rentgenoloji müayinələrin aparılması və nəticələrin qiymətləndirilməsi üzrə peşəkar təcrübəyə malik həkim.',
+      bio: '2010-cu ildən tibbi fəaliyyət göstərən Əhmədov Nahid radiologiya sahəsində peşəkar təcrübəyə malikdir. Rentgenoloji müayinələrin aparılması və nəticələrin qiymətləndirilməsi üzrə fəaliyyət göstərir.',
+      conditions: ['Ağciyər və tənəffüs sistemi xəstəliklərinin rentgen diaqnostikası', 'Sümük və oynaq problemlərinin rentgen diaqnostikası', 'Onurğa xəstəliklərinin rentgen diaqnostikası'],
+      procedures: ['Döş qəfəsinin rentgen müayinəsi', 'Sümük və oynaqların rentgen müayinəsi', 'Onurğanın rentgen müayinəsi', 'Kəllə və sinusların rentgen müayinəsi', 'Qarın boşluğunun rentgen müayinəsi', 'Digər rentgenoloji müayinələr', 'Rentgenoloji görüntülərin qiymətləndirilməsi və rəyin hazırlanması'],
+      featured: true,
+      sortOrder: 10
+    }),
+    doctorRecord({
+      name: 'Məmmədova Vüsalə Ağakərim qızı',
+      specialty: 'Həkim-laborant',
+      departmentSlug: 'laboratoriya',
+      departmentName: 'Laboratoriya şöbəsi',
+      sortOrder: 11
+    }),
+    doctorRecord({
+      name: 'Qasımova Gülər Süleyman qızı',
+      specialty: 'Laboratoriya şöbə müdiri',
+      departmentSlug: 'laboratoriya',
+      departmentName: 'Laboratoriya şöbəsi',
+      sortOrder: 12
+    }),
+    doctorRecord({
+      name: 'Mamedov Anar Rüstəm oğlu',
+      specialty: 'Baş həkim-terapevt',
+      departmentSlug: 'terapiya',
+      departmentName: 'Terapiya şöbəsi',
+      sortOrder: 13
+    }),
+    doctorRecord({
+      name: 'İnsanov Əziz İsrafil oğlu',
+      specialty: 'Terapevt',
+      departmentSlug: 'terapiya',
+      departmentName: 'Terapiya şöbəsi',
+      startYear: 1975,
+      education: ['Azərbaycan Tibb Universiteti'],
+      certificates: ['İxtisası üzrə sertifikat və peşəkar təlimlər'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Daxili orqan xəstəliklərinin diaqnostikası və müalicəsi üzrə uzunillik təcrübəyə malik terapevt.',
+      bio: '1975-ci ildən tibbi fəaliyyət göstərən İnsanov Əziz uzunillik peşəkar təcrübəyə malik terapevtdir. Daxili orqanların müxtəlif xəstəliklərinin diaqnostikası, müalicəsi və xəstələrin dinamik müşahidəsini həyata keçirir.',
+      conditions: ['Ürək-damar xəstəlikləri', 'Tənəffüs sistemi xəstəlikləri', 'Həzm sistemi xəstəlikləri', 'Sidik-ifrazat sistemi xəstəlikləri', 'Arterial hipertenziya', 'Anemiya', 'Kəskin respirator xəstəliklər'],
+      procedures: ['Terapevtik müayinə', 'Xəstənin ümumi vəziyyətinin qiymətləndirilməsi', 'Arterial təzyiq və nəbzə nəzarət', 'Müalicə planının hazırlanması', 'Laborator və instrumental müayinələrin nəticələrinin qiymətləndirilməsi', 'Xəstələrin dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 14
+    }),
+    doctorRecord({
+      name: 'Zamanov Cəmil Zakir oğlu',
+      specialty: 'Ümumi cərrah',
+      departmentSlug: 'umumi-cerrahiyye',
+      departmentName: 'Ümumi cərrahiyyə şöbəsi',
+      sortOrder: 15
+    }),
+    doctorRecord({
+      name: 'Bəşirov Sənan Gülağa',
+      specialty: 'Ümumi cərrah',
+      departmentSlug: 'umumi-cerrahiyye',
+      departmentName: 'Ümumi cərrahiyyə şöbəsi',
+      sortOrder: 16
+    }),
+    doctorRecord({
+      name: 'Məmmədov Cəfər Əşrəf oğlu',
+      specialty: 'Ümumi cərrah',
+      departmentSlug: 'umumi-cerrahiyye',
+      departmentName: 'Ümumi cərrahiyyə şöbəsi',
+      sortOrder: 17
+    }),
+    doctorRecord({
+      name: 'Mürsəlov Elman Mürsəl oğlu',
+      specialty: 'Kardioloq',
+      departmentSlug: 'kardiologiya',
+      departmentName: 'Kardiologiya şöbəsi',
+      startYear: 1998,
+      education: ['Azərbaycan Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Ürək-damar xəstəliklərinin diaqnostikası və müalicəsi üzrə fəaliyyət göstərən kardioloq.',
+      bio: '1998-ci ildən tibbi fəaliyyət göstərən Mürsəlov Elman ürək-damar xəstəliklərinin diaqnostikası və müalicəsi üzrə fəaliyyət göstərir. Müasir kardioloji müayinə üsullarından istifadə etməklə xəstələrin qiymətləndirilməsini və müalicə planının hazırlanmasını həyata keçirir.',
+      conditions: ['Arterial hipertenziya', 'Ürəyin işemik xəstəliyi', 'Ürək çatışmazlığı', 'Ürək ritm və keçiricilik pozğunluqları', 'Stenokardiya', 'Ürək-damar xəstəlikləri'],
+      procedures: ['Exokardioqrafiya (EXO)', 'Kardioloji müayinə və konsultasiya', 'Ürək-damar sisteminin klinik qiymətləndirilməsi', 'Arterial təzyiq və nəbzin qiymətləndirilməsi', 'Exokardioqrafik nəticələrin təhlili', 'Müalicə planının hazırlanması', 'Xəstələrin dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 18
+    }),
+    doctorRecord({
+      name: 'Məmmədov Xurşud Nəsib oğlu',
+      specialty: 'Kardioloq',
+      departmentSlug: 'kardiologiya',
+      departmentName: 'Kardiologiya şöbəsi',
+      startYear: 1975,
+      education: ['Azərbaycan Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Ürək-damar xəstəliklərinin diaqnostikası və müalicəsi üzrə uzunillik təcrübəyə malik kardioloq.',
+      bio: '1975-ci ildən tibbi fəaliyyət göstərən Məmmədov Xurşud uzunillik peşəkar təcrübəyə malik kardioloqdur. Ürək-damar xəstəliklərinin diaqnostikası, müalicəsi və xəstələrin dinamik müşahidəsi ilə məşğul olur.',
+      conditions: ['Arterial hipertenziya', 'Ürəyin işemik xəstəliyi', 'Stenokardiya', 'Ürək çatışmazlığı', 'Ürək ritm və keçiricilik pozğunluqları', 'Ürək-damar xəstəlikləri'],
+      procedures: ['Kardioloji müayinə və konsultasiya', 'Ürək-damar sisteminin klinik qiymətləndirilməsi', 'Arterial təzyiq və nəbzin qiymətləndirilməsi', 'Elektrokardioqramın (EKQ) qiymətləndirilməsi', 'Laborator və instrumental müayinələrin nəticələrinin təhlili', 'Müalicə planının hazırlanması', 'Xəstələrin dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 19
+    }),
+    doctorRecord({
+      name: 'Hacıyev Elşən Hacı oğlu',
+      specialty: 'Otorinolarinqoloq',
+      departmentSlug: 'otorinolarinqologiya',
+      departmentName: 'Otorinolarinqologiya şöbəsi',
+      sortOrder: 20
+    }),
+    doctorRecord({
+      name: 'Abbasov Rəhim Qulu oğlu',
+      specialty: 'Dermatoloq',
+      departmentSlug: 'dermatologiya',
+      departmentName: 'Dermatologiya şöbəsi',
+      startYear: 1981,
+      education: ['Azərbaycan Tibb Universiteti'],
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Dəri, saç və dırnaq xəstəlikləri üzrə uzunillik peşəkar təcrübəyə malik dermatoloq.',
+      bio: '1981-ci ildən tibbi fəaliyyət göstərən Abbasov Rəhim uzunillik peşəkar təcrübəyə malik dermatoloqdur. Dəri, saç və dırnaq xəstəliklərinin diaqnostikası, müalicəsi və profilaktikası ilə məşğul olur.',
+      conditions: ['Dermatitlər', 'Ekzema', 'Psoriaz', 'Göbələk xəstəlikləri', 'Akne', 'Allergik dəri xəstəlikləri', 'Herpes infeksiyaları', 'Dəri piqmentasiya pozğunluqları', 'Saç və dırnaq xəstəlikləri'],
+      procedures: ['Dermatoloji müayinə və konsultasiya', 'Dəri xəstəliklərinin klinik qiymətləndirilməsi', 'Dəri törəmələrinin qiymətləndirilməsi', 'Saç və dırnaq xəstəliklərinin müayinəsi', 'Müalicə planının hazırlanması', 'Xəstələrin dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 21
+    }),
+    doctorRecord({
+      name: 'Alızadə Emin Ramil oğlu',
+      specialty: 'Stomatoloq',
+      departmentSlug: 'stomatologiya',
+      departmentName: 'Stomatologiya şöbəsi',
+      sortOrder: 22
+    }),
+    doctorRecord({
+      name: 'Eminova Sevinc',
+      specialty: 'Stomatoloq',
+      departmentSlug: 'stomatologiya',
+      departmentName: 'Stomatologiya şöbəsi',
+      sortOrder: 23
+    }),
+    doctorRecord({
+      name: 'Hümbətov Elçin Məhəmməd oğlu',
+      specialty: 'Stomatoloq',
+      departmentSlug: 'stomatologiya',
+      departmentName: 'Stomatologiya şöbəsi',
+      sortOrder: 24
+    }),
+    doctorRecord({
+      name: 'Məmmədov Azər Eyyub oğlu',
+      specialty: 'Stomatoloq',
+      departmentSlug: 'stomatologiya',
+      departmentName: 'Stomatologiya şöbəsi',
+      sortOrder: 25
+    }),
+    doctorRecord({
+      name: 'Allahverdiyev Elnur Yusif oğlu',
+      specialty: 'Pediatr',
+      departmentSlug: 'pediatriya',
+      departmentName: 'Pediatriya şöbəsi',
+      startYear: 2004,
+      languages: ['Azərbaycan dili', 'Rus dili'],
+      shortBio: 'Uşaq xəstəliklərinin diaqnostikası, müalicəsi və profilaktikası üzrə klinik təcrübəyə malik pediatr.',
+      bio: '2001-ci ildən tibbi fəaliyyət göstərən Allahverdiyev Elnur müxtəlif sahələrdə klinik təcrübəyə malik pediatrdır. 2001-2002-ci illərdə həkim-intern, 2002-2004-cü illərdə tabor tibb rəisi kimi fəaliyyət göstərmiş, 2004-cü ildən pediatr kimi çalışır. Uşaqların müxtəlif xəstəliklərinin diaqnostikası, müalicəsi və profilaktikası ilə məşğul olur.',
+      conditions: ['Uşaqlarda kəskin respirator infeksiyalar', 'Angina və digər LOR xəstəlikləri', 'Bronxit', 'Pnevmoniya', 'Allergik xəstəliklər', 'Həzm sistemi xəstəlikləri', 'Sidik yolları infeksiyaları', 'Uşaqlıq dövrünün infeksion xəstəlikləri'],
+      procedures: ['Pediatrik müayinə və konsultasiya', 'Uşağın fiziki inkişafının qiymətləndirilməsi', 'Tənəffüs və ürək-damar sisteminin müayinəsi', 'Bədən hərarəti, arterial təzyiq və digər həyati göstəricilərin qiymətləndirilməsi', 'Laborator və instrumental müayinələrin nəticələrinin təhlili', 'Müalicə planının hazırlanması', 'Uşaqların dinamik müşahidəsi'],
+      featured: true,
+      sortOrder: 26
+    }),
+    doctorRecord({
+      name: 'İsgəndərova Gülər Əjdər qızı',
+      specialty: 'Fizioterapevt',
+      departmentSlug: 'fizioterapiya',
+      departmentName: 'Fizioterapiya şöbəsi',
+      sortOrder: 27
+    })
   ];
 
   const doctors = new Map();
-  for (const { departmentSlug, serviceSlugs, profileImageId, ...data } of doctorData) {
+  const placeholderDoctorImageId = media.get('doctor-placeholder').id;
+  for (const {
+    departmentSlug,
+    departmentName,
+    serviceSlugs,
+    profileImageId,
+    educations,
+    experiences,
+    certificates,
+    ...data
+  } of doctorData) {
+    const connectedServices = serviceSlugs
+      .map((slug) => services.get(slug))
+      .filter(Boolean)
+      .map((service) => ({ id: service.id }));
+    const resolvedProfileImageId = profileImageId || placeholderDoctorImageId;
+
     const doctor = await prisma.doctor.upsert({
       where: { slug: data.slug },
       update: {
         ...data,
         departmentId: departments.get(departmentSlug).id,
         branchId: branch.id,
+        profileImageId: resolvedProfileImageId,
         services: {
-          set: serviceSlugs.map((slug) => ({ id: services.get(slug).id }))
+          set: connectedServices
         },
         active: true,
         deletedAt: null
       },
       create: {
         ...data,
-        profileImageId,
+        profileImageId: resolvedProfileImageId,
         departmentId: departments.get(departmentSlug).id,
         branchId: branch.id,
         services: {
-          connect: serviceSlugs.map((slug) => ({ id: services.get(slug).id }))
+          connect: connectedServices
         }
       }
     });
     doctors.set(data.slug, doctor);
+    await seedDoctorDetails(doctor, { educations, experiences, certificates });
   }
 
-  const cardiologist = doctors.get('dr-aydan-memmedova');
-  await prisma.doctorEducation.upsert({
-    where: { id: `${cardiologist.id}-education` },
-    update: {},
-    create: {
-      id: `${cardiologist.id}-education`,
-      doctorId: cardiologist.id,
-      institution: 'Azərbaycan Tibb Universiteti',
-      degree: 'Müalicə işi',
-      endYear: 2010
-    }
-  });
-  await prisma.doctorSchedule.upsert({
-    where: {
-      doctorId_branchId_dayOfWeek_startTime: {
-        doctorId: cardiologist.id,
-        branchId: branch.id,
-        dayOfWeek: 'MONDAY',
-        startTime: '09:00'
-      }
-    },
-    update: { endTime: '15:00', active: true },
-    create: {
-      doctorId: cardiologist.id,
-      branchId: branch.id,
-      dayOfWeek: 'MONDAY',
-      startTime: '09:00',
-      endTime: '15:00'
-    }
-  });
+  const cardiologist = doctors.get('dr-murselov-elman-mursel-oglu') || [...doctors.values()][0];
 
   const faqs = [
     {
