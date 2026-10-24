@@ -51,7 +51,7 @@ export const departments = [
     summary: "Təhlükəsiz anesteziya və sürətli bərpa protokolları ilə müasir cərrahi xidmət.",
     description: "Cərrahiyyə komandası əməliyyatdan öncə riskləri multidissiplinar dəyərləndirir və mümkün olduqda minimal invaziv üsullara üstünlük verir.",
     icon: "cross",
-    image: "/images/facility-placeholder.svg",
+    image: "/images/reception.jpeg",
     conditions: ["Öd daşı xəstəliyi", "Yırtıqlar", "Tiroid düyünləri", "Yumşaq toxuma patologiyaları"],
     serviceSlugs: ["laparoskopik-cerrahiyye", "anestezioloji-konsultasiya"],
     faq: [
@@ -133,7 +133,7 @@ export const departments = [
     summary: "Avtomatlaşdırılmış proses, ikili keyfiyyət nəzarəti və sürətli nəticələr.",
     description: "Laboratoriyamız preanalitik mərhələdən nəticənin həkim tərəfindən təsdiqinədək beynəlxalq keyfiyyət nəzarəti prinsipləri ilə işləyir.",
     icon: "flask",
-    image: "/images/facility-placeholder.svg",
+    image: "/images/reception.jpeg",
     conditions: ["Profilaktik skrininq", "Hormonal qiymətləndirmə", "İnfeksiya diaqnostikası", "Müalicə monitorinqi"],
     serviceSlugs: ["laborator-diaqnostika", "genetik-testler", "evde-analiz"],
     faq: [

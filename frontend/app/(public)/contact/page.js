@@ -34,7 +34,7 @@ export async function generateMetadata() {
     title: "Əlaqə",
     description: "Medicare Hospital-un Sabunçu ünvanı, rəsmi telefonları, WhatsApp, iş saatları və onlayn əlaqə forması.",
     path: "/contact",
-    image: "/images/medicare-hospital-sabunchu.jpg"
+    image: "/images/MEDICARE.jpg"
   });
 }
 
@@ -98,7 +98,7 @@ export default async function ContactPage() {
             <section className="section section--soft" key={section.id || section.key}>
               <div className="container contactMedia">
                 <div className="contactMedia__image">
-                  <SmartImage src={section.content.image || "/images/medicare-hospital-sabunchu.jpg"} alt={section.content.imageAlt || "Medicare Hospital-un Sabunçu qəsəbəsindəki binası"} sizes="(max-width: 900px) 100vw, 48vw" priority />
+                  <SmartImage src={section.content.image || "/images/MEDICARE.jpg"} alt={section.content.imageAlt || "Medicare Hospital-un Sabunçu qəsəbəsindəki binası"} sizes="(max-width: 900px) 100vw, 48vw" priority />
                   <div className="contactMedia__label"><Icon name="location" size={21} /><span><strong>{primaryBranch?.name || "Medicare Hospital — Sabunçu"}</strong>{primaryBranch?.address || CONTACT.address}</span></div>
                 </div>
                 <div className="formCard">

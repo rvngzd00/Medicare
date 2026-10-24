@@ -21,7 +21,7 @@ export const services = [
     duration: "Nəticəyə görə 60 dəqiqədən",
     preparation: "Analizin növünə görə dəyişir.",
     includes: ["Barkodla nümunə izləmə", "Avtomat analiz", "Mütəxəssis təsdiqi", "Onlayn nəticə"],
-    image: "/images/facility-placeholder.svg"
+    image: "/images/reception.jpeg"
   },
   {
     slug: "ultrases-muayinesi",
@@ -45,7 +45,7 @@ export const services = [
     duration: "Fərdi əməliyyat planı",
     preparation: "Əməliyyatönü müayinə və anestezioloq konsultasiyası.",
     includes: ["Cərrah konsultasiyası", "Əməliyyatönü risk qiymətləndirilməsi", "Minimal invaziv müdaxilə", "Bərpa izlənməsi"],
-    image: "/images/facility-placeholder.svg"
+    image: "/images/reception.jpeg"
   },
   {
     slug: "usaq-check-up",

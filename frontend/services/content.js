@@ -605,7 +605,7 @@ function adaptDoctor(raw, context = {}) {
     branch: branch.name || raw.branchName || "Medicare Hospital",
     branchId: branch.id || raw.branchId,
     branchSlug: branch.slug,
-    image: resolveMedia(raw.profileImage, raw.image || "/images/doctor-placeholder.svg"),
+    image: resolveMedia(raw.profileImage, raw.image || "/images/doctor.jpeg"),
     imageAlt: raw.profileImage?.altText,
     featured: Boolean(raw.featured),
     bio: raw.shortBio || raw.bio || "Medicare-in ixtisaslaşmış həkim komandasının üzvü.",
@@ -828,7 +828,7 @@ function adaptGalleryItem(raw) {
     title: raw.title,
     text: raw.description || "Medicare klinik infrastrukturu",
     metric: raw.category || "Medicare",
-    image: resolveMedia(raw.media, "/images/facility-placeholder.svg")
+    image: resolveMedia(raw.media, "/images/reception.jpeg")
   };
 }
 
@@ -1092,6 +1092,8 @@ function formatWorkingHours(value) {
 function resolveMedia(media, fallback) {
   const value = media?.url || media?.thumbnailUrl;
   if (!value) return fallback;
+  const localImage = resolveLocalImage(value);
+  if (localImage) return localImage;
   if (/^https?:\/\//i.test(value)) return value;
   if (/^\/(?!\/)/.test(value) && !/^\/uploads\//i.test(value)) return value;
   try {
@@ -1104,11 +1106,21 @@ function resolveMedia(media, fallback) {
 function resolveCmsImage(value) {
   const source = typeof value === "string" ? value.trim() : "";
   if (!source) return "";
+  const localImage = resolveLocalImage(source);
+  if (localImage) return localImage;
   if (/^\/uploads\//i.test(source)) {
     return new URL(source, `${API_ORIGIN}/`).toString();
   }
   if (/^\/(?!\/)/.test(source)) return source;
   return safeAbsoluteUrl(source, "");
+}
+
+function resolveLocalImage(value) {
+  const filename = String(value || "").split(/[?#]/, 1)[0].split("/").pop()?.toLowerCase();
+  if (filename === "doctor-placeholder.svg") return "/images/doctor.jpeg";
+  if (filename === "medicare-hospital-sabunchu.jpg") return "/images/MEDICARE.jpg";
+  if (filename === "facility-placeholder.svg") return "/images/reception.jpeg";
+  return "";
 }
 
 function getApiOrigin(value) {

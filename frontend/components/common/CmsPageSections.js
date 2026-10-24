@@ -76,7 +76,7 @@ export function CmsPageSection({ section, breadcrumbs = [] }) {
         <div className="container cmsMediaSection__grid">
           <div className="cmsMediaSection__image">
             <SmartImage
-              src={content.image || "/images/facility-placeholder.svg"}
+              src={content.image || "/images/reception.jpeg"}
               alt={content.imageAlt || section.title || section.label}
               sizes="(max-width: 900px) 100vw, 50vw"
               fallbackLabel={section.label}

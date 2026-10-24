@@ -14,7 +14,7 @@ export const leadership = [
     bio: "Medicare Hospital-da klinik keyfiyyət, pasiyent təhlükəsizliyi və komanda əməkdaşlığı üzrə inkişaf proqramlarına rəhbərlik edir.",
     education: ["Azərbaycan Tibb Universiteti — Müalicə işi"],
     experience: ["Səhiyyə idarəçiliyi və klinik keyfiyyət üzrə uzunmüddətli rəhbərlik təcrübəsi"],
-    image: "/images/doctors/orxan-huseynli.png"
+    image: "/images/doctor.jpeg"
   },
   {
     id: "leader-nermin",
@@ -25,7 +25,7 @@ export const leadership = [
     bio: "Klinik protokolların, multidissiplinar komanda işinin və pasiyent təhlükəsizliyi standartlarının davamlı inkişafına rəhbərlik edir.",
     education: ["Azərbaycan Tibb Universiteti — Müalicə işi"],
     experience: ["Klinik xidmətlərin təşkili və keyfiyyət idarəetməsi üzrə 15 ildən artıq təcrübə"],
-    image: "/images/doctors/leyla-quliyeva.png"
+    image: "/images/doctorMikro.jpeg"
   },
   {
     id: "leader-elcin",
@@ -36,7 +36,7 @@ export const leadership = [
     bio: "Hospitalın əməliyyat proseslərini, xidmət koordinasiyasını və pasiyent təcrübəsinin təşkilati inkişafını idarə edir.",
     education: ["Azərbaycan Dövlət İqtisad Universiteti — Menecment"],
     experience: ["Səhiyyə müəssisələrinin əməliyyat idarəçiliyi üzrə 12 ildən artıq təcrübə"],
-    image: "/images/doctors/elcin-memmedov.png"
+    image: "/images/doctorMikro.jpeg"
   }
 ];
 
@@ -128,12 +128,12 @@ export const facilities = [
     title: "Rəqəmsal əməliyyat bloku",
     text: "İnteqrasiya olunmuş görüntü və steril hava nəzarəti sistemi.",
     metric: "4 zal",
-    image: "/images/facility-placeholder.svg"
+    image: "/images/MEDICARE.jpg"
   },
   {
     title: "24/7 laboratoriya",
     text: "Avtomatlaşdırılmış analiz xətti və iki mərhələli nəticə yoxlaması.",
     metric: "60 dəq",
-    image: "/images/facility-placeholder.svg"
+    image: "/images/reception.jpeg"
   }
 ];

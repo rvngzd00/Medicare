@@ -149,7 +149,7 @@ export default async function AboutPage() {
                     <SmartImage
                       src={
                         section.content.image ||
-                        "/images/medicare-hospital-sabunchu.jpg"
+                        "/images/MEDICARE.jpg"
                       }
                       alt={
                         section.content.imageAlt ||
